@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How we transcribe meetings — BHG Site Working</title>
+  <meta name="description" content="Working notes for the Burra History Group public website rebuild.">
+  <link rel="stylesheet" href="../../css/working.css">
+</head>
+<body>
+  <header class="mast">
+    <p class="mast__kicker"><a href="../../index.html">BHG Site Working</a></p>
+    <p class="mast__tag">Rebuild workshop — not the public history site</p>
+    <nav class="mast__nav" aria-label="Working site">
+      <a href="../../index.html">News</a>
+      <a href="../../meetings/index.html">Meetings</a>
+      <a href="../../process/index.html">Process</a>
+      <a href="../../glossary/index.html">Glossary</a>
+    </nav>
+    <p class="mast__elsewhere">Public site:
+      <a href="https://preview1845-bhg.house-of-ur.com/">Preview</a> ·
+      <a href="https://real-bhg.house-of-ur.com/">Real</a> ·
+      <a href="https://burrasa.net">burrasa.net</a> (live until cutover)
+    </p>
+  </header>
+  <div class="layout layout--single"><article class="paper prose"><p>How to turn a BHG site walkthrough recording into notes, a transcript, stills, and glossary updates. First used on <a href="../../meetings/2026-08-28/index.html">28 August 2026</a>. Follow this for later meetings; don’t skip the stills pass — audio alone mishears names and can’t see “this page”.</p>
+<p>Spellings live in <a href="../../glossary/index.html">glossary</a>. Extend that file as you correct; don’t invent a second glossary per meeting.</p>
+<hr>
+<h2>What you are producing</h2>
+<p>One folder per meeting: <code>meetings/YYYY-MM-DD/</code>.</p>
+<table>
+<thead><tr><th>File</th><th>Job</th></tr></thead>
+<tbody>
+<tr><td><code>meeting-notes.md</code></td><td>The reliable account: decisions, walkthrough, actions. Write from audio first, then <strong>rewrite from stills</strong>.</td></tr>
+<tr><td><code>transcript.md</code></td><td>Timestamped diarized transcript. Evidence, not the cleaned story. Light ASR fixes only.</td></tr>
+<tr><td><code>screenshot-timestamps.json</code></td><td>Inclusive grab list <code>{id, t, cue}</code> for extraction.</td></tr>
+<tr><td><code>screenshot-timestamps.md</code></td><td>Same list, human-readable.</td></tr>
+<tr><td><code>stills/</code></td><td>JPEGs <code>NNN_HHMMSS.jpg</code>. Working files; <strong>prefer not to commit</strong>.</td></tr>
+<tr><td><code>stills-catalog.md</code></td><td>What each cluster of frames actually shows (and what the camera missed).</td></tr>
+<tr><td><code>extract_stills.py</code></td><td>Optional local copy; canonical script is &lt;code&gt;extract_stills.py&lt;/code&gt; in this folder.</td></tr>
+</tbody></table>
+<p>Also: a row in the meetings index, and any new names/IA in the <strong>project glossary</strong>. After notes exist, rebuild <strong>BHG Site Working</strong> (<code>python scripts/build.py</code> in <code>bhgsite-working</code>) so the meeting is on the workshop site.</p>
+<p>Do <strong>not</strong> put in git: the video, extracted wav/mp3 chunks, API keys, or (unless asked) the JPEG stills.</p>
+<hr>
+<h2>1. Recording</h2>
+<ul>
+<li>Phone video is fine. <strong>Audio is primary</strong>; the camera is a pointing device.</li>
+<li>Say at the start that you’re recording so it can be transcribed later.</li>
+<li>Point at the monitor when someone says “this / there / that map / this list”. You will still miss stretches (desk, clothing, glare). That’s expected — stills tell you which timestamps were useful.</li>
+<li>Pixel files are often 1920×1080 with a <strong>display-matrix rotation (−90)</strong>. ffmpeg autorotate is the right orientation for a portrait phone filming a landscape monitor. Don’t add an extra <code>transpose</code> unless a test frame is sideways.</li>
+<li>Keep the original file wherever it landed (<code>Downloads</code>, etc.). Don’t copy 9 GB into <code>docs</code>.</li>
+</ul>
+<p>Probe before transcribing:</p>
+<pre><code>ffprobe -v error -select_streams v:0 -show_entries stream=width,height,duration -show_entries stream_side_data=rotation -of json VIDEO.mp4</code></pre>
+<p>Note duration, rotation, and (if present) GPS / creation time for the notes header.</p>
+<hr>
+<h2>2. Audio → first transcript</h2>
+<h3>Keys and models</h3>
+<ul>
+<li>Native OpenAI STT is optional. This machine often has <strong>no</strong> <code>OPENAI_API_KEY</code>.</li>
+<li><code>gpt-4o-transcribe-diarize</code> is <strong>not</strong> on OpenRouter — don’t wait for it.</li>
+<li>Use <strong>Deepgram Nova-3</strong> via OpenRouter:</li>
+</ul>
+<p>  <code>POST https://openrouter.ai/api/v1/audio/transcriptions</code>  <br>
+  model <code>deepgram/nova-3</code>  <br>
+  <code>response_format=verbose_json</code>  <br>
+  provider options: diarize, punctuate, utterances, smart_format.</p>
+<ul>
+<li>OpenRouter key from House of Ur deploy secrets. <strong>Never print it. Never commit it.</strong></li>
+</ul>
+<h3>Chunking</h3>
+<p>Long files fail or stall. Split to <strong>~8-minute</strong> 16 kHz mono wav, then 64 kbps mp3 chunks.</p>
+<pre><code>ffmpeg -i VIDEO.mp4 -ac 1 -ar 16000 audio.wav
+# then cut into ~480s mp3 pieces</code></pre>
+<p>Work in <code>%TEMP%\bhg-meeting-YYYYMMDD\</code> (or similar). Combined JSON can stay there; only markdown lands in <code>docs</code>.</p>
+<h3>Speaker IDs</h3>
+<p>Deepgram labels <strong>reset every chunk</strong>. <code>Speaker 3:1</code> is not the same person as <code>Speaker 0:1</code>.</p>
+<ul>
+<li>In <code>transcript.md</code>, keep <code>Speaker N:M</code> (chunk N, speaker M).</li>
+<li>Infer <strong>typical voices from content</strong>, not from IDs, and say so at the top of the transcript.</li>
+<li><strong>Do not</strong> rewrite the whole transcript as named speakers. Guessing will be wrong after the first cut.</li>
+<li>In <code>meeting-notes.md</code>, use real names (Emlyn / Barbara / Bob, etc.) from what was said.</li>
+</ul>
+<h3>Transcript conventions</h3>
+<ul>
+<li>Timestamp every utterance: <code><strong>[HH:MM:SS–HH:MM:SS] Speaker N:M</strong></code>.</li>
+<li>First pass: obvious place-name fixes only (Burra, not Barra/Borrow/Borough) so the file is readable.</li>
+<li>Leave fillers, false starts, and uncertain words. The notes file is where you interpret.</li>
+<li>Header must say: model, chunking, speaker-ID warning, link to notes + glossary.</li>
+</ul>
+<hr>
+<h2>3. First notes (audio only)</h2>
+<p>Write <code>meeting-notes.md</code> <strong>before</strong> stills:</p>
+<ul>
+<li>Header: date, place, attendees, subject, recording filename, STT source.</li>
+<li>Purpose, decisions, overall reaction.</li>
+<li>Walkthrough in the order they actually went (not a tidy IA).</li>
+<li>Cutover must-haves vs later.</li>
+<li>Action table (who / what).</li>
+</ul>
+<p>This pass will be wrong on exact page titles, fake group names, and “this list”. That’s fine. You need the spine so the timestamp list has somewhere to hang.</p>
+<hr>
+<h2>4. Screenshot timestamps (inclusive)</h2>
+<p>Read the transcript and list <strong>every</strong> moment the screen might add information. If in doubt, include it.</p>
+<p>Include when someone:</p>
+<ul>
+<li>navigates (go to, click, back, previous, search)</li>
+<li>points (<code>this</code>, <code>there</code>, <code>that map</code>, <code>that box</code>, <code>hot link</code>, <code>scroll</code>)</li>
+<li>names a page, heading, booklet, or person on the page</li>
+<li>describes a bug you can’t hear (formatting, 404, casino hijack, duplicate rows)</li>
+</ul>
+<p>Skip only if the span is clearly <strong>not</strong> about the screen (long policy talk with no click). Even then, one still at the start of the span is cheap.</p>
+<p>Times are on the <strong>video clock</strong>, same as the transcript. Grab a couple of seconds <strong>into</strong> the span — they click, then point.</p>
+<p>Write both:</p>
+<pre><code>{&quot;id&quot;: &quot;001&quot;, &quot;t&quot;: &quot;00:00:08&quot;, &quot;cue&quot;: &quot;Recording starts; maps / settlement by period&quot;}</code></pre>
+<p>and a markdown table. Dense is correct: the 28 Aug pass used <strong>185</strong> grabs on a 73-minute tape.</p>
+<hr>
+<h2>5. Extract stills</h2>
+<p>Canonical script: &lt;code&gt;extract_stills.py&lt;/code&gt;.</p>
+<pre><code>python meetings/extract_stills.py --video &quot;C:\path\to\VIDEO.mp4&quot; --meeting &quot;C:\path\to\docs\projects\bhg-site\meetings\YYYY-MM-DD&quot;</code></pre>
+<p>It reads <code>screenshot-timestamps.json</code>, seeks with ffmpeg (<code>-ss</code> before <code>-i</code>), autorotates, scales to 900px wide, JPEG q=3.</p>
+<p><strong>Sanity-check rotation</strong> on one known screen moment before the full run (four variants: default, <code>-noautorotate</code>, <code>transpose=1</code>, <code>transpose=2</code>). Keep the variant where webpage text is horizontal.</p>
+<p>JPEG <strong>file size is a proxy</strong>:</p>
+<table>
+<thead><tr><th>Size (this pipeline)</th><th>Likely content</th></tr></thead>
+<tbody>
+<tr><td>≳ 80 KB</td><td>Readable monitor</td></tr>
+<tr><td>~30–80 KB</td><td>Partial screen / glare / angle</td></tr>
+<tr><td>≲ 30 KB</td><td>Desk, paper, clothing, covered lens</td></tr>
+</tbody></table>
+<p>Don’t describe every dark frame. Catalog the large ones; sample the small ones to confirm they’re useless.</p>
+<hr>
+<h2>6. Look at the stills (this is the correction pass)</h2>
+<p>For each useful still, transcribe <strong>what is on the page</strong>:</p>
+<ul>
+<li>URL / breadcrumb / heading</li>
+<li>Visible nav (left menu items, tiles, “In this section”)</li>
+<li>Exact phrases they were arguing about (Inc., 46 plaques, “Download files available for purchase”, lowercase “indigenous”, “Burra Library”)</li>
+<li>Names on screen (Rosemary Ros, Mary Warnes, Elizabeth Doidge, Cyndi’s List)</li>
+<li>Layout bugs (doubled headings, duplicate table rows)</li>
+</ul>
+<p>Write <code>stills-catalog.md</code> in two lists:</p>
+<ol>
+<li><strong>On the monitor</strong> — still id, time, what’s there.</li>
+<li><strong>Camera off</strong> — don’t pretend you saw Tindale / Features / Mongolata if the frame is a jumper.</li>
+</ol>
+<p>When the camera missed, <strong>check the rebuild HTML</strong> (<code>bhgsite2026/source/...</code>) for the page they named. Creek Street “Vanstone, Hinch” was recovered that way on 28 Aug.</p>
+<p>If a still contradicts the transcript (“Cherry and Kidd” vs GURNEY and KNAGGS on screen), keep both: they may have scrolled, or named a nearby heading. Then grep the site — 28 Aug had <strong>both</strong> headings, and the formatting bug was duplicate HTML blocks.</p>
+<hr>
+<h2>7. Correct the transcript</h2>
+<p>Rules:</p>
+<ol>
+<li><strong>Glossary wins</strong> for established spellings (Burra, Ngadjuri, Ian Auhl, Mary Warnes, Rosemary Ros, Cyndi’s List, Yorke Peninsula).</li>
+<li><strong>The still / HTML wins</strong> over ASR when the page is in frame (<code>Inc.</code>, plaque count, “Burra Family History Group”, book titles).</li>
+<li>Don’t “clean up” speech. Only fix tokens that are clearly misheard names, places, or titles.</li>
+<li>Record in the transcript header which fixes you applied.</li>
+<li>Never remap <code>Speaker N:M</code> to names in the body.</li>
+</ol>
+<p>Typical Deepgram traps on this project (fix on sight):</p>
+<table>
+<thead><tr><th>ASR often says</th><th>Prefer</th></tr></thead>
+<tbody>
+<tr><td>Barra, Borrow, Borough, Barrow</td><td>Burra</td></tr>
+<tr><td>Warrens</td><td>Warnes (Mary Warnes / CWA)</td></tr>
+<tr><td>Rosemary Ross</td><td>Rosemary Ros</td></tr>
+<tr><td>Cindy’s List</td><td>Cyndi’s List</td></tr>
+<tr><td>York Peninsula</td><td>Yorke Peninsula</td></tr>
+<tr><td>ink</td><td>Inc.</td></tr>
+<tr><td>paperwork (People hub)</td><td>People</td></tr>
+<tr><td>Vanstown Hinch</td><td>Vanstone, Hinch</td></tr>
+<tr><td>Bard Community School</td><td>Burra Community School</td></tr>
+<tr><td>hIan Auhl</td><td>Ian Auhl</td></tr>
+</tbody></table>
+<p>Don’t “fix” a word into a glossary term unless the still or HTML supports it.</p>
+<hr>
+<h2>8. Improve the notes</h2>
+<p>Second pass on <code>meeting-notes.md</code>, driven by the catalog:</p>
+<ul>
+<li>Replace guessed page titles with <strong>on-screen titles and URLs</strong>.</li>
+<li>Quote the exact broken copy (46 plaques, shop prices, “from Burra Library”).</li>
+<li>Separate <strong>must-fix HTML bugs</strong> (duplicate surname sections, dead “Download files”) from <strong>content opinions</strong>.</li>
+<li>Mark what you <strong>didn’t</strong> see (Bob’s Nature and Heritage Walk map, Mongolata page).</li>
+<li>Link <code>stills-catalog.md</code> and the glossary from the Screen / Files section.</li>
+</ul>
+<p>The notes remain the document you act on. The transcript stays the raw tape.</p>
+<hr>
+<h2>9. Glossary</h2>
+<p>After every meeting, add anything new to <a href="../../glossary/index.html">glossary</a>:</p>
+<ul>
+<li>People (attendees and names on pages)</li>
+<li>Organisations and places</li>
+<li>Nav / URL patterns</li>
+<li>Publication titles</li>
+<li>External-link labels (Useful links)</li>
+<li>Recurring copy pitfalls</li>
+</ul>
+<p>Prefer one row per term. Don’t duplicate the meeting notes. The glossary is for <strong>the next transcript</strong>, not a second set of minutes.</p>
+<p>Companion for Country names: the Ngadjuri language note in planning docs.</p>
+<hr>
+<h2>10. Index</h2>
+<p>Add a row to the meetings index. Link notes, stills catalog, glossary. Don’t link the video.</p>
+<hr>
+<h2>Order of work (checklist)</h2>
+<ol>
+<li>Probe video; extract wav; chunk; Deepgram via OpenRouter.</li>
+<li><code>transcript.md</code> with Speaker N:M + light Burra-class fixes.</li>
+<li><code>meeting-notes.md</code> from audio (decisions / actions).</li>
+<li>Inclusive <code>screenshot-timestamps.json</code> + <code>.md</code>.</li>
+<li>Test one still’s rotation; extract all stills.</li>
+<li><code>stills-catalog.md</code> (screen vs missed).</li>
+<li>Grep <code>bhgsite2026</code> HTML for names the stills or ASR are unsure about.</li>
+<li>Correct transcript; rewrite notes from catalog.</li>
+<li>Update glossary + meetings README.</li>
+<li>Leave video, temp audio, keys, and JPEGs out of the commit unless asked.</li>
+</ol>
+<hr>
+<h2>28 August 2026 — what this pipeline caught</h2>
+<p>Worked example: <a href="../../meetings/2026-08-28/index.html">2026-08-28</a>. 73 minutes, 185 grabs. Useful stills confirmed Preview URLs, Inc./plaques, Resources tiles, VIC price list, Goyder cemetery link text, Weddings duplicates, and the CHERRY/KIDD / GURNEY/KNAGGS / HINCH duplicate-block bug. Maps opening, Features, and Mongolata were almost all off-camera — those sections in the notes stay audio-only (plus HTML for Creek Street).</p></article></div>
+  <footer class="foot">
+    <p>Burra History Group · House of Ur · working notes for <code>bhgsite2026</code></p>
+  </footer>
+</body>
+</html>

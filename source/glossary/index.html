@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Glossary — BHG Site Working</title>
+  <meta name="description" content="Working notes for the Burra History Group public website rebuild.">
+  <link rel="stylesheet" href="../css/working.css">
+</head>
+<body>
+  <header class="mast">
+    <p class="mast__kicker"><a href="../index.html">BHG Site Working</a></p>
+    <p class="mast__tag">Rebuild workshop — not the public history site</p>
+    <nav class="mast__nav" aria-label="Working site">
+      <a href="../index.html">News</a>
+      <a href="../meetings/index.html">Meetings</a>
+      <a href="../process/index.html">Process</a>
+      <a href="../glossary/index.html">Glossary</a>
+    </nav>
+    <p class="mast__elsewhere">Public site:
+      <a href="https://preview1845-bhg.house-of-ur.com/">Preview</a> ·
+      <a href="https://real-bhg.house-of-ur.com/">Real</a> ·
+      <a href="https://burrasa.net">burrasa.net</a> (live until cutover)
+    </p>
+  </header>
+  <div class="layout layout--single"><article class="paper prose"><p><strong>BHG Site Working</strong> (this site) is the rebuild workshop. House Site slug <code>working</code> → <a href="https://working-bhg.house-of-ur.com/">working-bhg.house-of-ur.com</a>. It is not the git branch <code>working</code> on the public site repo.</p><p>Reusable names and IA for the Burra History Group public site rebuild (<code>bhgsite2026</code>). Prefer these spellings in notes, tickets, and transcripts. Companion: Ngadjuri language note (planning docs). How terms get here: <a href="../process/transcription/index.html">how we transcribe</a>.</p>
+<p>Last pass: 28 August 2026 Preview walkthrough stills + site HTML.</p>
+<h2>Hosts and branches</h2>
+<table>
+<thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><strong>Live / legacy / old site</strong></td><td><a href="https://burrasa.net">burrasa.net</a> on cPanel. Also historically burrasa.info.</td></tr>
+<tr><td><strong>Preview</strong></td><td>https://preview1845-bhg.house-of-ur.com/ — what the 28 Aug 2026 walkthrough used. Library <code>/sites/bhgsite2026-preview/</code>.</td></tr>
+<tr><td><strong>Real</strong></td><td>https://real-bhg.house-of-ur.com/ — House of Ur production for the rebuild.</td></tr>
+<tr><td><strong>working</strong></td><td>Git branch that is content source of truth → Preview.</td></tr>
+<tr><td><strong>main</strong></td><td>GitHub Pages redirect to Real only; do not merge the full site here.</td></tr>
+<tr><td><strong>House of Ur / HoU</strong></td><td>Hosting (Sites + mail). Workspace <code>bhg</code>. Not the same programme as Burra Digital Archive.</td></tr>
+<tr><td><strong>Cutover</strong></td><td>Point <code>burrasa.net</code> DNS at Real. Target end of 2026.</td></tr>
+<tr><td><strong>Parity bar</strong></td><td>Don’t block cutover on defects that already exist on live. Don’t go backwards.</td></tr>
+<tr><td><strong>BHG Site Working</strong></td><td>Workshop / news site for the rebuild (meetings, status). Proposed <code>working-bhg.house-of-ur.com</code>. Not the git branch <code>working</code>.</td></tr>
+</tbody></table>
+<h2>People (site and meeting)</h2>
+<table>
+<thead><tr><th>Name</th><th>Role</th></tr></thead>
+<tbody>
+<tr><td><strong>Barbara Piscitelli</strong></td><td>BHG; bibliographic / organisational copy; 28 Aug walkthrough.</td></tr>
+<tr><td><strong>Bob Perry</strong></td><td>BHG; maps, townships, publications / VIC; co-author <em>Burra Sketchbook</em> with Ian Auhl (1969).</td></tr>
+<tr><td><strong>Emlyn O’Regan</strong></td><td>Rebuild / House of Ur operator for BHG.</td></tr>
+<tr><td><strong>Eric Fuss</strong></td><td>Core researcher/writer on the legacy site; “7,900 pages… work in progress”; many databases and Origins.</td></tr>
+<tr><td><strong>Meredith Satchell</strong></td><td>Core researcher/writer; co-compiler with Fuss (e.g. Photographic Journey, soldiers index).</td></tr>
+<tr><td><strong>Elizabeth Doidge (Liz)</strong></td><td>2017 site redesign; still named as Website Designer on Research contacts. Leave as credit; remove as a contact.</td></tr>
+<tr><td><strong>Rosemary Ros</strong></td><td>Raleigh, North Carolina. Volunteered the 2005 forerunner site. Not “Ross”.</td></tr>
+<tr><td><strong>Jenny Loftus</strong></td><td>Stale “family history group” / email target. Strip before cutover.</td></tr>
+<tr><td><strong>Ian Auhl</strong></td><td>Historian; <em>The Monster Mine</em>; library collection at Burra Community School. Many booklets still in copyright.</td></tr>
+<tr><td><strong>Mary Warnes (Mrs I.J. Warnes)</strong></td><td>Founder of the SA CWA (Burra 1926). People card <em>CWA — Mary Warnes of Burra</em>. Not “Warrens”.</td></tr>
+<tr><td><strong>Roy Taplin</strong></td><td>Photos; Civic Room mayoral portraits 2008.</td></tr>
+<tr><td><strong>Julian Ratcliffe</strong></td><td><em>The Burra Story</em> (compiled pamphlets) for BHG; still living of the booklet authors discussed 28 Aug.</td></tr>
+<tr><td><strong>Lisa</strong></td><td>Burra Community Library; significance-assessment proposal for the Auhl collection.</td></tr>
+<tr><td><strong>Colin</strong></td><td>Librarian at the end of Auhl’s tenure; National Trust talk October 2026.</td></tr>
+<tr><td><strong>Jodie</strong></td><td>Creek Street feature was made because she was looking for Creek Street material.</td></tr>
+<tr><td><strong>Rose Green</strong></td><td>Surname-query compilations (Abbott / Bennett) marked “Compiled for Rose Green”.</td></tr>
+</tbody></table>
+<h2>Organisations and places</h2>
+<table>
+<thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><strong>BHG / Burra History Group</strong></td><td>Not Inc. anymore (page still says Inc.; incorporated 14 Sep 2006).</td></tr>
+<tr><td><strong>Burra Family History Group</strong></td><td>Does not exist. Copy leftover; links go to Jenny Loftus.</td></tr>
+<tr><td><strong>Burra Community Library</strong></td><td>Prefer this. Legacy copy often says “Burra Library”.</td></tr>
+<tr><td><strong>Burra Visitor Information Centre (VIC)</strong></td><td>Sells BHG booklets; ~$500/year royalties. Regional Council of <strong>Goyder</strong>.</td></tr>
+<tr><td><strong>Town Hall</strong></td><td>Also sells BHG print; no licence found. Displays: Supper Room, Civic Room, foyer banners.</td></tr>
+<tr><td><strong>Ngadjuri</strong></td><td>Traditional Owners; top-level nav. Not “Burra Aborigines”.</td></tr>
+<tr><td><strong>Burra State Heritage Area</strong></td><td>Joined the <strong>National Heritage List</strong> 9 May 2017. Page title <em>The National Heritage Register</em>.</td></tr>
+<tr><td><strong>Regional Council of Goyder</strong></td><td>Council; cemetery records link named in Useful links.</td></tr>
+<tr><td><strong>Adchem</strong></td><td>Copper oxide processing after the 1970–81 mine period (About the site copy).</td></tr>
+</tbody></table>
+<h2>Townships and villages (as used on the site)</h2>
+<p>Burra is a cluster of settlements, not one grid. Maps on township pages are often <strong>cut-outs</strong> with no parent map.</p>
+<p>Aberdeen · Booborowie · Copperhouse · Hampton · Kooringa · Llwchwr · Millerton · Mongolata · Redruth · Swansea Vale · (also Apoinga, Hallett, Hanson, Mt Bryan on war memorials).</p>
+<p>Wards in 1873 assessment books: <strong>North, Kooringa, Redruth, South</strong>.</p>
+<h2>Site information architecture</h2>
+<p>Left nav on Preview (28 Aug): Home, Search, Map, Ngadjuri, Settlement, The Mine, Town &amp; Townships, People, Transport, War, Churches, Buildings &amp; Places, Council &amp; Utilities, Sport &amp; Community, Genealogy, Resources, <strong>Features</strong>, About, Contact.</p>
+<table>
+<thead><tr><th>Hub</th><th>URL (Preview)</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Resources</td><td><code>/resources/</code></td><td>Title <strong>Burra Resources</strong>. Tiles: Advice for researchers; References; Useful links; Online databases.</td></tr>
+<tr><td>Advice for researchers</td><td><code>/resources/research/</code></td><td>Nav often says “genealogical research”. Surname queries (Abbott…).</td></tr>
+<tr><td>References / booklets</td><td><code>/resources/</code> <code>#</code> / booklets</td><td>“Books, booklets, and unpublished research.”</td></tr>
+<tr><td>Useful links</td><td><code>/resources/</code> useful-links</td><td>Genealogy, cemeteries, libraries, history, war memorials. Many externals dead.</td></tr>
+<tr><td>Online databases</td><td><code>/resources/</code> databases</td><td>Registers, marriages, soldiers.</td></tr>
+<tr><td>About the Group</td><td><code>/about/</code></td><td>Still “Inc.”; plaques 46.</td></tr>
+<tr><td>About this site</td><td><code>/about/site/</code></td><td>Mixes “what is Burra” + site credits.</td></tr>
+<tr><td>Help</td><td><code>/about/help/</code></td><td>Photo intake; obsolete scanner article.</td></tr>
+<tr><td>Heritage</td><td><code>/about/heritage/</code></td><td>National Heritage Register + map.</td></tr>
+<tr><td>Research contacts</td><td>(under About/Help)</td><td>Liz / second Thursday / Burra Library.</td></tr>
+<tr><td>People</td><td><code>/people/</code></td><td>Four cards only — sparse vs Resources.</td></tr>
+<tr><td>Features</td><td><code>/features/</code></td><td>Creek Street, trees; AI drafts, not necessarily to publish.</td></tr>
+<tr><td>Origins</td><td><code>/genealogy/origins/</code> or Resources link</td><td>Eric Fuss; table of births 1845–69.</td></tr>
+<tr><td>Weddings</td><td><code>/genealogy/weddings/</code></td><td>Duplicates; Page/Col columns from a print index.</td></tr>
+<tr><td>Mongolata Mines</td><td><code>/mine/</code> … mongolata</td><td>Good narrative, unsourced.</td></tr>
+<tr><td>Photographic Journey</td><td>townships / photojourney</td><td>Book page OK; other pages still talk as if for sale.</td></tr>
+</tbody></table>
+<h2>Publications (named 28 Aug)</h2>
+<table>
+<thead><tr><th>Title</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><em>Burra: A Photographic Journey</em></td><td>Fuss &amp; Satchell; blurb 15 Apr 2009; A4, 246 pp, 64 colour.</td></tr>
+<tr><td><em>Discovering Historic Burra</em></td><td>Drew G.B., Burra 1988. Meredith vs VIC fight was <strong>this</strong> title. Barbara held a copy on camera.</td></tr>
+<tr><td><em>The Burra Story</em></td><td>Ratcliffe for BHG; VIC $20.</td></tr>
+<tr><td><em>The Monster Mine</em></td><td>Auhl; “love story to the town”.</td></tr>
+<tr><td><em>Burra Sketchbook</em></td><td>Auhl &amp; Perry, Hong Kong 1969.</td></tr>
+<tr><td><em>Summaries of the Burra Record 1845–2013</em></td><td>Fuss; “Download files available for purchase”.</td></tr>
+<tr><td><em>In Cellar Cool</em> (Unicorn Brewery Kooringa)</td><td>Auhl 1974.</td></tr>
+<tr><td>Miner’s dugouts booklet</td><td>Named as something they wish they could click and read.</td></tr>
+</tbody></table>
+<p><strong>Publisher conversion (September):</strong> recover Microsoft Publisher files so BHG-owned booklet text can be on the site.</p>
+<h2>External link names (Useful links, as on screen)</h2>
+<p>Genealogy: LDS Family Search · SA Genealogy and Heraldry Society · Cyndi’s List · RootsChat · National Archives of Australia · Ancestry · SA BDM / Registrar · State Records of SA · Genealogy Links SA · SA Destitute Women · Adelaide Proformat · SA Lookup List · SA Family Trees · convict lists.</p>
+<p>Cemeteries: Regional Council of Goyder Cemetery Records; Cemeteries SA (parked — don’t keep).</p>
+<p>History: History Trust of SA · Heritage SA · Australian Mining History Association · Burra Fossil Experience · South Australians at War · Boer War · Timeline of 19th Century SA History (external — not the on-site timeline) · Flinders Ranges Research · SA Land Selectors 1869–1877.</p>
+<p>Libraries: Burra Community Library · SE Family History Group · Port Adelaide · Yorke Peninsula Family History Group.</p>
+<h2>Recurring copy problems</h2>
+<ul>
+<li><strong>Indigenous</strong> — capital I in BHG voice; the Heritage page quotes Canberra signage with lowercase.</li>
+<li><strong>Inc.</strong> — drop from About heading.</li>
+<li><strong>46 plaques</strong> → 84, or drop the number.</li>
+<li><strong>Burra cemetery</strong> → <strong>Burra Cemetery</strong> (three Online Databases spots).</li>
+<li><strong>Burra Library</strong> → <strong>Burra Community Library</strong> (contacts, school-register captions).</li>
+<li><strong>for sale / download files available for purchase / data CDs / Books available for sale from the Burra Visitor Centre</strong>.</li>
+<li><strong>second Thursday</strong> meeting line — remove.</li>
+<li>Duplicate surname blocks in <code>resources/research/index.html</code> (same essay under two anchors).</li>
+</ul></article></div>
+  <footer class="foot">
+    <p>Burra History Group · House of Ur · working notes for <code>bhgsite2026</code></p>
+  </footer>
+</body>
+</html>
