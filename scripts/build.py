@@ -30,6 +30,21 @@ HOME_MAIN = """
       <p class="lede">Discussions, decisions, and status for the public website rebuild. The history site itself is Preview / Real / burrasa.net.</p>
       <div class="feed">
         <article class="card">
+          <p class="when">4 September 2026</p>
+          <h2><a href="process/useful-links/index.html">Useful Links inventory</a></h2>
+          <p>Every external href on Resources, checked today. Working replacements, alternatives, and Wayback for the ones that don’t. familyhistorysa.org is a casino — those six hrefs should come off Preview first.</p>
+        </article>
+        <article class="card">
+          <p class="when">4 September 2026</p>
+          <h2><a href="news/2026-09-04-preview-copy/index.html">Copy pass on Preview</a></h2>
+          <p>Contacts, About, Help, Heritage, shop leftovers, captions, Resources labels, and new-tab externals are live on Preview. Contact form and home page still outstanding.</p>
+        </article>
+        <article class="card">
+          <p class="when">4 September 2026</p>
+          <h2><a href="news/2026-09-04-august-leftovers/index.html">What’s left from 28 August</a></h2>
+          <p>Surname-query duplicates and the copy list are on Preview. What remains needs the group, a design pass, or a form that actually sends mail.</p>
+        </article>
+        <article class="card">
           <p class="when">2 September 2026</p>
           <h2><a href="news/2026-09-02-this-site/index.html">This working site</a></h2>
           <p>A House of Ur site for how we work on the rebuild: news and status in the main column, meetings listed beside it, process and glossary in the nav.</p>
@@ -58,8 +73,14 @@ HOME_MAIN = """
       <h2>Process</h2>
       <ul>
         <li><a href="process/index.html">How this workshop runs</a></li>
+        <li><a href="process/useful-links/index.html">Useful Links inventory</a></li>
         <li><a href="process/transcription/index.html">How we transcribe meetings</a></li>
         <li><a href="glossary/index.html">Glossary</a></li>
+      </ul>
+      <h2>Prototypes</h2>
+      <ul>
+        <li><a href="https://emlynoregan.com/bitn/" target="_blank" rel="noopener">Burra in the News</a></li>
+        <li><a href="https://bda-dev.emlynoregan.com/" target="_blank" rel="noopener">Burra Digital Archive</a></li>
       </ul>
     </aside>
   </div>
@@ -71,11 +92,76 @@ NEWS_INDEX = """
       <h1>News</h1>
       <p class="lede">Status and significant work on the public site rebuild, newest first. Meetings also appear here when they change the plan.</p>
       <ul>
+        <li><a href="../process/useful-links/index.html">4 Sep 2026 — Useful Links inventory (replacements + Wayback)</a></li>
+        <li><a href="../news/2026-09-04-preview-copy/index.html">4 Sep 2026 — Copy pass on Preview</a></li>
+        <li><a href="../news/2026-09-04-august-leftovers/index.html">4 Sep 2026 — What’s left from 28 August</a></li>
         <li><a href="../news/2026-09-02-this-site/index.html">2 Sep 2026 — This working site</a></li>
         <li><a href="../news/2026-08-29-cutover/index.html">29 Aug 2026 — Cutover target end of 2026</a></li>
         <li><a href="../meetings/2026-08-28/index.html">28 Aug 2026 — Preview walkthrough</a></li>
       </ul>
     </main>
+  </div>
+"""
+
+NEWS_PREVIEW_COPY = """
+  <div class="layout layout--single">
+    <article class="paper prose">
+      <p class="when">4 September 2026 · status</p>
+      <h1>Copy pass on Preview</h1>
+      <p>The organisational copy from the <a href="../../meetings/2026-08-28/index.html">28 August walkthrough</a> is now on <a href="https://preview1845-bhg.house-of-ur.com/">Preview</a>. Real was not touched.</p>
+      <ul>
+        <li>Research contacts — Doidge gone; Burra Community Library; no second Thursday; website and join queries go to Contact.</li>
+        <li>Research guidelines — fake “Burra Family History Group” mailtos replaced with Contact.</li>
+        <li>About the group — Inc. dropped from the heading; plaques 46 → 84; Facebook is a normal sentence, and on Contact as well.</li>
+        <li>Help — scanner / PCMag block gone; no fake upload button.</li>
+        <li>Heritage — capital-I Indigenous.</li>
+        <li>Shop leftovers — no “download files,” data-CD pitch, or VIC priced list. The 2017 booklet table stays as a list, not a shop.</li>
+        <li>Captions — Burra Cemetery Register; school and marriages credits say Burra Community Library.</li>
+        <li>Resources hub tile is <strong>Genealogical research</strong>, matching the page title.</li>
+        <li>Off-site links open in a new tab.</li>
+      </ul>
+      <p>Surname-query duplicates were already collapsed. What is still open is on <a href="../2026-09-04-august-leftovers/index.html">What’s left from 28 August</a> — contact form, home page, maps, and the rest that needs more than a text edit.</p>
+    </article>
+  </div>
+"""
+
+NEWS_AUGUST_LEFTOVERS = """
+  <div class="layout layout--single">
+    <article class="paper prose">
+      <p class="when">4 September 2026 · status</p>
+      <h1>What’s left from 28 August</h1>
+      <p>A pass through the <a href="../../meetings/2026-08-28/index.html">28 August Preview walkthrough</a> against Preview. Surname duplicates and the copy list are done (see <a href="../2026-09-04-preview-copy/index.html">Copy pass on Preview</a>). What is left still needs the group, a design pass, or a form that actually sends mail.</p>
+      <h2>Done</h2>
+      <p>Consecutive duplicate surname queries on the research page are collapsed. Preview now has 300 unique essays instead of the same compiled note repeated under neighbouring headings (Cherry/Kidd, Hinch/Torrens/McBurnie, and the rest of that run). Old anchors still work. Live on <a href="https://preview1845-bhg.house-of-ur.com/resources/research/index.html">Preview</a>.</p>
+      <p>Copy pass, 4 September:</p>
+      <ul>
+        <li><strong>Research contacts</strong> — Elizabeth Doidge dropped as website-designer contact; Burra Community Library, not “Burra Library”; no “meets on the second Thursday.”</li>
+        <li><strong>Fake “Burra Family History Group”</strong> mailtos on the research guidelines replaced with Contact.</li>
+        <li><strong>About the group</strong> — Inc. dropped from the heading; plaques 46 → 84; March 2016 Facebook heading replaced; Facebook on Contact as well.</li>
+        <li><strong>Help</strong> — scanner / PCMag block deleted; no promised upload button on Contact.</li>
+        <li><strong>Heritage</strong> — capital-I Indigenous in the listing quote.</li>
+        <li><strong>Shop leftovers</strong> — “Download files available for purchase,” data-CD copy, and VIC books-for-sale list stripped.</li>
+        <li><strong>Captions</strong> — “Burra Cemetery Register”; school registers “from Burra Community Library.”</li>
+        <li><strong>Resources nav</strong> — tile is Genealogical research, matching the page title.</li>
+        <li><strong>External links</strong> — open in a new tab.</li>
+      </ul>
+      <h2>Needs more than a text edit</h2>
+      <ul>
+        <li><strong>Working contact form.</strong> The page is still a disabled stub. Cutover must-have; needs an inbox and a mail path, not more HTML.</li>
+        <li><strong>Home page.</strong> Cutover must-have: not only nav rectangles — featured/new stories and some visual invention.</li>
+        <li><strong>Maps / township cut-outs</strong> — Bob’s “where is this in Burra?” frame. Parked in the meeting.</li>
+        <li><strong>Tindale provenance</strong> / book link Emlyn thought he’d already sent.</li>
+        <li><strong>Dead useful-links.</strong> Inventory plus replacements: <a href="../../process/useful-links/index.html">Useful Links, 4 September</a>. familyhistorysa.org is a casino — pull those six hrefs first. The rest is retarget / Wayback / editorial with Barbara.</li>
+        <li><strong>Surname browse + search.</strong> Duplicate <em>blocks</em> are gone; a real browse/search page is a new feature.</li>
+        <li><strong>Publisher files / booklet PDFs.</strong> September machinery, plus Barbara and the treasurer before anything BHG-owned goes online.</li>
+        <li><strong>Friday working-group: how to edit Preview</strong> — a session, not a code change.</li>
+        <li><strong>People / methodology pages</strong> (Auhl, Fuss, Meredith, how the site was made) — writing, and the Lisa / Auhl-collection visit.</li>
+        <li><strong>Barbara’s Google Doc</strong> rewrite of About/help. Bob asked not to rebuild About from scratch; we can patch the dead bits without replacing her rewrite.</li>
+        <li><strong>Nature and Heritage Walk GPS overlay</strong> (Bob; not on the live site).</li>
+        <li><strong>Goyder VIC + Town Hall licence</strong> — later, not a cutover blocker.</li>
+      </ul>
+      <p>Also not blocking cutover, same class of problem as <code>burrasa.net</code>: People hub gaps (Cornish/Welsh), leftover surname copies that were not sitting next to each other, duplicate wedding-table rows, Mongolata sourcing, a donate button.</p>
+    </article>
   </div>
 """
 
@@ -142,14 +228,21 @@ PROCESS_INDEX = """
         <thead><tr><th>Site</th><th>What it is</th></tr></thead>
         <tbody>
           <tr><td>Public history site</td><td>Preview <code>preview1845-bhg.house-of-ur.com</code>, Real <code>real-bhg.house-of-ur.com</code>. Content from <code>bhgsite2026</code>.</td></tr>
-          <tr><td>BHG Site Working (this)</td><td>News, meetings, process. Content from <code>bhgsite-working</code>. Proposed URL <code>working-bhg.house-of-ur.com</code>.</td></tr>
+          <tr><td>BHG Site Working (this)</td><td>News, meetings, process. Content from <code>bhgsite-working</code>. URL <code>working-bhg.house-of-ur.com</code>.</td></tr>
         </tbody>
       </table>
+      <h2>Related prototypes</h2>
+      <p>Separate from the public history site rebuild:</p>
+      <ul>
+        <li><a href="https://emlynoregan.com/bitn/" target="_blank" rel="noopener">Burra in the News</a> — Eric Fuss newspaper archive (1845–2016)</li>
+        <li><a href="https://bda-dev.emlynoregan.com/" target="_blank" rel="noopener">Burra Digital Archive</a> — archive prototype</li>
+      </ul>
       <h2>Fridays</h2>
       <p>The 28 August meeting asked to keep coming in on Fridays, fix one page at a time on Preview, rather than writing giant comment lists. Emlyn still needs to show the change method and give permission to edit Preview.</p>
       <h2>Documents</h2>
       <ul>
         <li><a href="../process/transcription/index.html">How we transcribe meetings</a></li>
+        <li><a href="../process/useful-links/index.html">Useful Links inventory (replacements + Wayback)</a></li>
         <li><a href="../glossary/index.html">Glossary</a></li>
         <li><a href="https://github.com/emlynoregan/bhgsite2026/blob/working/JOHNNY.md">Johnny’s public-site playbook</a> (on GitHub)</li>
       </ul>
@@ -165,6 +258,14 @@ MEETING_FOOT = """
 def main() -> None:
     write("index.html", page(title="News", root="", main=HOME_MAIN, extra_class="home"))
     write("news/index.html", page(title="News index", root="../", main=NEWS_INDEX))
+    write(
+        "news/2026-09-04-preview-copy/index.html",
+        page(title="Copy pass on Preview", root="../../", main=NEWS_PREVIEW_COPY),
+    )
+    write(
+        "news/2026-09-04-august-leftovers/index.html",
+        page(title="What’s left from 28 August", root="../../", main=NEWS_AUGUST_LEFTOVERS),
+    )
     write(
         "news/2026-09-02-this-site/index.html",
         page(title="This working site", root="../../", main=NEWS_THIS_SITE),
@@ -240,6 +341,23 @@ def main() -> None:
             title="How we transcribe meetings",
             root="../../",
             main=f'<div class="layout layout--single"><article class="paper prose">{method}</article></div>',
+        ),
+    )
+
+    links_html = md(
+        DOCS / "useful-links.md",
+        replacements=[
+            ("[28 August walkthrough](meetings/2026-08-28/meeting-notes.md)", "[28 August walkthrough](../../meetings/2026-08-28/index.html)"),
+            ("**On this workshop site:** published as a process page.\n\n", ""),
+        ],
+    )
+    write(
+        "process/useful-links/index.html",
+        page(
+            title="Useful Links inventory",
+            root="../../",
+            extra_class="inventory-page",
+            main=f'<div class="layout layout--single"><article class="paper prose">{links_html}</article></div>',
         ),
     )
 

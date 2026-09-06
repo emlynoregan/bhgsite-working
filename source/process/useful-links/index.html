@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Useful Links inventory — BHG Site Working</title>
+  <meta name="description" content="Working notes for the Burra History Group public website rebuild.">
+  <link rel="stylesheet" href="../../css/working.css">
+</head>
+<body class="inventory-page">
+  <header class="mast">
+    <p class="mast__kicker"><a href="../../index.html">BHG Site Working</a></p>
+    <p class="mast__tag">Rebuild workshop — not the public history site</p>
+    <nav class="mast__nav" aria-label="Working site">
+      <a href="../../index.html">News</a>
+      <a href="../../meetings/index.html">Meetings</a>
+      <a href="../../process/index.html">Process</a>
+      <a href="../../glossary/index.html">Glossary</a>
+    </nav>
+    <p class="mast__elsewhere">Public site:
+      <a href="https://preview1845-bhg.house-of-ur.com/">Preview</a> ·
+      <a href="https://real-bhg.house-of-ur.com/">Real</a> ·
+      <a href="https://burrasa.net">burrasa.net</a> (live until cutover)
+    </p>
+    <p class="mast__elsewhere">Prototypes:
+      <a href="https://emlynoregan.com/bitn/" target="_blank" rel="noopener">Burra in the News</a> ·
+      <a href="https://bda-dev.emlynoregan.com/" target="_blank" rel="noopener">Burra Digital Archive</a>
+    </p>
+  </header>
+  <div class="layout layout--single"><article class="paper prose"><p>Working list of every external (and missing) link in <strong>Resources → Useful Links</strong> on Preview. This is the starting inventory for the dead-links pass from the <a href="../../meetings/2026-08-28/index.html">28 August walkthrough</a>. It is not a keep/delete decision.</p>
+<p><strong>On Preview:</strong> <a href="https://preview1845-bhg.house-of-ur.com/resources/index.html#links">Resources, Useful Links</a></p>
+<h2>How this was checked</h2>
+<p>HEAD then GET from Emlyn’s machine on <strong>4 September 2026</strong>, with a browser-like User-Agent. That is not the same as clicking in Chrome.</p>
+<p>Same-day follow-up: searched for a working URL, a credible alternative, and a Wayback snapshot for every listing that is not a clean live destination (dead, 403, TLS, timeout, lands-on-home, no href). Wayback via the Internet Archive availability API. Candidate URLs probed the same way as the morning check.</p>
+<table>
+<thead><tr><th>Result</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><strong>Dead</strong></td><td>DNS failure, 404, 502, expired or mismatched TLS, connection reset, or HTTP 200 that lands on an unrelated page</td></tr>
+<tr><td><strong>Hijacked</strong></td><td>Domain answers 200, but it is no longer the genealogy site the label promises (casino / hotel spam)</td></tr>
+<tr><td><strong>Lands on home</strong></td><td>Morning check: HTTP 200 on a <code>familyhistorysa.org</code> deep path dumped you on the site homepage. By afternoon the <em>whole domain</em> is a casino — treat every <code>familyhistorysa.org</code> href as <strong>Hijacked</strong></td></tr>
+<tr><td><strong>Blocked (403)</strong></td><td>The checker was refused. Often a WAF. Confirm in a browser before treating as dead</td></tr>
+<tr><td><strong>Timeout</strong></td><td>No answer in time. Confirm in a browser</td></tr>
+<tr><td><strong>Looks live</strong></td><td>200 on a URL that still matches the label (redirects to a renamed-but-related page are noted)</td></tr>
+<tr><td><strong>No URL</strong></td><td>Text on the page with no <code>href</code></td></tr>
+</tbody></table>
+<p>Morning counts: <strong>57 listings</strong> — 53 with URLs, 4 with no href. Of the 53: <strong>22 dead</strong>, <strong>5 land on home</strong>, <strong>5 blocked</strong>, <strong>1 timeout</strong>, <strong>20 look live</strong>.</p>
+<p>Afternoon: two of those “look live” rows (<code>familyhistorysa.org</code> home, used twice) are a <strong>casino site</strong>. Do not keep any <code>familyhistorysa.org</code> href. <code>familyhistorysa.info</code> is hotel spam.</p>
+<p>External links already open in a new tab (copy pass the same day). This document is about whether the <em>destinations</em> still exist, and what to point at instead.</p>
+<h2>Meeting context</h2>
+<p>Barbara’s punch list on 28 August (see the meeting notes): nine dead genealogy links; Cyndi’s List / RootsChat dated; Goyder cemetery records 404; SA cemeteries / Cemeteries SA parked; shipping mostly dead (she would delete several; Emlyn wanted Wayback because Cornish arrivals matter); SE / Port Adelaide / Yorke Peninsula groups dead; History row “none of the ones they named work”; second war-memorials link dead.</p>
+<p>This check agrees on the shape of that list. A few hosts that looked dead on the projector now answer (History Trust, FamilySearch, AWM). Several <code>familyhistorysa.org</code> paths return 200 but are not the pages the labels promise.</p>
+<p><strong>Not a cutover blocker.</strong> Parity with <code>burrasa.net</code> is enough. Cleaning this list is still worth doing because a wall of 404s is worse than a short, good list — and because several hrefs now send people to gambling pages.</p>
+<p>Working rule from the meeting, still the right one:</p>
+<ul>
+<li><strong>Delete</strong> dated directories and one-off forum threads unless someone will use them.</li>
+<li><strong>Wayback / retarget</strong> shipping and Cornish-arrival sources before deleting.</li>
+<li><strong>Keep</strong> high-quality live sites (FamilySearch, Genealogy SA home, AWM, History Trust, SLSA, Burra Community Library catalogue).</li>
+</ul>
+<h2>What to do first</h2>
+<p>Not applied on Preview. Clear wins from the afternoon research:</p>
+<ol>
+<li><strong>Pull every <code>familyhistorysa.org</code> href now.</strong> Six listings. The domain is a casino. Wayback still has Barry Leadbeater’s pages (2018–2021). Genealogy SA is the living replacement for marriages, cemeteries, shipping, and land.</li>
+<li><strong>Retarget the obvious current URLs</strong> (Goyder cemetery search, Bound for South Australia, Perth DPS shipping, GENUKI Lusitania, Port Adelaide Historical Society, Yorke Peninsula via Genealogy SA, Heritage SA register, Australasian Mining History Association, Virtual War Memorial Australia, NAA explore-collection, Genealogy SA database search, Visit Burra, library OneCard, SEFHG over <code>http://</code>).</li>
+<li><strong>Wayback the Cornish / RootsWeb / Leadbeater / Ships List material</strong> before any delete. That was the meeting rule.</li>
+<li><strong>Confirm 403s in a browser</strong> (State Records, Goyder, Gould, OneCard, VWMA). The current URLs below are the right ones; this machine hits Cloudflare.</li>
+</ol>
+<hr>
+<h2>Burra and surrounding districts</h2>
+<table>
+<thead><tr><th>On the page</th><th>URL</th><th>Result</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>Burra Visitors Information Centre</td><td>—</td><td>No URL</td><td>Label only. Needs a current VIC href if we keep the line.</td></tr>
+<tr><td>Burra in the West Briton Newspaper</td><td>—</td><td>No URL</td><td>Heading only; the three letter links sit under it.</td></tr>
+<tr><td>West Briton — Emigration to SA (1850)</td><td>https://freepages.genealogy.rootsweb.ancestry.com/~wbritonad/cornwall/1850/misc/dec.html</td><td>Dead</td><td>Ancestry RootsWeb freepages: SSL handshake failure. Cornish letters — Wayback before drop.</td></tr>
+<tr><td>West Briton — News from Australia (1853)</td><td>https://freepages.genealogy.rootsweb.ancestry.com/~wbritonad/cornwall/1853/misc/may.html</td><td>Dead</td><td>Same host.</td></tr>
+<tr><td>West Briton — Mining in SA (1850)</td><td>https://freepages.genealogy.rootsweb.ancestry.com/~wbritonad/cornwall/1850/misc/nov.html</td><td>Dead</td><td>Same host.</td></tr>
+</tbody></table>
+<h2>Genealogy</h2>
+<p>Meeting: “nine dead”; Cyndi’s List / RootsChat dated.</p>
+<table>
+<thead><tr><th>On the page</th><th>URL</th><th>Result</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>LDS Family Search</td><td>https://familysearch.org/search</td><td>Looks live</td><td>Redirects to <code>familysearch.org/en/search/</code>. Keep.</td></tr>
+<tr><td>Family History and Genealogy in SA</td><td>https://www.familyhistorysa.org/</td><td>Hijacked</td><td>Morning: 200. Afternoon: online-casino pages. Drop the href.</td></tr>
+<tr><td>SA Marriages up to 1857</td><td>https://www.familyhistorysa.org/births-marriages-deaths/marriages.html</td><td>Hijacked</td><td>Same domain. Leadbeater marriages page is on Wayback.</td></tr>
+<tr><td>SA Deaths &amp; Burials from Cemetery Index (1836–2003)</td><td>https://www.genealogysa.org.au/resources/online-databases.html</td><td>Dead</td><td>404. Genealogy SA <em>home</em> still works; database search path has moved.</td></tr>
+<tr><td>Registrar of Births Deaths and Marriages</td><td>https://www.nla.gov.au/research-guides/australian-birth-marriage-and-death-records/south-australia</td><td>Dead</td><td>NLA research-guide URL 404. SA BDM has a current government site — retarget if we keep a BDM line.</td></tr>
+<tr><td>SA 1838 Birth Marriage and Death Index</td><td>https://www.hotkey.net.au/~jwilliams4/sa2.htm</td><td>Dead</td><td><code>hotkey.net.au</code> does not resolve.</td></tr>
+<tr><td>State Records of South Australia</td><td>https://www.archives.sa.gov.au/</td><td>Blocked</td><td>403 from this checker. Click in a browser.</td></tr>
+<tr><td>Genealogy Links SA</td><td>https://www.genealogylinks.net/australia/south-australia/index.html</td><td>Looks live</td><td>Live directory. Quality is an editorial call.</td></tr>
+<tr><td>SA Destitute Women (1855–1863)</td><td>https://www.findandconnect.gov.au/ref/sa/biogs/SE00743b.htm</td><td>Looks live</td><td>Redirects to a Find &amp; Connect entity page on Destitute Board records. HTML label is missing a closing parenthesis.</td></tr>
+<tr><td>Adelaide Proformat</td><td>https://www.jaunay.com/</td><td>Looks live</td><td>Graham Jaunay. Also hosts the convicts page under Shipping.</td></tr>
+<tr><td>SA Lookup List</td><td>https://freepages.genealogy.rootsweb.ancestry.com/~tigerhawk71/aus-sa_lookup.htm</td><td>Dead</td><td>Same RootsWeb freepages SSL failure as the West Briton letters.</td></tr>
+<tr><td>SA Family Trees</td><td>https://www.archives.sa.gov.au/content/family-history</td><td>Blocked</td><td>403. Same host as State Records; the <code>/content/family-history</code> path is old.</td></tr>
+<tr><td>Cyndi&#x27;s List</td><td>https://www.cyndislist.com/how-to</td><td>Looks live</td><td>Live. Meeting: dated; keep only if it earns a place.</td></tr>
+<tr><td>Roots Chat</td><td>https://www.rootschat.com/forum/index.php?topic=158128.msg735101#msg735101</td><td>Looks live</td><td>Live, but it is one old forum thread, not a directory. Meeting: sketchy.</td></tr>
+<tr><td>National Archives of Australia</td><td>https://www.naa.gov.au/collection/</td><td>Timeout</td><td>Did not answer the checker. Home and <code>/explore-collection</code> answer 200.</td></tr>
+</tbody></table>
+<h2>Cemeteries</h2>
+<table>
+<thead><tr><th>On the page</th><th>URL</th><th>Result</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>Regional Council of Goyder Cemetery Records</td><td>https://www.goyder.sa.gov.au/cemeteryrecords</td><td>Blocked</td><td>403 here. Meeting called it a 404. Current path is under <code>/services/cemeteries/</code>.</td></tr>
+<tr><td>South Australian Cemeteries</td><td>https://www.familyhistorysa.org/births-marriages-deaths/cemeteries/</td><td>Hijacked</td><td>Same casino domain.</td></tr>
+<tr><td>Centennial Park, Adelaide</td><td>https://www.centennialpark.org/</td><td>Looks live</td><td>Live. Not a Burra cemetery.</td></tr>
+<tr><td>Cemeteries SA</td><td>https://www.australiancemeteries.com.au/sa/index.htm</td><td>Dead</td><td>TLS hostname mismatch. HTTP redirects to OzGenOnline.</td></tr>
+<tr><td>Cemetery Records and Transcriptions</td><td>—</td><td>No URL</td><td>Label only. The BHG registers live further down the same Resources page (<code>#data</code>).</td></tr>
+<tr><td>Graveyard Photographs</td><td>https://headstones.gravesecrets.net/index.html</td><td>Dead</td><td>TLS issuer failure.</td></tr>
+</tbody></table>
+<h2>Shipping arrivals and passenger lists</h2>
+<p>Meeting: most dead. Barbara would delete several; Emlyn: Wayback first (Cornish arrivals).</p>
+<table>
+<thead><tr><th>On the page</th><th>URL</th><th>Result</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>Passenger List — Bound for South Australia</td><td>https://www.slsa.sa.gov.au/BSA/</td><td>Dead</td><td>Old SLSA hostname/path. Diane Cummings is still hosted by SLSA on a collections URL.</td></tr>
+<tr><td>The Ships List — 1847–1886</td><td>https://www.theshipslist.com/ships/australia/SAassistedindex.shtml</td><td>Dead</td><td>DNS failure.</td></tr>
+<tr><td>SA Transported Convicts</td><td>https://www.jaunay.com/convicts.html</td><td>Looks live</td><td>Live on jaunay.com.</td></tr>
+<tr><td>Early Shipping Passenger Lists and Other Arrivals</td><td>https://www.familyhistorysa.org/shipping/passengerlists.html/</td><td>Hijacked</td><td>Same casino domain.</td></tr>
+<tr><td>1841 Sailing Ship India</td><td>https://barronfamilyuk.weebly.com/the-india.html</td><td>Looks live</td><td>Live Weebly page.</td></tr>
+<tr><td>1878 Lusitania</td><td>https://www.genuki.org.uk/big/Indexes/PassengerLists/Lusitania.html</td><td>Dead</td><td>GENUKI 404. Content moved on the same site.</td></tr>
+<tr><td>SA Shipping</td><td>https://members.iinet.net.au/~perthdps/shipping/mig-sa1.htm#sa1</td><td>Dead</td><td>iinet members host does not resolve.</td></tr>
+</tbody></table>
+<h2>History and genealogy bookstores</h2>
+<table>
+<thead><tr><th>On the page</th><th>URL</th><th>Result</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>Gould Genealogy</td><td>https://www.gould.com.au/</td><td>Blocked</td><td>403. Confirm in a browser. Shop, not a research source — may not belong now the site is not selling.</td></tr>
+</tbody></table>
+<h2>Libraries</h2>
+<table>
+<thead><tr><th>On the page</th><th>URL</th><th>Result</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>Burra Community Library</td><td>https://sapln.ent.sirsidynix.net.au/client/en_AU/burra/</td><td>Blocked</td><td>Redirects to <code>onecard.network/client/en_AU/burra/</code> then 403 from this checker. Almost certainly works in a browser. Keep; retarget href to the OneCard URL if that sticks.</td></tr>
+<tr><td>State Library of SA</td><td>https://www.slsa.sa.gov.au/site/page.cfm</td><td>Looks live</td><td>Old ColdFusion path redirects to <code>/home</code>. Fine to retarget.</td></tr>
+</tbody></table>
+<h2>Family history groups and other associations</h2>
+<p>Meeting: SE, Port Adelaide, Yorke Peninsula dead.</p>
+<table>
+<thead><tr><th>On the page</th><th>URL</th><th>Result</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>Fleurieu Peninsula Family History Group</td><td>https://fleurieufamilyhistory.org/</td><td>Looks live</td><td>Live.</td></tr>
+<tr><td>SA Genealogy and Heraldry Society</td><td>https://www.genealogysa.org.au/</td><td>Looks live</td><td>Home is live. Their old databases path (Genealogy section) is 404.</td></tr>
+<tr><td>SA Police Historical Society</td><td>https://www.sapolicehistory.org/</td><td>Looks live</td><td>Live.</td></tr>
+<tr><td>South East Family History Group</td><td>https://www.sefhg.org/</td><td>Dead</td><td>HTTPS connection reset. <strong>HTTP</strong> <code>http://www.sefhg.org/</code> is 200 (page updated May 2026).</td></tr>
+<tr><td>Southern Eyre Peninsula Family History Group</td><td>https://sacommunity.org/org/214523-Southern_Eyre_Peninsula_Family_%2526_Local_History_Group_Inc.</td><td>Looks live</td><td>SA Community now titles it <strong>Port Lincoln History Group</strong>. Label is stale.</td></tr>
+<tr><td>Pioneers Association of SA</td><td>https://www.pioneerssa.org.au/</td><td>Looks live</td><td>Morning 502 was transient. Afternoon 200. Keep.</td></tr>
+<tr><td>Port Adelaide Historical Society</td><td>https://users.olis.net.au/penta/index.htm</td><td>Dead</td><td><code>olis.net.au</code> does not resolve. Meeting: dead.</td></tr>
+<tr><td>Yorke Peninsula Family History Group</td><td>https://community.history.sa.gov.au/yorke-peninsula-family-history-group</td><td>Dead</td><td><code>community.history.sa.gov.au</code> does not resolve. Meeting: dead.</td></tr>
+</tbody></table>
+<h2>History</h2>
+<p>Meeting: none of the named History links worked on the projector. Several hosts answer now; several paths do not.</p>
+<table>
+<thead><tr><th>On the page</th><th>URL</th><th>Result</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>History Trust of South Australia</td><td>https://history.sa.gov.au/</td><td>Looks live</td><td>Redirects to <code>www.history.sa.gov.au</code>. Keep.</td></tr>
+<tr><td>Heritage SA</td><td>https://www.environment.sa.gov.au/our-places/Heritage</td><td>Dead</td><td>404.</td></tr>
+<tr><td>Australian Mining History Association</td><td>https://projects.exeter.ac.uk/mhn/AMHA.html</td><td>Dead</td><td>200, but Exeter now serves an IT “server-security” page. Wrong content.</td></tr>
+<tr><td>Burra Fossil Experience</td><td>https://www.samuseum.sa.gov.au/Upload/files-Palaeo/fossils-text/Burra-Megafauna-Revisted-Sam-Arman.pdf</td><td>Dead</td><td>PDF 404 from SA Museum.</td></tr>
+<tr><td>South Australians at War</td><td>https://www.samemory.sa.gov.au/site/page.cfm?u=833</td><td>Dead</td><td>SA Memory ColdFusion URL; TLS certificate expired.</td></tr>
+<tr><td>South Australians Serving in the Boer War</td><td>https://www.findmypast.com.au/articles/world-records/full-list-of-australia-and-new-zealand-records/armed-forces-and-conflict/south-australia-boer-war-contingents</td><td>Looks live</td><td>Live Findmypast article. On-page label is truncated (“Boer Wa”).</td></tr>
+<tr><td>Timeline of 19th Century South Australian History</td><td>https://www.familyhistorysa.org/</td><td>Hijacked</td><td>The href <em>was</em> the site home, not a timeline. Now a casino. BHG already has its own town timeline.</td></tr>
+<tr><td>Flinders Ranges Research</td><td>https://www.southaustralianhistory.com.au/</td><td>Looks live</td><td>Live.</td></tr>
+<tr><td>SA Land Selectors (1869–1877)</td><td>https://www.familyhistorysa.org/sahistory/land.html</td><td>Hijacked</td><td>Same casino domain.</td></tr>
+</tbody></table>
+<h2>War memorials, monuments and sites</h2>
+<table>
+<thead><tr><th>On the page</th><th>URL</th><th>Result</th><th>Note</th></tr></thead>
+<tbody>
+<tr><td>Australian War Memorial</td><td>https://www.awm.gov.au/</td><td>Looks live</td><td>Keep.</td></tr>
+<tr><td>War Memorials in Australia</td><td>https://rslvirtualwarmemorial.org.au/</td><td>Dead</td><td>TLS certificate expired. Meeting: the second war-memorials link is dead.</td></tr>
+<tr><td>Burra War Memorial</td><td>—</td><td>No URL</td><td>Label only — no on-site or external target. BHG already has a Fallen Soldiers page.</td></tr>
+<tr><td>Australian Council of Monuments and Sites</td><td>https://australia.icomos.org/</td><td>Looks live</td><td>Australia ICOMOS. Label is slightly off.</td></tr>
+</tbody></table>
+<hr>
+<h2>Replacement research — 4 September 2026</h2>
+<p>For every broken / blocked / missing listing: a <strong>working URL</strong> if one exists, a <strong>credible alternative</strong>, and a <strong>Wayback</strong> snapshot of the original. Suggest is not a group decision.</p>
+<p>WAF note: State Records, Goyder, Gould, OneCard, VWMA, and <code>sa.gov.au</code> returned Cloudflare “Just a moment” / 403 from this machine. Search and public pages still give those as the current URLs. Click them in Chrome before treating as dead.</p>
+<p><code>familyhistorysa.info</code> (sometimes cited as Leadbeater’s other host) now redirects to hotel spam. Do not use it.</p>
+<h3>Burra and surrounding districts</h3>
+<table>
+<thead><tr><th>Listing</th><th>Working URL</th><th>Alternative</th><th>Wayback</th><th>Suggest</th></tr></thead>
+<tbody>
+<tr><td>Burra Visitors Information Centre</td><td><a href="https://visitburra.com.au/">visitburra.com.au</a> — Burra &amp; Goyder VIC, 2 Market Square</td><td>Goyder / SATC listings if the VIC page moves</td><td>n/a (never had an href)</td><td><strong>Retarget.</strong> Obvious missing link.</td></tr>
+<tr><td>West Briton heading</td><td>—</td><td><a href="https://freepages.rootsweb.com/~wbritonad/genealogy/">West Briton transcriptions home</a> (403 WAF here; likely fine in a browser)</td><td>n/a</td><td>Keep as a heading over the three letters.</td></tr>
+<tr><td>Emigration to SA (1850)</td><td>Same RootsWeb project, new host: <code>freepages.rootsweb.com/~wbritonad/genealogy/cornwall/1850/misc/dec.html</code> (403 here)</td><td><a href="https://www.opc-cornwall.org/Resc/emigration_s_australia.php">Cornwall OPC — emigrants to SA</a> (related Cornish emigration, not this letter)</td><td><a href="https://web.archive.org/web/20110311172244/http://freepages.genealogy.rootsweb.ancestry.com/~wbritonad/cornwall/1850/misc/dec.html">Mar 2011 snapshot</a></td><td><strong>Wayback</strong> (or new RootsWeb host after a browser click). Meeting: Cornish letters matter.</td></tr>
+<tr><td>News from Australia (1853)</td><td><code>.../cornwall/1853/misc/may.html</code> on the same new RootsWeb host (403 here)</td><td>Cornwall OPC as above</td><td><a href="https://web.archive.org/web/*/http://freepages.genealogy.rootsweb.ancestry.com/~wbritonad/cornwall/1853/misc/may.html">Wayback calendar</a> — no dedicated 200 in the availability API</td><td><strong>Wayback calendar</strong> / new host. Same letter set.</td></tr>
+<tr><td>Mining in SA (1850)</td><td><code>.../cornwall/1850/misc/nov.html</code> on the same new RootsWeb host (403 here)</td><td>Cornwall OPC as above</td><td><a href="https://web.archive.org/web/*/http://freepages.genealogy.rootsweb.ancestry.com/~wbritonad/cornwall/1850/misc/nov.html">Wayback calendar</a> — no dedicated 200 in the availability API</td><td><strong>Wayback calendar</strong> / new host.</td></tr>
+</tbody></table>
+<h3>Genealogy</h3>
+<table>
+<thead><tr><th>Listing</th><th>Working URL</th><th>Alternative</th><th>Wayback</th><th>Suggest</th></tr></thead>
+<tbody>
+<tr><td>Family History and Genealogy in SA</td><td>None. Domain is a casino.</td><td><a href="https://www.genealogysa.org.au/">Genealogy SA</a></td><td>Deep pages below; do <strong>not</strong> use the June 2026 snapshot of the home (already casino)</td><td><strong>Drop immediately.</strong></td></tr>
+<tr><td>SA Marriages up to 1857</td><td>None on that domain</td><td><a href="https://www.genealogysa.org.au/resources/online-database-search">Genealogy SA online database search</a> (marriages 1842–1951); <a href="https://www.jaunay.com/earlybdm.php">Jaunay, BDM before civil registration</a></td><td><a href="https://web.archive.org/web/20210725200221/http://familyhistorysa.org/births-marriages-deaths/marriages.html">Jul 2021 Leadbeater marriages page</a></td><td><strong>Retarget</strong> to Genealogy SA, or Wayback if we want Leadbeater’s 1836–1857 index specifically.</td></tr>
+<tr><td>SA Deaths &amp; Burials from Cemetery Index</td><td><a href="https://www.genealogysa.org.au/resources/online-database-search">Genealogy SA online database search</a> — path is now <code>online-database-search</code>, not <code>online-databases.html</code></td><td>Goyder cemetery search for Burra-district burials</td><td><a href="https://web.archive.org/web/20190723034448/https://genealogysa.org.au/resources/online-databases.html">Jul 2019 old path</a></td><td><strong>Retarget.</strong> Same organisation, renamed URL.</td></tr>
+<tr><td>Registrar of Births Deaths and Marriages</td><td><a href="https://www.library.gov.au/research/family-history/births-deaths-and-marriages">NLA family-history BDM guide</a> (SA section)</td><td><a href="https://www.sa.gov.au/topics/family-and-community/research-your-family-history/family-research">SA.GOV.AU family-research / certificates</a> (403 WAF here); Genealogy SA for indexes</td><td><a href="https://web.archive.org/web/20210506202616/https://www.nla.gov.au/research-guides/australian-birth-marriage-and-death-records/south-australia">May 2021 old NLA guide</a></td><td><strong>Retarget</strong> to the new NLA guide, or to SA.GOV.AU if the point is “order a certificate.”</td></tr>
+<tr><td>SA 1838 BDM Index (hotkey / Williams)</td><td>None live</td><td>Genealogy SA; Jaunay early BDM</td><td><a href="https://web.archive.org/web/20131001112815/http://www.hotkey.net.au/~jwilliams4/sa2.htm">Oct 2013</a></td><td><strong>Wayback</strong> if someone still uses Williams; otherwise drop. Host is gone.</td></tr>
+<tr><td>State Records of South Australia</td><td><a href="https://www.archives.sa.gov.au/">archives.sa.gov.au</a> — same URL, 403 WAF here</td><td><a href="https://www.archives.sa.gov.au/finding-information/family-history-research">Family history research</a></td><td><a href="https://web.archive.org/web/20260831095731/https://www.archives.sa.gov.au/">Aug 2026 home</a></td><td><strong>Keep</strong> after a browser click.</td></tr>
+<tr><td>SA Lookup List</td><td>None live</td><td>Genealogy SA research / lookups</td><td><a href="https://web.archive.org/web/20170201095109/http://freepages.genealogy.rootsweb.ancestry.com/~tigerhawk71/aus-sa_lookup.htm">Feb 2017</a></td><td><strong>Drop</strong> unless someone still wants the volunteer-lookup list. Wayback exists. Dated by design.</td></tr>
+<tr><td>SA Family Trees</td><td><a href="https://www.archives.sa.gov.au/finding-information/family-history-research">State Records family history</a> (403 WAF)</td><td>Genealogy SA</td><td><a href="https://web.archive.org/web/20190331114223/https://www.archives.sa.gov.au/content/family-history">Mar 2019 old path</a></td><td><strong>Retarget</strong> to the current family-history page. Label “Family Trees” is stale.</td></tr>
+<tr><td>National Archives of Australia</td><td><a href="https://www.naa.gov.au/explore-collection">Explore the collection</a> and <a href="https://www.naa.gov.au/">NAA home</a> both 200</td><td><a href="https://recordsearch.naa.gov.au/">RecordSearch</a> (403 WAF here)</td><td><a href="https://web.archive.org/web/20191008043825/http://www.naa.gov.au/collection/">Oct 2019 <code>/collection/</code></a></td><td><strong>Retarget</strong> to <code>/explore-collection</code>.</td></tr>
+</tbody></table>
+<h3>Cemeteries</h3>
+<table>
+<thead><tr><th>Listing</th><th>Working URL</th><th>Alternative</th><th>Wayback</th><th>Suggest</th></tr></thead>
+<tbody>
+<tr><td>Goyder Cemetery Records</td><td><a href="https://www.goyder.sa.gov.au/services/cemeteries/cemetery-records">Cemetery records</a> → <a href="https://www.goyder.sa.gov.au/services/cemeteries/cemetery-records/cemetery-search">search</a> (403 WAF here)</td><td><a href="https://www.findagrave.com/cemetery/2362244/burra-cemetery">Find a Grave — Burra Cemetery</a>; BHG’s own registers</td><td><a href="https://web.archive.org/web/20191130225553/http://www.goyder.sa.gov.au/cemeteryrecords">Nov 2019 old <code>/cemeteryrecords</code></a></td><td><strong>Retarget.</strong> The one Burra-specific official cemetery source. Meeting thought it 404; the path moved.</td></tr>
+<tr><td>South Australian Cemeteries (familyhistorysa)</td><td>None. Casino.</td><td>Genealogy SA cemetery index; Goyder search</td><td><a href="https://web.archive.org/web/20180831200802/http://familyhistorysa.org/births-marriages-deaths/cemeteries/">Aug 2018 Leadbeater cemeteries</a></td><td><strong>Drop href.</strong> Genealogy SA or Goyder instead.</td></tr>
+<tr><td>Cemeteries SA</td><td>HTTP works: redirects to <a href="http://www.ozgenonline.com/~australian_cemeteries/">OzGenOnline Australian Cemeteries</a></td><td><a href="https://austcemindex.com/">Australian Cemeteries Index</a> (live, searchable, SA in the state list)</td><td><a href="https://web.archive.org/web/20260519184449/https://australiancemeteries.com.au/sa/index.htm">May 2026</a></td><td><strong>Retarget</strong> to OzGenOnline or AustCemIndex. HTTPS on the old host is what failed.</td></tr>
+<tr><td>Cemetery Records and Transcriptions</td><td>On this site: <a href="https://preview1845-bhg.house-of-ur.com/genealogy/cemetery-1858-1899/index.html">1858–1899</a>, <a href="https://preview1845-bhg.house-of-ur.com/genealogy/cemetery-1900-1988/index.html">1900–1988</a>, <a href="https://preview1845-bhg.house-of-ur.com/genealogy/headstones-1970-1999/index.html">headstones 1970–1999</a></td><td>Goyder search</td><td>n/a</td><td><strong>Point at <code>#data</code></strong> (or the three genealogy pages). Heading, not a missing external.</td></tr>
+<tr><td>Graveyard Photographs</td><td><a href="https://headstones.weebly.com/">Gravesecrets on Weebly</a> — same project, new host</td><td>AustCemIndex; Find a Grave</td><td><a href="https://web.archive.org/web/20171003043642/http://headstones.gravesecrets.net/index.html">Oct 2017 gravesecrets.net</a></td><td><strong>Retarget</strong> to Weebly. Paid photos; editorial whether it belongs.</td></tr>
+</tbody></table>
+<h3>Shipping</h3>
+<table>
+<thead><tr><th>Listing</th><th>Working URL</th><th>Alternative</th><th>Wayback</th><th>Suggest</th></tr></thead>
+<tbody>
+<tr><td>Bound for South Australia</td><td><a href="https://bound-for-south-australia.collections.slsa.sa.gov.au/">SLSA collections — Diane Cummings, 1836–1851</a></td><td><a href="https://www.archives.sa.gov.au/finding-information/discover-our-collection/migration-and-crew/immigration-passenger-lists">State Records passenger lists</a>; <a href="https://guides.slsa.sa.gov.au/immigration/onlinepassengerlists">SLSA immigration libguide</a></td><td><a href="https://web.archive.org/web/20190314131232/http://www.slsa.sa.gov.au/BSA/">Mar 2019 <code>/BSA/</code></a></td><td><strong>Retarget.</strong> Same work, new SLSA URL. Prime keep.</td></tr>
+<tr><td>The Ships List 1847–1886</td><td>None. DNS is dead.</td><td>Bound for SA; State Records GRG 35/48/1; <a href="https://passengers.history.sa.gov.au/people-search">Passengers in History people search</a></td><td><a href="https://web.archive.org/web/20240430122804/http://www.theshipslist.com/ships/australia/SAassistedindex.shtml">Apr 2024</a></td><td><strong>Wayback</strong> (Robert Janmaat / TheShipsList). Live replacements are official lists, not the same transcripts.</td></tr>
+<tr><td>Early shipping (familyhistorysa)</td><td>None. Casino.</td><td>Bound for SA; <a href="https://passengers.history.sa.gov.au/people-search">Passengers in History</a> (328k passengers, 1836–1964); Genealogy SA ship arrivals</td><td><a href="https://web.archive.org/web/20210907152411/http://www.familyhistorysa.org/shipping/passengerlists.html">Sep 2021 Leadbeater shipping</a></td><td><strong>Retarget</strong> to Passengers in History or Bound for SA. Home of <code>passengers.history.sa.gov.au</code> currently redirects to Maritime Museum research — use <code>/people-search</code>.</td></tr>
+<tr><td>1878 Lusitania</td><td><a href="https://www.genuki.org.uk/big/MerchantMarine/Lusitania">GENUKI — Lusitania single males, Jul/Aug 1878</a></td><td>State Records 1878 lists; Trove arrivals</td><td><a href="https://web.archive.org/web/20161026084145/http://www.genuki.org.uk/big/Indexes/PassengerLists/Lusitania.html">Oct 2016 old path</a></td><td><strong>Retarget</strong> if we keep the line. Meeting: Barbara would delete. Content still exists.</td></tr>
+<tr><td>SA Shipping (iinet / Perth DPS)</td><td><a href="https://www.perthdps.com/shipping/mig-sa1.htm">perthdps.com/shipping/mig-sa1.htm</a> and the same path on <code>perthdps.com</code> — both 200 (Parsons, 1836–60)</td><td>Bound for SA; State Records</td><td><a href="https://web.archive.org/web/20200628073644/http://members.iinet.net.au/~perthdps/shipping/mig-sa1.htm">Jun 2020 iinet copy</a></td><td><strong>Retarget.</strong> Same pages, new host after iinet members died.</td></tr>
+</tbody></table>
+<h3>Bookstores and libraries</h3>
+<table>
+<thead><tr><th>Listing</th><th>Working URL</th><th>Alternative</th><th>Wayback</th><th>Suggest</th></tr></thead>
+<tbody>
+<tr><td>Gould Genealogy</td><td><a href="https://www.gould.com.au/">gould.com.au</a> — shop is live; 403 WAF here</td><td>None needed if we drop shops</td><td><a href="https://web.archive.org/web/20260608210636/https://www.gould.com.au/">Jun 2026</a></td><td><strong>Confirm in browser.</strong> Editorial: shop on a site that no longer sells.</td></tr>
+<tr><td>Burra Community Library</td><td><a href="https://onecard.network/client/en_AU/burra/">OneCard Burra</a> (403 WAF; “Checking your connection”)</td><td>—</td><td>No snapshot of the old Sirsi URL</td><td><strong>Retarget</strong> href to OneCard. Keep.</td></tr>
+</tbody></table>
+<h3>Family history groups</h3>
+<table>
+<thead><tr><th>Listing</th><th>Working URL</th><th>Alternative</th><th>Wayback</th><th>Suggest</th></tr></thead>
+<tbody>
+<tr><td>South East Family History Group</td><td><a href="http://www.sefhg.org/">http://www.sefhg.org/</a> — 200, updated 15 May 2026. HTTPS resets.</td><td><a href="https://explore.history.sa.gov.au/organisation/south-east-family-history-group-resource-centre/">SA History Network</a></td><td><a href="https://web.archive.org/web/20240816162847/http://www.sefhg.org/">Aug 2024</a></td><td><strong>Retarget to HTTP</strong> (or keep HTTPS if it works in Chrome). Group is alive.</td></tr>
+<tr><td>Pioneers Association of SA</td><td><a href="https://www.pioneerssa.org.au/">pioneerssa.org.au</a> — 200 this afternoon</td><td>—</td><td><a href="https://web.archive.org/web/20260608073854/https://www.pioneerssa.org.au/">Jun 2026</a></td><td><strong>Keep.</strong> Morning 502 was a blip.</td></tr>
+<tr><td>Port Adelaide Historical Society</td><td><a href="https://www.portadelaide.org/">portadelaide.org</a></td><td><a href="https://explore.history.sa.gov.au/organisation/port-adelaide-historical-society/">SA History Network</a></td><td><a href="https://web.archive.org/web/20170312024847/http://users.olis.net.au/penta/index.htm">Mar 2017 olis.net.au</a></td><td><strong>Retarget.</strong> Meeting called it dead; they have a current site.</td></tr>
+<tr><td>Yorke Peninsula Family History Group</td><td><a href="https://www.genealogysa.org.au/services/york-peninsula-family-history-group">Genealogy SA branch page</a></td><td><a href="https://explore.history.sa.gov.au/organisation/yorke-peninsula-family-history-group/">SA History Network</a> (Kadina library)</td><td><a href="https://web.archive.org/web/20190820050854/http://community.history.sa.gov.au/yorke-peninsula-family-history-group">Aug 2019 History Trust community</a></td><td><strong>Retarget.</strong> No standalone site; they are a Genealogy SA branch.</td></tr>
+</tbody></table>
+<h3>History</h3>
+<table>
+<thead><tr><th>Listing</th><th>Working URL</th><th>Alternative</th><th>Wayback</th><th>Suggest</th></tr></thead>
+<tbody>
+<tr><td>Heritage SA</td><td><a href="https://www.environment.sa.gov.au/topics/heritage/sa-heritage-register">SA Heritage Register</a></td><td><a href="https://maps.sa.gov.au/heritagesearch/">Heritage Places database</a></td><td><a href="https://web.archive.org/web/20180508142704/http://www.environment.sa.gov.au/our-places/heritage">May 2018 old <code>/our-places/Heritage</code></a></td><td><strong>Retarget.</strong> Path moved under <code>/topics/heritage/</code>.</td></tr>
+<tr><td>Australian Mining History Association</td><td><a href="https://www.mininghistory.asn.au/">mininghistory.asn.au</a> — Australasian Mining History Association</td><td>—</td><td><a href="https://web.archive.org/web/20200804032806/http://projects.exeter.ac.uk/mhn/AMHA.html">Aug 2020 Exeter AMHA page</a></td><td><strong>Retarget.</strong> Exeter URL is an IT landing page.</td></tr>
+<tr><td>Burra Fossil Experience</td><td><a href="https://burravisitorcentre.com/our-town-burra/megafauna">Burra VIC megafauna</a> (Rod Wells / Baldina–Red Banks)</td><td>Visit Burra if that VIC host moves</td><td><a href="https://web.archive.org/web/20190715055117/http://www.samuseum.sa.gov.au/Upload/files-Palaeo/fossils-text/Burra-Megafauna-Revisted-Sam-Arman.pdf">Jul 2019 Arman PDF</a></td><td><strong>Retarget</strong> to the VIC megafauna page, or Wayback the PDF. Current Arman work is Naracoorte kangaroos, not this Burra handout.</td></tr>
+<tr><td>South Australians at War</td><td><a href="https://digital.collections.slsa.sa.gov.au/pages/saatwar">SLSA digital collections — South Australians at War</a></td><td><a href="https://guides.slsa.sa.gov.au/c.php?g=410211&amp;p=2795093">SLSA military libguide</a></td><td><a href="https://web.archive.org/web/20250813003146/https://www.samemory.sa.gov.au/site/page.cfm?u=833">Aug 2025 SA Memory</a></td><td><strong>Retarget.</strong> Same exhibition, new SLSA host. SA Memory TLS is expired.</td></tr>
+<tr><td>Timeline of 19th Century SA History</td><td>Never a real timeline URL (it was the familyhistorysa home). On this site: <a href="https://preview1845-bhg.house-of-ur.com/town/timeline/index.html">Town timeline</a></td><td>Flinders Ranges Research (already on the list); Wayback Leadbeater <a href="https://web.archive.org/web/20210823045023/http://www.familyhistorysa.org/sahistory/">sahistory 2021</a></td><td>Leadbeater <code>timeline.html</code> not found in CDX</td><td><strong>Point at BHG’s timeline</strong>, or drop the row. Do not keep the casino href.</td></tr>
+<tr><td>SA Land Selectors (1869–1877)</td><td>None on that domain</td><td><a href="https://www.landservices.com.au/land-registration/historical-searching/">Land Services SA historical searching</a>; Genealogy SA; State Records land</td><td><a href="https://web.archive.org/web/20180614113705/http://www.familyhistorysa.org/sahistory/land.html">Jun 2018 Leadbeater land.html</a></td><td><strong>Wayback</strong> for Leadbeater’s selectors list; Land Services / Genealogy SA for current searching.</td></tr>
+</tbody></table>
+<h3>War memorials</h3>
+<table>
+<thead><tr><th>Listing</th><th>Working URL</th><th>Alternative</th><th>Wayback</th><th>Suggest</th></tr></thead>
+<tbody>
+<tr><td>War Memorials in Australia</td><td><a href="https://vwma.org.au/">Virtual War Memorial Australia</a> (403 WAF here; formerly RSL Virtual War Memorial)</td><td>AWM (already on the list)</td><td><a href="https://web.archive.org/web/20250910101434/http://rslvirtualwarmemorial.org.au/">Sep 2025 old domain</a></td><td><strong>Retarget</strong> to <code>vwma.org.au</code>. Same project, renamed 2018.</td></tr>
+<tr><td>Burra War Memorial</td><td>On this site: <a href="https://preview1845-bhg.house-of-ur.com/genealogy/fallen-soldiers/index.html">Fallen Soldiers War Memorial</a></td><td><a href="https://vwma.org.au/explore/memorials/151">VWMA — Burra Fallen Soldiers Memorial</a>; <a href="https://monumentaustralia.org.au/themes/conflict/multiple/display/50523-burra-war-memorial">Monument Australia</a> (DNS failed here); <a href="https://maps.sa.gov.au/heritagesearch/HeritageItem.aspx?p_heritageno=14394">SA Heritage Place 10409</a></td><td>n/a</td><td><strong>Point at the on-site page</strong>, plus VWMA if we want an external.</td></tr>
+</tbody></table>
+<hr>
+<h2>Suggested working order</h2>
+<p>Not decisions — a practical order if we take this on a Friday:</p>
+<ol>
+<li><strong>Remove every <code>familyhistorysa.org</code> href</strong> (six lines, including the “timeline”). Casino. Wayback + Genealogy SA above.</li>
+<li><strong>Click the 403s in a browser</strong> (State Records, Goyder, Gould, Burra library OneCard, VWMA). Retarget the library href to OneCard if that is now the real URL.</li>
+<li><strong>Retarget the clear current URLs:</strong> Goyder cemetery search, Bound for South Australia, Perth DPS, GENUKI Lusitania, Port Adelaide, YPFHG via Genealogy SA, Heritage Register, AMHA, VWMA, NAA explore-collection, Genealogy SA database search, Visit Burra, SEFHG <code>http://</code>, Gravesecrets Weebly, OzGenOnline / AustCemIndex, SLSA South Australians at War, on-site cemetery registers and Fallen Soldiers.</li>
+<li><strong>Wayback the Cornish / RootsWeb / Leadbeater / Ships List material</strong> before delete. Cornish arrivals were the reason not to slash shipping.</li>
+<li><strong>Editorial prune of live-but-dated:</strong> Cyndi’s List, RootsChat thread, Genealogy Links SA, Centennial Park, Gould.</li>
+<li><strong>Fix labels</strong> on what we keep: Boer War truncation, Destitute parenthesis, Port Lincoln History Group, ICOMOS.</li>
+</ol>
+<p>Goyder cemetery search is still the one Burra-specific official source in Cemeteries. Worth the current council URL even if the rest of that block is gutted.</p></article></div>
+  <footer class="foot">
+    <p>Burra History Group · House of Ur · working notes for <code>bhgsite2026</code></p>
+  </footer>
+</body>
+</html>

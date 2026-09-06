@@ -81,6 +81,10 @@ a:hover {
   color: #a8a29e;
 }
 
+.mast__elsewhere + .mast__elsewhere {
+  margin-top: 0.35rem;
+}
+
 .mast__elsewhere a {
   color: #e7d3a8;
 }
@@ -97,7 +101,31 @@ a:hover {
 
 .layout--single {
   grid-template-columns: minmax(0, 1fr);
-  max-width: calc(var(--measure) + 3rem);
+}
+
+.inventory-page .layout--single {
+  max-width: 96rem;
+}
+
+.inventory-page .paper {
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.inventory-page .prose p,
+.inventory-page .prose li {
+  max-width: none;
+}
+
+.inventory-page .prose table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.inventory-page .prose th,
+.inventory-page .prose td {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 @media (max-width: 800px) {
@@ -243,6 +271,11 @@ a:hover {
   padding: 0.35rem 0.5rem;
   text-align: left;
   vertical-align: top;
+}
+
+.prose td a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .prose th {

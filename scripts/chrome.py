@@ -41,6 +41,10 @@ def page(
       <a href="https://real-bhg.house-of-ur.com/">Real</a> ·
       <a href="https://burrasa.net">burrasa.net</a> (live until cutover)
     </p>
+    <p class="mast__elsewhere">Prototypes:
+      <a href="https://emlynoregan.com/bitn/" target="_blank" rel="noopener">Burra in the News</a> ·
+      <a href="https://bda-dev.emlynoregan.com/" target="_blank" rel="noopener">Burra Digital Archive</a>
+    </p>
   </header>
   {main}
   <footer class="foot">
