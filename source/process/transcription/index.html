@@ -40,8 +40,9 @@
 <tr><td><code>screenshot-timestamps.json</code></td><td>Inclusive grab list <code>{id, t, cue}</code> for extraction.</td></tr>
 <tr><td><code>screenshot-timestamps.md</code></td><td>Same list, human-readable.</td></tr>
 <tr><td><code>stills/</code></td><td>JPEGs <code>NNN_HHMMSS.jpg</code>. Working files; <strong>prefer not to commit</strong>.</td></tr>
-<tr><td><code>stills-catalog.md</code></td><td>What each cluster of frames actually shows (and what the camera missed).</td></tr>
-<tr><td><code>extract_stills.py</code></td><td>Optional local copy; canonical script is &lt;code&gt;extract_stills.py&lt;/code&gt; in this folder.</td></tr>
+<tr><td><code>phone-stills/</code></td><td>JPEGs taken on the phone during the meeting (books, cards, print-outs), <strong>not</strong> extracted from video. Prefer not to commit.</td></tr>
+<tr><td><code>stills-catalog.md</code></td><td>What each cluster of frames actually shows (and what the camera missed). Include phone stills here.</td></tr>
+<tr><td><code>extract_stills.py</code></td><td>Optional local copy; canonical script is &lt;code&gt;extract_stills.py&lt;/code&gt; in this folder. Multiple clips need a <code>clip</code> field in the JSON (see 4 Sep).</td></tr>
 </tbody></table>
 <p>Also: a row in the meetings index, and any new names/IA in the <strong>project glossary</strong>. After notes exist, rebuild <strong>BHG Site Working</strong> (<code>python scripts/build.py</code> in <code>bhgsite-working</code>) so the meeting is on the workshop site.</p>
 <p>Do <strong>not</strong> put in git: the video, extracted wav/mp3 chunks, API keys, or (unless asked) the JPEG stills.</p>
@@ -53,6 +54,8 @@
 <li>Point at the monitor when someone says “this / there / that map / this list”. You will still miss stretches (desk, clothing, glare). That’s expected — stills tell you which timestamps were useful.</li>
 <li>Pixel files are often 1920×1080 with a <strong>display-matrix rotation (−90)</strong>. ffmpeg autorotate is the right orientation for a portrait phone filming a landscape monitor. Don’t add an extra <code>transpose</code> unless a test frame is sideways.</li>
 <li>Keep the original file wherever it landed (<code>Downloads</code>, etc.). Don’t copy 9 GB into <code>docs</code>.</li>
+<li><strong>Phone stills</strong> (covers, cards, print-outs) are part of the evidence. Copy the JPEGs into <code>phone-stills/</code> if that helps the catalog; don’t skip them because they aren’t in the video.</li>
+<li>Sequential Pixel clips are <strong>separate clocks</strong>. Line them up by filename/UTC; don’t smash them into one 00:00 timeline if there is a gap. Label transcript timestamps <code>A</code> / <code>B</code> (or similar).</li>
 </ul>
 <p>Probe before transcribing:</p>
 <pre><code>ffprobe -v error -select_streams v:0 -show_entries stream=width,height,duration -show_entries stream_side_data=rotation -of json VIDEO.mp4</code></pre>
@@ -218,8 +221,9 @@
 <li>Leave video, temp audio, keys, and JPEGs out of the commit unless asked.</li>
 </ol>
 <hr>
-<h2>28 August 2026 — what this pipeline caught</h2>
-<p>Worked example: <a href="../../meetings/2026-08-28/index.html">2026-08-28</a>. 73 minutes, 185 grabs. Useful stills confirmed Preview URLs, Inc./plaques, Resources tiles, VIC price list, Goyder cemetery link text, Weddings duplicates, and the CHERRY/KIDD / GURNEY/KNAGGS / HINCH duplicate-block bug. Maps opening, Features, and Mongolata were almost all off-camera — those sections in the notes stay audio-only (plus HTML for Creek Street).</p></article></div>
+<h2>Worked examples</h2>
+<p><a href="../../meetings/2026-08-28/index.html">28 August 2026</a>: 73 minutes, 185 grabs. Useful stills confirmed Preview URLs, Inc./plaques, Resources tiles, VIC price list, Goyder cemetery link text, Weddings duplicates, and the CHERRY/KIDD / GURNEY/KNAGGS / HINCH duplicate-block bug. Maps opening, Features, and Mongolata were almost all off-camera — those sections in the notes stay audio-only (plus HTML for Creek Street).</p>
+<p><a href="../../meetings/2026-09-04/index.html">4 September 2026</a>: four clips (~32 minutes of tape, with gaps) and five phone stills. The camera almost never found the monitor; the books, the 2017 booklet table, and the IREN card are why the stills pass still matters. Clip A talked through Resources publications and the workshop Useful Links inventory anyway.</p></article></div>
   <footer class="foot">
     <p>Burra History Group · House of Ur · working notes for <code>bhgsite2026</code></p>
   </footer>

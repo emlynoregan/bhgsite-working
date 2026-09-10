@@ -30,6 +30,11 @@ HOME_MAIN = """
       <p class="lede">Discussions, decisions, and status for the public website rebuild. The history site itself is Preview / Real / burrasa.net.</p>
       <div class="feed">
         <article class="card">
+          <p class="when">4 September 2026 · meeting</p>
+          <h2><a href="meetings/2026-09-04/index.html">Publications, Useful Links, Jodie’s list</a></h2>
+          <p>Four Pixel clips and phone stills. Publications bibliography and a Publications nav; they reviewed the Useful Links inventory; contact form; names for Jodie; Publisher is in hand.</p>
+        </article>
+        <article class="card">
           <p class="when">4 September 2026</p>
           <h2><a href="process/useful-links/index.html">Useful Links inventory</a></h2>
           <p>Every external href on Resources, checked today. Working replacements, alternatives, and Wayback for the ones that don’t. familyhistorysa.org is a casino — those six hrefs should come off Preview first.</p>
@@ -65,6 +70,11 @@ HOME_MAIN = """
       <h2>Meetings</h2>
       <ol>
         <li>
+          <span class="when">4 Sep 2026</span>
+          <a href="meetings/2026-09-04/index.html">Publications, Useful Links, Jodie’s list</a>
+          — Barbara Piscitelli, Bob Perry
+        </li>
+        <li>
           <span class="when">28 Aug 2026</span>
           <a href="meetings/2026-08-28/index.html">Preview walkthrough</a>
           — Barbara Piscitelli, Bob Perry
@@ -92,6 +102,7 @@ NEWS_INDEX = """
       <h1>News</h1>
       <p class="lede">Status and significant work on the public site rebuild, newest first. Meetings also appear here when they change the plan.</p>
       <ul>
+        <li><a href="../meetings/2026-09-04/index.html">4 Sep 2026 — Publications, Useful Links, Jodie’s list</a></li>
         <li><a href="../process/useful-links/index.html">4 Sep 2026 — Useful Links inventory (replacements + Wayback)</a></li>
         <li><a href="../news/2026-09-04-preview-copy/index.html">4 Sep 2026 — Copy pass on Preview</a></li>
         <li><a href="../news/2026-09-04-august-leftovers/index.html">4 Sep 2026 — What’s left from 28 August</a></li>
@@ -209,6 +220,11 @@ MEETINGS_INDEX = """
       <p class="lede">Working sessions on the public site rebuild. Notes are the account we act on; transcripts are the tape.</p>
       <ul>
         <li>
+          <a href="../meetings/2026-09-04/index.html">4 September 2026 — Publications, Useful Links, Jodie’s list</a>
+          — Emlyn O’Regan, Barbara Piscitelli, Bob Perry
+          · <a href="../meetings/2026-09-04/transcript.html">transcript</a>
+        </li>
+        <li>
           <a href="../meetings/2026-08-28/index.html">28 August 2026 — Preview walkthrough</a>
           — Emlyn O’Regan, Barbara Piscitelli, Bob Perry
           · <a href="../meetings/2026-08-28/transcript.html">transcript</a>
@@ -323,12 +339,54 @@ def main() -> None:
         ),
     )
 
+    notes_html_sep = md(
+        DOCS / "meetings/2026-09-04/meeting-notes.md",
+        replacements=[
+            ("[transcript](transcript.md)", "[transcript](transcript.html)"),
+            ("[transcription-methodology.md](../transcription-methodology.md)", "[transcription method](../../process/transcription/index.html)"),
+            ("[stills-catalog.md](stills-catalog.md)", "the stills catalog (kept in the transcription workshop, not on this site)"),
+            ("[glossary.md](../../glossary.md)", "[glossary](../../glossary/index.html)"),
+        ],
+    )
+    cut_sep = notes_html_sep.find("<h2>Files in this folder</h2>")
+    if cut_sep != -1:
+        notes_html_sep = notes_html_sep[:cut_sep]
+    notes_html_sep += MEETING_FOOT
+    write(
+        "meetings/2026-09-04/index.html",
+        page(
+            title="Publications, Useful Links, Jodie’s list — 4 September 2026",
+            root="../../",
+            main=f'<div class="layout layout--single"><article class="paper prose">{notes_html_sep}</article></div>',
+        ),
+    )
+
+    tr_html_sep = md(
+        DOCS / "meetings/2026-09-04/transcript.md",
+        replacements=[
+            ("[stills-catalog.md](stills-catalog.md)", "the stills catalog (workshop disk, not on this site)"),
+            ("[meeting-notes.md](meeting-notes.md)", "[meeting notes](index.html)"),
+            ("[glossary.md](../../glossary.md)", "[glossary](../../glossary/index.html)"),
+        ],
+    )
+    write(
+        "meetings/2026-09-04/transcript.html",
+        page(
+            title="Transcript — 4 September 2026",
+            root="../../",
+            extra_class="transcript-page",
+            main=f'<div class="layout layout--single"><article class="paper prose transcript">{tr_html_sep}</article></div>',
+        ),
+    )
+
     method = md(
         DOCS / "meetings/transcription-methodology.md",
         replacements=[
             ("[`../glossary.md`](../glossary.md)", "[glossary](../../glossary/index.html)"),
             ("[28 August 2026](2026-08-28/meeting-notes.md)", "[28 August 2026](../../meetings/2026-08-28/index.html)"),
             ("[2026-08-28/](2026-08-28/)", "[2026-08-28](../../meetings/2026-08-28/index.html)"),
+            ("[28 August 2026](2026-08-28/):", "[28 August 2026](../../meetings/2026-08-28/index.html):"),
+            ("[4 September 2026](2026-09-04/):", "[4 September 2026](../../meetings/2026-09-04/index.html):"),
             ("[`extract_stills.py`](extract_stills.py)", "<code>extract_stills.py</code>"),
             ("OpenRouter key: House of Ur `city-of-ur/deploy/secrets_dev.json` → `openrouter_api_key`. **Never print it. Never commit it.**", "OpenRouter key from House of Ur deploy secrets. **Never print it. Never commit it.**"),
             ("[README.md](README.md)", "the meetings index"),
