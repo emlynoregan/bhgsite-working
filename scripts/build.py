@@ -33,6 +33,11 @@ HOME_MAIN = """
       <div class="feed">
         <article class="card">
           <p class="when">11 September 2026</p>
+          <h2><a href="process/bibliography/index.html">Harvard citations from the NLA</a></h2>
+          <p>Working list for titles already on the site. <em>School Daze</em> corrected on Preview. Publisher clashes (Monster Mine, and a few others) wait for Barbara.</p>
+        </article>
+        <article class="card">
+          <p class="when">11 September 2026</p>
           <h2><a href="board/index.html">Todo</a></h2>
           <p>The 4 September actions (and the leftover 28 August cutover items) are on the todo list. Planning docs stay the source of truth; this site publishes the copy.</p>
         </article>
@@ -98,6 +103,7 @@ HOME_MAIN = """
         <li><a href="process/index.html">How this workshop runs</a></li>
         <li><a href="board/index.html">Todo</a></li>
         <li><a href="process/useful-links/index.html">Useful Links inventory</a></li>
+        <li><a href="process/bibliography/index.html">Harvard citations (NLA)</a></li>
         <li><a href="process/transcription/index.html">How we transcribe meetings</a></li>
         <li><a href="glossary/index.html">Glossary</a></li>
       </ul>
@@ -117,6 +123,7 @@ NEWS_INDEX = """
       <p class="lede">Status and significant work on the public site rebuild, newest first. Meetings also appear here when they change the plan.</p>
       <ul>
         <li><a href="../board/index.html">11 Sep 2026 — Todo</a></li>
+        <li><a href="../process/bibliography/index.html">11 Sep 2026 — Harvard citations (NLA draft)</a></li>
         <li><a href="../meetings/2026-09-04/index.html">4 Sep 2026 — Publications, Useful Links, Jodie’s list</a></li>
         <li><a href="../process/useful-links/index.html">4 Sep 2026 — Useful Links inventory (replacements + Wayback)</a></li>
         <li><a href="../news/2026-09-04-preview-copy/index.html">4 Sep 2026 — Copy pass on Preview</a></li>
@@ -278,6 +285,7 @@ PROCESS_INDEX = """
         <li><a href="../board/index.html">Todo</a></li>
         <li><a href="../process/transcription/index.html">How we transcribe meetings</a></li>
         <li><a href="../process/useful-links/index.html">Useful Links inventory (replacements + Wayback)</a></li>
+        <li><a href="../process/bibliography/index.html">Harvard citations (NLA draft)</a></li>
         <li><a href="../glossary/index.html">Glossary</a></li>
         <li><a href="https://github.com/emlynoregan/bhgsite2026/blob/working/JOHNNY.md">Johnny’s public-site playbook</a> (on GitHub)</li>
       </ul>
@@ -475,6 +483,26 @@ def main() -> None:
             root="../../",
             extra_class="inventory-page",
             main=f'<div class="layout layout--single"><article class="paper prose">{links_html}</article></div>',
+        ),
+    )
+
+    bib_html = md(
+        DOCS / "bibliography.md",
+        replacements=[
+            ("[tickets/BHG-005-harvard-citations.md](tickets/BHG-005-harvard-citations.md)", "[BHG-005](../../board/BHG-005-harvard-citations/index.html)"),
+            ("[BHG-005](tickets/BHG-005-harvard-citations.md)", "[BHG-005](../../board/BHG-005-harvard-citations/index.html)"),
+            ("[BHG-006](tickets/BHG-006-publications-nav.md)", "[BHG-006](../../board/BHG-006-publications-nav/index.html)"),
+            ("[BHG-009](tickets/BHG-009-publisher-conversion.md)", "[BHG-009](../../board/BHG-009-publisher-conversion/index.html)"),
+            ("[BHG-019](tickets/BHG-019-woolgangi-show-copyright.md)", "[BHG-019](../../board/BHG-019-woolgangi-show-copyright/index.html)"),
+        ],
+    )
+    write(
+        "process/bibliography/index.html",
+        page(
+            title="Harvard citations from the NLA",
+            root="../../",
+            extra_class="inventory-page",
+            main=f'<div class="layout layout--single"><article class="paper prose">{bib_html}</article></div>',
         ),
     )
 

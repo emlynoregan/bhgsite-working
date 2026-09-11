@@ -21,6 +21,7 @@ DOC_HREFS = {
     "../meetings/2026-08-28/meeting-notes.md": "meetings/2026-08-28/index.html",
     "../meetings/2026-08-28/transcript.md": "meetings/2026-08-28/transcript.html",
     "../useful-links.md": "process/useful-links/index.html",
+    "../bibliography.md": "process/bibliography/index.html",
     "../glossary.md": "glossary/index.html",
 }
 
