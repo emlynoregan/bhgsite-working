@@ -79,6 +79,18 @@ def convert(md: str) -> str:
             i += 1
             continue
 
+        check = re.match(r"^- \[([ xX])\] (.*)$", line)
+        if check:
+            if not in_ul:
+                out.append("<ul>")
+                in_ul = True
+            checked = ' checked' if check.group(1).lower() == "x" else ""
+            out.append(
+                f'<li class="check"><input type="checkbox" disabled{checked}> {inline(check.group(2))}</li>'
+            )
+            i += 1
+            continue
+
         if re.match(r"^- ", line):
             if not in_ul:
                 out.append("<ul>")

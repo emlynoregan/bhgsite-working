@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BHG-012: Surname browse + search — BHG Site Working</title>
+  <meta name="description" content="Working notes for the Burra History Group public website rebuild.">
+  <link rel="stylesheet" href="../../css/working.css">
+</head>
+<body>
+  <header class="mast">
+    <p class="mast__kicker"><a href="../../index.html">BHG Site Working</a></p>
+    <p class="mast__tag">Rebuild workshop — not the public history site</p>
+    <nav class="mast__nav" aria-label="Working site">
+      <a href="../../index.html">News</a>
+      <a href="../../meetings/index.html">Meetings</a>
+      <a href="../../board/index.html">Todo</a>
+      <a href="../../process/index.html">Process</a>
+      <a href="../../glossary/index.html">Glossary</a>
+    </nav>
+    <p class="mast__elsewhere">Public site:
+      <a href="https://preview1845-bhg.house-of-ur.com/">Preview</a> ·
+      <a href="https://real-bhg.house-of-ur.com/">Real</a> ·
+      <a href="https://burrasa.net">burrasa.net</a> (live until cutover)
+    </p>
+    <p class="mast__elsewhere">Prototypes:
+      <a href="https://emlynoregan.com/bitn/" target="_blank" rel="noopener">Burra in the News</a> ·
+      <a href="https://bda-dev.emlynoregan.com/" target="_blank" rel="noopener">Burra Digital Archive</a>
+    </p>
+  </header>
+  
+  <div class="layout layout--single">
+    <article class="paper prose ticket">
+      <p class="when"><a href="../index.html">Todo</a> · BHG-012</p>
+      <h1>Surname browse + search</h1>
+      <dl class="ticket-meta"><div><dt>Status</dt><dd>Proposed</dd></div><div><dt>Column</dt><dd>Cutover</dd></div><div><dt>Who</dt><dd>Emlyn</dd></div><div><dt>Where</dt><dd>Preview</dd></div><div><dt>Size</dt><dd>large</dd></div><div><dt>Depends on</dt><dd>BHG-003</dd></div></dl>
+      <h2>Goal</h2>
+<p>Surname queries are a browse + search page (search box + detail), not one infinite static list.</p>
+<h2>Source</h2>
+<ul>
+<li><a href="../../meetings/2026-09-04/index.html">4 September meeting notes</a> — “Surname page wants browse + search (search box + detail), not one infinite list.” Duplicate <em>blocks</em> already collapsed; alphabetisation still in runs that restart (<a href="../BHG-003-surname-sort/index.html">BHG-003</a>).</li>
+<li><a href="../../meetings/2026-08-28/index.html">28 August meeting notes</a> — Want browse + search, not one infinite static page. Discoverability matters (you wouldn’t search “Bachelor” if you didn’t know the name). Spellings vary. Same idea for origins of people, marriages, prominent people. Nice-to-have after live, not a cutover must-have.</li>
+</ul>
+<h2>Scope</h2>
+<h3>In scope</h3>
+<ul>
+<li>A real browse/search UI over the unique surname essays.</li>
+<li>Keep old anchors working.</li>
+</ul>
+<h3>Out of scope</h3>
+<ul>
+<li>A–Z sort and the leftover duplicate (<a href="../BHG-003-surname-sort/index.html">BHG-003</a>).</li>
+<li>Origins / weddings / prominent people search (same idea, later).</li>
+</ul>
+<h2>Acceptance criteria</h2>
+<ul>
+<li class="check"><input type="checkbox" disabled> Preview has a way to browse surnames and a way to search, not only scroll a single page.</li>
+<li class="check"><input type="checkbox" disabled> Existing essay content is not dropped.</li>
+<li class="check"><input type="checkbox" disabled> Live on Preview. Real not touched.</li>
+</ul>
+<h2>Stop and ask</h2>
+<p>28 August called this a nice-to-have after live. Do not block cutover on it. If time is scarce, leave this Proposed.</p>
+<h2>Completion notes</h2>
+<p><em>(Fill in before marking Done.)</em></p>
+    </article>
+  </div>
+
+  <footer class="foot">
+    <p>Burra History Group · House of Ur · working notes for <code>bhgsite2026</code></p>
+  </footer>
+</body>
+</html>

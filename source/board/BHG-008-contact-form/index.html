@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BHG-008: Contact form that sends mail — BHG Site Working</title>
+  <meta name="description" content="Working notes for the Burra History Group public website rebuild.">
+  <link rel="stylesheet" href="../../css/working.css">
+</head>
+<body>
+  <header class="mast">
+    <p class="mast__kicker"><a href="../../index.html">BHG Site Working</a></p>
+    <p class="mast__tag">Rebuild workshop — not the public history site</p>
+    <nav class="mast__nav" aria-label="Working site">
+      <a href="../../index.html">News</a>
+      <a href="../../meetings/index.html">Meetings</a>
+      <a href="../../board/index.html">Todo</a>
+      <a href="../../process/index.html">Process</a>
+      <a href="../../glossary/index.html">Glossary</a>
+    </nav>
+    <p class="mast__elsewhere">Public site:
+      <a href="https://preview1845-bhg.house-of-ur.com/">Preview</a> ·
+      <a href="https://real-bhg.house-of-ur.com/">Real</a> ·
+      <a href="https://burrasa.net">burrasa.net</a> (live until cutover)
+    </p>
+    <p class="mast__elsewhere">Prototypes:
+      <a href="https://emlynoregan.com/bitn/" target="_blank" rel="noopener">Burra in the News</a> ·
+      <a href="https://bda-dev.emlynoregan.com/" target="_blank" rel="noopener">Burra Digital Archive</a>
+    </p>
+  </header>
+  
+  <div class="layout layout--single">
+    <article class="paper prose ticket">
+      <p class="when"><a href="../index.html">Todo</a> · BHG-008</p>
+      <h1>Contact form that sends mail</h1>
+      <dl class="ticket-meta"><div><dt>Status</dt><dd>Ready</dd></div><div><dt>Column</dt><dd>Cutover</dd></div><div><dt>Who</dt><dd>Emlyn</dd></div><div><dt>Where</dt><dd>Preview</dd></div><div><dt>Size</dt><dd>large</dd></div><div><dt>Depends on</dt><dd>—</dd></div></dl>
+      <h2>Goal</h2>
+<p>The Preview contact page actually delivers a message to the History Group, on the same idea as the old site: not a disabled stub.</p>
+<h2>Source</h2>
+<ul>
+<li><a href="../../meetings/2026-09-04/index.html">4 September meeting notes</a> — “Emlyn will try to make Preview contact actually send, same idea as the old site: an agent/path that delivers mail to the group. Preview is not publicly linked; that’s fine.” Clip C: everything already points at Contact; old-site pattern (message to the group).</li>
+<li><a href="../../meetings/2026-08-28/index.html">28 August meeting notes</a> — Cutover must-have #2: working contact form. One funnel. All queries through the contact page to the group email. Stub must actually work before cutover. Facebook on Contact as well (copy pass later put Facebook on Contact).</li>
+</ul>
+<h2>Scope</h2>
+<h3>In scope</h3>
+<ul>
+<li>A mail path from the Preview contact form to the group inbox.</li>
+<li>Keep the single-funnel rule (public mailtos already moving in <a href="../BHG-002-group-mailto-to-contact/index.html">BHG-002</a>).</li>
+</ul>
+<h3>Out of scope</h3>
+<ul>
+<li>Making Preview a public URL.</li>
+<li>A donate button.</li>
+<li>Rewriting About from Barbara’s Google Doc (<a href="../BHG-018-declare-unpaid-work/index.html">BHG-018</a> is funders; the Google Doc rewrite is still Barbara’s).</li>
+</ul>
+<h2>Acceptance criteria</h2>
+<ul>
+<li class="check"><input type="checkbox" disabled> Submitting the Preview contact form delivers mail the group can read.</li>
+<li class="check"><input type="checkbox" disabled> Failure is visible to the sender (not a silent stub).</li>
+<li class="check"><input type="checkbox" disabled> Live on Preview. Real not touched until cutover.</li>
+</ul>
+<h2>Stop and ask</h2>
+<p>Needs an inbox and a mail path in House of Ur, not more HTML. Stop if the group email or HoU mail feature is not agreed.</p>
+<h2>Completion notes</h2>
+<p><em>(Fill in before marking Done.)</em></p>
+    </article>
+  </div>
+
+  <footer class="foot">
+    <p>Burra History Group · House of Ur · working notes for <code>bhgsite2026</code></p>
+  </footer>
+</body>
+</html>

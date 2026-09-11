@@ -33,6 +33,7 @@ def page(
     <nav class="mast__nav" aria-label="Working site">
       <a href="{root}index.html">News</a>
       <a href="{root}meetings/index.html">Meetings</a>
+      <a href="{root}board/index.html">Todo</a>
       <a href="{root}process/index.html">Process</a>
       <a href="{root}glossary/index.html">Glossary</a>
     </nav>

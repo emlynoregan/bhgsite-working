@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BHG-001: Pull casino hrefs off Useful Links — BHG Site Working</title>
+  <meta name="description" content="Working notes for the Burra History Group public website rebuild.">
+  <link rel="stylesheet" href="../../css/working.css">
+</head>
+<body>
+  <header class="mast">
+    <p class="mast__kicker"><a href="../../index.html">BHG Site Working</a></p>
+    <p class="mast__tag">Rebuild workshop — not the public history site</p>
+    <nav class="mast__nav" aria-label="Working site">
+      <a href="../../index.html">News</a>
+      <a href="../../meetings/index.html">Meetings</a>
+      <a href="../../board/index.html">Todo</a>
+      <a href="../../process/index.html">Process</a>
+      <a href="../../glossary/index.html">Glossary</a>
+    </nav>
+    <p class="mast__elsewhere">Public site:
+      <a href="https://preview1845-bhg.house-of-ur.com/">Preview</a> ·
+      <a href="https://real-bhg.house-of-ur.com/">Real</a> ·
+      <a href="https://burrasa.net">burrasa.net</a> (live until cutover)
+    </p>
+    <p class="mast__elsewhere">Prototypes:
+      <a href="https://emlynoregan.com/bitn/" target="_blank" rel="noopener">Burra in the News</a> ·
+      <a href="https://bda-dev.emlynoregan.com/" target="_blank" rel="noopener">Burra Digital Archive</a>
+    </p>
+  </header>
+  
+  <div class="layout layout--single">
+    <article class="paper prose ticket">
+      <p class="when"><a href="../index.html">Todo</a> · BHG-001</p>
+      <h1>Pull casino hrefs off Useful Links</h1>
+      <dl class="ticket-meta"><div><dt>Status</dt><dd>Done</dd></div><div><dt>Column</dt><dd>Done</dd></div><div><dt>Who</dt><dd>Emlyn</dd></div><div><dt>Where</dt><dd>Preview</dd></div><div><dt>Size</dt><dd>small</dd></div><div><dt>Depends on</dt><dd>—</dd></div><div><dt>Check</dt><dd><a href="https://preview1845-bhg.house-of-ur.com/resources/index.html#links">Check on Preview</a></dd></div></dl>
+      <h2>Goal</h2>
+<p>Every <code>familyhistorysa.org</code> href is gone from Preview Useful Links. Those six listings no longer send people to a gambling site.</p>
+<h2>Source</h2>
+<ul>
+<li><a href="../../meetings/2026-09-04/index.html">4 September meeting notes</a> — Useful Links next step; they reviewed the workshop inventory in the room.</li>
+<li><a href="../../process/useful-links/index.html">Useful Links inventory</a> — <strong>What to do first</strong>, item 1: “Pull every <code>familyhistorysa.org</code> href now. Six listings. The domain is a casino.” Morning check treated some paths as 200-to-homepage; by afternoon the whole domain is hijacked.</li>
+<li>Workshop leftover page (4 Sep): “familyhistorysa.org is a casino — pull those six hrefs first.”</li>
+<li><a href="../../meetings/2026-08-28/index.html">28 August meeting notes</a> — Barbara’s Useful Links punch list already named dead genealogy links; the casino hijack was described in that walkthrough.</li>
+</ul>
+<h2>Scope</h2>
+<h3>In scope</h3>
+<ul>
+<li>Remove or retarget the six <code>familyhistorysa.org</code> listings on Preview Resources → Useful Links.</li>
+<li>Point at Wayback (Barry Leadbeater, 2018–2021) and/or Genealogy SA where the inventory already names a living replacement.</li>
+<li>Leave a short note on the workshop inventory that this slice is done.</li>
+</ul>
+<h3>Out of scope</h3>
+<ul>
+<li>The rest of the dead / 403 / TLS / homepage-200 list (<a href="../BHG-004-useful-links-retarget/index.html">BHG-004</a>).</li>
+<li>Editorial delete-vs-keep for Cyndi’s List, RootsChat, shipping, etc.</li>
+</ul>
+<h2>Acceptance criteria</h2>
+<ul>
+<li class="check"><input type="checkbox" disabled checked> No <code>familyhistorysa.org</code> href remains on Preview Useful Links.</li>
+<li class="check"><input type="checkbox" disabled checked> Each of the six labels either has a non-casino destination (Wayback or Genealogy SA) or is removed with the inventory updated to say so.</li>
+<li class="check"><input type="checkbox" disabled checked> Live on Preview. Real not touched.</li>
+</ul>
+<h2>Stop and ask</h2>
+<p>None for pulling the casino hrefs. If a label should stay with no link at all, do that rather than invent a new directory.</p>
+<h2>Check on Preview</h2>
+<ul>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/index.html#links">Resources → Useful Links</a> — Genealogy through History: no live <code>familyhistorysa.org</code> hrefs.</li>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/index.html#genealogy">SA Marriages up to 1857</a> should go to Wayback (Leadbeater, Jul 2021), not the casino.</li>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/index.html#cemeteries">South Australian Cemeteries</a> → Genealogy SA database search.</li>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/index.html#shipping">Early shipping</a> → Passengers in History.</li>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/index.html#history">Timeline</a> → on-site <a href="https://preview1845-bhg.house-of-ur.com/town/timeline/index.html">town timeline</a>.</li>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/index.html#history">SA Land Selectors</a> → Wayback (Leadbeater, Jun 2018).</li>
+<li>“Family History and Genealogy in SA” should be gone (Genealogy SA is already under Family History Groups).</li>
+</ul>
+<h2>Completion notes</h2>
+<p>Applied 11 September 2026 on Preview (<code>bhgsite2026</code> <code>source/resources/index.html</code>). Real not touched.</p>
+<ul>
+<li>Dropped “Family History and Genealogy in SA” (Genealogy SA is already under Family History Groups).</li>
+<li>SA Marriages up to 1857 → Wayback Leadbeater Jul 2021.</li>
+<li>South Australian Cemeteries → Genealogy SA online-database-search.</li>
+<li>Early shipping → Passengers in History people-search.</li>
+<li>Timeline of 19th Century SA History → on-site town timeline.</li>
+<li>SA Land Selectors → Wayback Leadbeater Jun 2018.</li>
+</ul>
+<p>Inventory “What to do first” item 1 marked done. BHG-004 still covers the rest of the dead list.</p>
+    </article>
+  </div>
+
+  <footer class="foot">
+    <p>Burra History Group · House of Ur · working notes for <code>bhgsite2026</code></p>
+  </footer>
+</body>
+</html>

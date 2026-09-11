@@ -1,6 +1,7 @@
 """Build BHG Site Working HTML under source/."""
 from __future__ import annotations
 
+import html
 import sys
 from pathlib import Path
 
@@ -9,6 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from chrome import page, write  # noqa: E402
 from mdhtml import convert  # noqa: E402
+from tickets import board_main, load_tickets, now_tickets, rewrite_ticket_md, ticket_main  # noqa: E402
 
 DOCS = Path(r"C:\Users\emlyn\Documents\emlyn\docs\projects\bhg-site")
 
@@ -27,8 +29,13 @@ def md(path: Path, *, replacements: list[tuple[str, str]] | None = None) -> str:
 HOME_MAIN = """
   <div class="layout">
     <div>
-      <p class="lede">Discussions, decisions, and status for the public website rebuild. The history site itself is Preview / Real / burrasa.net.</p>
+      <p class="lede">Discussions, decisions, and status for the public website rebuild. The history site itself is Preview / Real / burrasa.net. Open work is on the <a href="board/index.html">todo list</a>.</p>
       <div class="feed">
+        <article class="card">
+          <p class="when">11 September 2026</p>
+          <h2><a href="board/index.html">Todo</a></h2>
+          <p>The 4 September actions (and the leftover 28 August cutover items) are on the todo list. Planning docs stay the source of truth; this site publishes the copy.</p>
+        </article>
         <article class="card">
           <p class="when">4 September 2026 · meeting</p>
           <h2><a href="meetings/2026-09-04/index.html">Publications, Useful Links, Jodie’s list</a></h2>
@@ -67,6 +74,12 @@ HOME_MAIN = """
       </div>
     </div>
     <aside class="rail">
+      <h2>Todo</h2>
+      <p class="when">Now</p>
+      <ol>
+        __NOW_TICKETS__
+      </ol>
+      <p><a href="board/index.html">Full list</a></p>
       <h2>Meetings</h2>
       <ol>
         <li>
@@ -83,6 +96,7 @@ HOME_MAIN = """
       <h2>Process</h2>
       <ul>
         <li><a href="process/index.html">How this workshop runs</a></li>
+        <li><a href="board/index.html">Todo</a></li>
         <li><a href="process/useful-links/index.html">Useful Links inventory</a></li>
         <li><a href="process/transcription/index.html">How we transcribe meetings</a></li>
         <li><a href="glossary/index.html">Glossary</a></li>
@@ -102,6 +116,7 @@ NEWS_INDEX = """
       <h1>News</h1>
       <p class="lede">Status and significant work on the public site rebuild, newest first. Meetings also appear here when they change the plan.</p>
       <ul>
+        <li><a href="../board/index.html">11 Sep 2026 — Todo</a></li>
         <li><a href="../meetings/2026-09-04/index.html">4 Sep 2026 — Publications, Useful Links, Jodie’s list</a></li>
         <li><a href="../process/useful-links/index.html">4 Sep 2026 — Useful Links inventory (replacements + Wayback)</a></li>
         <li><a href="../news/2026-09-04-preview-copy/index.html">4 Sep 2026 — Copy pass on Preview</a></li>
@@ -188,6 +203,7 @@ NEWS_THIS_SITE = """
       <ul>
         <li>News / status</li>
         <li>Meetings (notes + transcript)</li>
+        <li>Todo (open work, published from the planning docs)</li>
         <li>Process (including how we transcribe recordings)</li>
         <li>Glossary of names and site jargon</li>
       </ul>
@@ -255,8 +271,11 @@ PROCESS_INDEX = """
       </ul>
       <h2>Fridays</h2>
       <p>The 28 August meeting asked to keep coming in on Fridays, fix one page at a time on Preview, rather than writing giant comment lists. Emlyn still needs to show the change method and give permission to edit Preview.</p>
+      <h2>Todo</h2>
+      <p>Open work lives in the BHG planning docs and is published on this site: <a href="../board/index.html">Todo</a>. One item is one cohesive change. Preview vs Real still follows the usual rule — do not ship to Real unless the group has asked.</p>
       <h2>Documents</h2>
       <ul>
+        <li><a href="../board/index.html">Todo</a></li>
         <li><a href="../process/transcription/index.html">How we transcribe meetings</a></li>
         <li><a href="../process/useful-links/index.html">Useful Links inventory (replacements + Wayback)</a></li>
         <li><a href="../glossary/index.html">Glossary</a></li>
@@ -271,8 +290,47 @@ MEETING_FOOT = """
 """
 
 
+def write_board() -> list:
+    tickets = load_tickets()
+    write(
+        "board/index.html",
+        page(
+            title="Todo",
+            root="../",
+            extra_class="board-page",
+            main=board_main(tickets),
+            description="Todo list for the Burra History Group public website rebuild.",
+        ),
+    )
+    for ticket in tickets:
+        body_html = convert(rewrite_ticket_md(ticket.body_md, depth=2))
+        write(
+            f"board/{ticket.slug}/index.html",
+            page(
+                title=f"{ticket.id}: {ticket.title}",
+                root="../../",
+                main=ticket_main(ticket, body_html),
+            ),
+        )
+    return tickets
+
+
+def home_main(tickets: list) -> str:
+    items = []
+    for ticket in now_tickets(tickets):
+        items.append(
+            "<li>"
+            f'<a href="board/{html.escape(ticket.slug)}/index.html">{html.escape(ticket.id)}</a>'
+            f" — {html.escape(ticket.title)}"
+            "</li>"
+        )
+    now_html = "\n        ".join(items) or "<li>Nothing in Now.</li>"
+    return HOME_MAIN.replace("__NOW_TICKETS__", now_html)
+
+
 def main() -> None:
-    write("index.html", page(title="News", root="", main=HOME_MAIN, extra_class="home"))
+    tickets = write_board()
+    write("index.html", page(title="News", root="", main=home_main(tickets), extra_class="home"))
     write("news/index.html", page(title="News index", root="../", main=NEWS_INDEX))
     write(
         "news/2026-09-04-preview-copy/index.html",
@@ -346,6 +404,7 @@ def main() -> None:
             ("[transcription-methodology.md](../transcription-methodology.md)", "[transcription method](../../process/transcription/index.html)"),
             ("[stills-catalog.md](stills-catalog.md)", "the stills catalog (kept in the transcription workshop, not on this site)"),
             ("[glossary.md](../../glossary.md)", "[glossary](../../glossary/index.html)"),
+            ("[`tickets/`](../../tickets/README.md)", "[tickets](../../board/index.html)"),
         ],
     )
     cut_sep = notes_html_sep.find("<h2>Files in this folder</h2>")

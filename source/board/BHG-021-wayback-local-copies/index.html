@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BHG-021: Local copies of Wayback Useful Links — BHG Site Working</title>
+  <meta name="description" content="Working notes for the Burra History Group public website rebuild.">
+  <link rel="stylesheet" href="../../css/working.css">
+</head>
+<body>
+  <header class="mast">
+    <p class="mast__kicker"><a href="../../index.html">BHG Site Working</a></p>
+    <p class="mast__tag">Rebuild workshop — not the public history site</p>
+    <nav class="mast__nav" aria-label="Working site">
+      <a href="../../index.html">News</a>
+      <a href="../../meetings/index.html">Meetings</a>
+      <a href="../../board/index.html">Todo</a>
+      <a href="../../process/index.html">Process</a>
+      <a href="../../glossary/index.html">Glossary</a>
+    </nav>
+    <p class="mast__elsewhere">Public site:
+      <a href="https://preview1845-bhg.house-of-ur.com/">Preview</a> ·
+      <a href="https://real-bhg.house-of-ur.com/">Real</a> ·
+      <a href="https://burrasa.net">burrasa.net</a> (live until cutover)
+    </p>
+    <p class="mast__elsewhere">Prototypes:
+      <a href="https://emlynoregan.com/bitn/" target="_blank" rel="noopener">Burra in the News</a> ·
+      <a href="https://bda-dev.emlynoregan.com/" target="_blank" rel="noopener">Burra Digital Archive</a>
+    </p>
+  </header>
+  
+  <div class="layout layout--single">
+    <article class="paper prose ticket">
+      <p class="when"><a href="../index.html">Todo</a> · BHG-021</p>
+      <h1>Local copies of Wayback Useful Links</h1>
+      <dl class="ticket-meta"><div><dt>Status</dt><dd>Done</dd></div><div><dt>Column</dt><dd>Done</dd></div><div><dt>Who</dt><dd>Emlyn</dd></div><div><dt>Where</dt><dd>Preview</dd></div><div><dt>Size</dt><dd>small</dd></div><div><dt>Depends on</dt><dd>BHG-004</dd></div><div><dt>Check</dt><dd><a href="https://preview1845-bhg.house-of-ur.com/resources/index.html#links">Check on Preview</a></dd></div></dl>
+      <h2>Goal</h2>
+<p>Every Useful Links listing that currently goes to the Internet Archive also has a copy on this site, and the listing points at both.</p>
+<h2>Source</h2>
+<ul>
+<li>Follow-on from <a href="../BHG-004-useful-links-retarget/index.html">BHG-004</a>: those rows were Wayback-only. Emlyn asked (11 Sep) to keep a standalone on-site copy as well, with links to both the copy and the snapshot.</li>
+<li><a href="../../process/useful-links/index.html">Useful Links inventory</a> — eight Wayback listings: three West Briton letters, Leadbeater marriages, Fawcett 1838, Ships List, Arman megafauna PDF, Leadbeater land essay.</li>
+</ul>
+<h2>Scope</h2>
+<h3>In scope</h3>
+<ul>
+<li>One standalone page per Wayback listing under <code>resources/archives/</code>.</li>
+<li>Useful Links: primary href is our copy; a parenthetical Wayback href stays.</li>
+<li>Replace the two West Briton “2011 nearest” calendar URLs with real captures.</li>
+</ul>
+<h3>Out of scope</h3>
+<ul>
+<li>Nested Ships List ship pages (index only; ship names still go to Wayback).</li>
+<li>Recreating Leadbeater’s marriage search or land-selectors database (Wayback did not keep the JS/data).</li>
+<li>New directories that were never on Useful Links.</li>
+<li>Real.</li>
+</ul>
+<h2>Acceptance criteria</h2>
+<ul>
+<li class="check"><input type="checkbox" disabled checked> All eight Wayback listings on Useful Links have an on-site copy and a Wayback link.</li>
+<li class="check"><input type="checkbox" disabled checked> West Briton pages keep the Burra/Adelaide letter, not the whole Cornwall issue.</li>
+<li class="check"><input type="checkbox" disabled checked> Marriages page says the working search is Wayback (JS/data not in the snapshot).</li>
+<li class="check"><input type="checkbox" disabled checked> Live on Preview. Real not touched.</li>
+</ul>
+<h2>Stop and ask</h2>
+<p>None. Letter-vs-full-issue and the marriages JS limit are recorded here, not a group vote.</p>
+<h2>Check on Preview</h2>
+<ul>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/index.html#links">Useful Links</a> — each Wayback row has our copy + Wayback.</li>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/archives/west-briton-1850-emigration/">Trelow 1850</a> — full letter, including “Dear Brother and Sister” and the land purchase.</li>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/archives/west-briton-1853-news/">Boase 1853</a></li>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/archives/west-briton-1850-mining/">Mining 1850</a></li>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/archives/leadbeater-marriages/">Marriages</a> — points at Wayback for search.</li>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/archives/fawcett-1838/">Fawcett 1838</a> — surname table, not escaped tags.</li>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/archives/ships-list-1847-1886/">Ships List</a> — index on-site; ship names still Wayback.</li>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/archives/arman-megafauna/">Arman</a> — PDF on this site.</li>
+<li><a href="https://preview1845-bhg.house-of-ur.com/resources/archives/leadbeater-land/">Land</a> — essay, not the selectors database.</li>
+</ul>
+<h2>Completion notes</h2>
+<p>Applied 11 September 2026 on Preview. Real not touched.</p>
+<ul>
+<li>Copies live under <code>source/resources/archives/</code>. Arman PDF also at <code>source/documents/arman-burra-megafauna.pdf</code>.</li>
+<li>West Briton: whole-issue snapshots; BHG pages keep the Burra/Adelaide letter only. News snapshot is Aug 2007 (<code>20070825153617</code>); mining is Apr 2024 (<code>20240420202501</code>). The 2011 “nearest” calendar URLs were not real captures.</li>
+<li>Marriages: Wayback did not keep <code>marsearch.js</code> / the data file, so search only works on the snapshot. The on-site page says so.</li>
+<li>Ships List: index only. Relative ship hrefs rewritten to the Apr 2024 Wayback capture.</li>
+<li>Land: Leadbeater essay. The selectors <em>database</em> (<code>landselectors.html</code>) is not in this copy.</li>
+<li>Generator (not in the public repo): <code>wf-scratch/build_bhg_archives.py</code>, raw snapshots in <code>wf-scratch/wayback-raw/</code>.</li>
+</ul>
+    </article>
+  </div>
+
+  <footer class="foot">
+    <p>Burra History Group · House of Ur · working notes for <code>bhgsite2026</code></p>
+  </footer>
+</body>
+</html>

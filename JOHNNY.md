@@ -10,7 +10,7 @@ Spelling: *Johnny* (with a **y**).
 
 ## Your job
 
-Keep this workshop site current: news items, meeting notes, process pages. Git is the source of truth. House of Ur Sites publishes a Library folder.
+Keep this workshop site current: news items, meeting notes, process pages, and the published todo list. Git is the source of truth. Tickets are authored in `docs/projects/bhg-site/tickets/` and copied onto this site by `scripts/build.py`. On the site the list is labelled **Todo** (not Board). House of Ur Sites publishes a Library folder.
 
 You do **not** create the House Site yourself. Ask Bel if the Site or Library folder is missing.
 
@@ -38,7 +38,7 @@ Local Bel publish (this machine): `python scripts/publish_hou_site.py --build` u
 |------|--------|
 | Home news cards, new posts, meetings index | `scripts/build.py` (then run it) |
 | CSS | `source/css/working.css` |
-| Meeting notes / transcript / glossary / transcription method | Prefer updating the markdown in `docs/projects/bhg-site/` on Bel’s machine, then `python scripts/build.py` |
+| Meeting notes / transcript / glossary / transcription method / **tickets** | Prefer updating the markdown in `docs/projects/bhg-site/` on Bel’s machine, then `python scripts/build.py`. Todo HTML is generated from `tickets/` (URL `/board/`; label **Todo**). |
 | This playbook | `JOHNNY.md` |
 
 Never commit secrets, video, or stills.
