@@ -19,6 +19,7 @@ Browse `source/` locally, or the live Site. Ops: [JOHNNY.md](JOHNNY.md).
 - **News** — status and significant work, newest first. Meetings that change the plan also get a news card.
 - **Meetings rail** — compact dated list on the home page; full notes + transcript under `/meetings/`.
 - **Todo** — published copy of tickets in `docs/projects/bhg-site/tickets/` (that folder is the source of truth). Label on the site is Todo, not Board; the URL stays `/board/`.
+- **Articles** — proposed Features (article + research dump) before they go on Preview.
 - **Process / glossary** — how we transcribe, names and IA.
 
 Do not put video, wav chunks, API keys, or JPEG stills here. Those stay in the transcription workshop (`docs/projects/bhg-site/meetings/`).

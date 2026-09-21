@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BHG-022: Restore lost mine-timeline notes — BHG Site Working</title>
+  <meta name="description" content="Working notes for the Burra History Group public website rebuild.">
+  <link rel="stylesheet" href="../../css/working.css">
+</head>
+<body>
+  <header class="mast">
+    <p class="mast__kicker"><a href="../../index.html">BHG Site Working</a></p>
+    <p class="mast__tag">Rebuild workshop — not the public history site</p>
+    <nav class="mast__nav" aria-label="Working site">
+      <a href="../../index.html">News</a>
+      <a href="../../meetings/index.html">Meetings</a>
+      <a href="../../board/index.html">Todo</a>
+      <a href="../../articles/index.html">Articles</a>
+      <a href="../../process/index.html">Process</a>
+      <a href="../../glossary/index.html">Glossary</a>
+    </nav>
+    <p class="mast__elsewhere">Public site:
+      <a href="https://preview1845-bhg.house-of-ur.com/">Preview</a> ·
+      <a href="https://real-bhg.house-of-ur.com/">Real</a> ·
+      <a href="https://burrasa.net">burrasa.net</a> (live until cutover)
+    </p>
+    <p class="mast__elsewhere">Prototypes:
+      <a href="https://emlynoregan.com/bitn/" target="_blank" rel="noopener">Burra in the News</a> ·
+      <a href="https://bda-dev.emlynoregan.com/" target="_blank" rel="noopener">Burra Digital Archive</a>
+    </p>
+  </header>
+  
+  <div class="layout layout--single">
+    <article class="paper prose ticket">
+      <p class="when"><a href="../index.html">Todo</a> · BHG-022</p>
+      <h1>Restore lost mine-timeline notes</h1>
+      <dl class="ticket-meta"><div><dt>Status</dt><dd>Ready</dd></div><div><dt>Column</dt><dd>Now</dd></div><div><dt>Who</dt><dd>Emlyn</dd></div><div><dt>Where</dt><dd>Preview</dd></div><div><dt>Size</dt><dd>medium</dd></div><div><dt>Depends on</dt><dd>—</dd></div></dl>
+      <h2>Goal</h2>
+<p>The mine timeline on Preview again carries the full <code>[more]</code> expansions from the live cPanel site, starting with Thomas Pickett’s death. Cutover is parity: we should not go backwards from <code>burrasa.net</code>.</p>
+<h2>Source</h2>
+<ul>
+<li>Found 12 September 2026 while checking the Johnny Green “shepherd who found the ore” story against Preview. The 1851 entry still links <code>[more]</code> to <code>#pickett</code>, but the note is a one-liner. Legacy “Death of a Shepherd” is gone.</li>
+<li><a href="https://preview1845-bhg.house-of-ur.com/mine/timeline/index.html#pickett">Preview mine timeline</a> — “Thomas Pickett — shepherd credited with discovering the Burra Burra Mine; later worked as a timber carter for the smelter.”</li>
+<li><a href="https://burrasa.net/pages/minetimeline.html">Legacy mine timeline</a> — two paragraphs: paid £10 then another £10; died a pauper in November 1851 after falling into a fire at a deserted shepherd’s hut on Diprose Creek; unmarked grave in the old Kooringa Cemetery; “Remember Pickett.”</li>
+<li>The truncation is in the first static rebuild (<code>bhgsite2026</code> <code>83b606a</code>), not a later edit. Same Notes block also collapsed tributors, and the Gill 1850 caption still has a literal <code>horse whims[more]</code>.</li>
+<li>Cutover bar from <a href="../../meetings/2026-08-28/index.html">28 August</a> / working-site news: parity with <code>burrasa.net</code>, not a rewrite.</li>
+</ul>
+<h2>Scope</h2>
+<h3>In scope</h3>
+<ul>
+<li>Restore the Pickett expansion on <code>/mine/timeline/</code> from the legacy “Death of a Shepherd” text (keep <code>#pickett</code> so the 1851 <code>[more]</code> still works).</li>
+<li>Compare that page’s other <code>[more]</code> notes with legacy (<code>timber</code>, tributors / tut, first smelter, Gulf Road, shears, horse whims, launder, poppet-head, kibble, and any others still on <code>burrasa.net</code>) and restore what the rebuild dropped.</li>
+<li>Fix leftover literal <code>[more]</code> in captions (Gill 1850 at least).</li>
+<li>Live on Preview. Real not touched.</li>
+</ul>
+<h3>Out of scope</h3>
+<ul>
+<li>Rewriting Pickett from the 1851 inquest or Auhl (that can follow; this ticket is restore-what-we-had).</li>
+<li>Identifying Johnny Green with Pickett (<a href="../johnny-green.md">johnny-green.md</a>).</li>
+<li>Town / buildings timelines unless the same missing-note pattern is obvious while doing the mine page.</li>
+</ul>
+<h2>Acceptance criteria</h2>
+<ul>
+<li class="check"><input type="checkbox" disabled> Preview <code>#pickett</code> has the legacy death account (pauper; fire at a deserted hut; unmarked grave; “Remember Pickett”), not only the timber-carter line.</li>
+<li class="check"><input type="checkbox" disabled> Other mine-timeline <code>[more]</code> expansions that exist on <code>burrasa.net</code> are present on Preview, or the ticket notes a deliberate skip.</li>
+<li class="check"><input type="checkbox" disabled> No literal <code>[more]</code> left in the Gill caption.</li>
+<li class="check"><input type="checkbox" disabled> Live on Preview. Real not touched.</li>
+</ul>
+<h2>Stop and ask</h2>
+<p>None for restoring the legacy wording. If the 1851 inquest (Hallett’s Springs; body found by a boy; SAMA paid funeral expenses) should <em>replace</em> the Diprose Creek hut story rather than sit beside it, stop and ask Barbara before rewriting.</p>
+<h2>Check on Preview</h2>
+<p><em>(Fill in before marking Done. Direct links a human can open, plus what to look for.)</em></p>
+<h2>Completion notes</h2>
+<p><em>(Fill in before marking Done.)</em></p>
+    </article>
+  </div>
+
+  <footer class="foot">
+    <p>Burra History Group · House of Ur · working notes for <code>bhgsite2026</code></p>
+  </footer>
+</body>
+</html>

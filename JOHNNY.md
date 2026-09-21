@@ -36,7 +36,7 @@ Local Bel publish (this machine): `python scripts/publish_hou_site.py --build` u
 
 | Kind | Where |
 |------|--------|
-| Home news cards, new posts, meetings index | `scripts/build.py` (then run it) |
+| Home news cards, new posts, meetings index, **proposed articles** | `scripts/build.py` (then run it) |
 | CSS | `source/css/working.css` |
 | Meeting notes / transcript / glossary / transcription method / **tickets** | Prefer updating the markdown in `docs/projects/bhg-site/` on Bel’s machine, then `python scripts/build.py`. Todo HTML is generated from `tickets/` (URL `/board/`; label **Todo**). |
 | This playbook | `JOHNNY.md` |

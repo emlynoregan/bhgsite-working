@@ -7,6 +7,11 @@ import re
 
 def inline(text: str) -> str:
     text = html.escape(text)
+    text = re.sub(
+        r"!\[([^\]]*)\]\(([^)]+)\)",
+        r'<img src="\2" alt="\1">',
+        text,
+    )
     text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
     text = re.sub(
         r"\[([^\]]+)\]\(([^)]+)\)",
@@ -15,6 +20,11 @@ def inline(text: str) -> str:
     )
     text = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", text)
     text = re.sub(r"(?<!\*)\*([^*]+)\*(?!\*)", r"<em>\1</em>", text)
+    text = re.sub(
+        r"\[\^([^\]]+)\]",
+        r'<sup class="fnref" id="fnref-\1"><a href="#fn-\1">\1</a></sup>',
+        text,
+    )
     return text
 
 
@@ -71,11 +81,31 @@ def convert(md: str) -> str:
             i += 1
             continue
 
-        m = re.match(r"^(#{1,3}) (.+)$", line)
+        fn = re.match(r"^\[\^([^\]]+)\]:\s+(.*)$", line)
+        if fn:
+            close_ul()
+            out.append(
+                f'<p class="fn" id="fn-{html.escape(fn.group(1))}">'
+                f'<a href="#fnref-{html.escape(fn.group(1))}">^{html.escape(fn.group(1))}</a> '
+                f"{inline(fn.group(2))}</p>"
+            )
+            i += 1
+            continue
+
+        m = re.match(r"^(#{1,4}) (.+)$", line)
         if m:
             close_ul()
             level = len(m.group(1))
             out.append(f"<h{level}>{inline(m.group(2))}</h{level}>")
+            i += 1
+            continue
+
+        img = re.match(r"^!\[([^\]]*)\]\(([^)]+)\)\s*$", line)
+        if img:
+            close_ul()
+            alt = html.escape(img.group(1))
+            src = html.escape(img.group(2), quote=True)
+            out.append(f'<figure><img src="{src}" alt="{alt}"></figure>')
             i += 1
             continue
 
