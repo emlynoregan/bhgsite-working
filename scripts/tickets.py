@@ -16,6 +16,8 @@ TITLE_RE = re.compile(r"^# (BHG-\d+):\s*(.+)$")
 SLUG_RE = re.compile(r"^(BHG-(\d+)-[a-z0-9-]+)\.md$")
 
 DOC_HREFS = {
+    "../meetings/2026-09-21/meeting-notes.md": "meetings/2026-09-21/index.html",
+    "../meetings/2026-09-21/transcript.md": "meetings/2026-09-21/transcript.html",
     "../meetings/2026-09-04/meeting-notes.md": "meetings/2026-09-04/index.html",
     "../meetings/2026-09-04/transcript.md": "meetings/2026-09-04/transcript.html",
     "../meetings/2026-08-28/meeting-notes.md": "meetings/2026-08-28/index.html",

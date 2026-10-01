@@ -29,7 +29,8 @@
       <a href="https://bda-dev.emlynoregan.com/" target="_blank" rel="noopener">Burra Digital Archive</a>
     </p>
   </header>
-  <div class="layout layout--single"><article class="paper prose"><p>How to turn a BHG site walkthrough recording into notes, a transcript, stills, and glossary updates. First used on <a href="../../meetings/2026-08-28/index.html">28 August 2026</a>. Follow this for later meetings; don’t skip the stills pass — audio alone mishears names and can’t see “this page”.</p>
+  <div class="layout layout--single"><article class="paper prose"><h1>Meeting transcription methodology</h1>
+<p>How to turn a BHG site walkthrough recording into notes, a transcript, stills, and glossary updates. First used on <a href="../../meetings/2026-08-28/index.html">28 August 2026</a>. Follow this for later meetings; don’t skip the stills pass — audio alone mishears names and can’t see “this page”. <strong>Don’t publish until the <a href="#9-sensitive-and-internal-only-talk">sensitive-talk discussion</a> has happened.</strong></p>
 <p>Spellings live in <a href="../../glossary/index.html">glossary</a>. Extend that file as you correct; don’t invent a second glossary per meeting.</p>
 <hr>
 <h2>What you are producing</h2>
@@ -46,7 +47,7 @@
 <tr><td><code>stills-catalog.md</code></td><td>What each cluster of frames actually shows (and what the camera missed). Include phone stills here.</td></tr>
 <tr><td><code>extract_stills.py</code></td><td>Optional local copy; canonical script is &lt;code&gt;extract_stills.py&lt;/code&gt; in this folder. Multiple clips need a <code>clip</code> field in the JSON (see 4 Sep).</td></tr>
 </tbody></table>
-<p>Also: a row in the meetings index, and any new names/IA in the <strong>project glossary</strong>. After notes exist, rebuild <strong>BHG Site Working</strong> (<code>python scripts/build.py</code> in <code>bhgsite-working</code>) so the meeting is on the workshop site.</p>
+<p>Also: a row in the meetings index, and any new names/IA in the <strong>project glossary</strong>. After notes exist <strong>and the sensitive-talk discussion has happened</strong>, rebuild <strong>BHG Site Working</strong> (<code>python scripts/build.py</code> in <code>bhgsite-working</code>) so the meeting is on the workshop site.</p>
 <p>Do <strong>not</strong> put in git: the video, extracted wav/mp3 chunks, API keys, or (unless asked) the JPEG stills.</p>
 <hr>
 <h2>1. Recording</h2>
@@ -193,7 +194,33 @@
 </ul>
 <p>The notes remain the document you act on. The transcript stays the raw tape.</p>
 <hr>
-<h2>9. Glossary</h2>
+<h2>9. Sensitive and internal-only talk</h2>
+<p>The workshop site publishes notes and the transcript. That is a wider room than the people who were in Burra. After the notes and transcript exist, <strong>stop and discuss with Emlyn before publishing</strong> (rebuild of BHG Site Working, and any commit of those files). Do not skip this because the rest of the pipeline is green.</p>
+<p>What to look for (from the 4 September pass; extend the list when a later tape shows a new class):</p>
+<ul>
+<li>Gossip or speculation about <strong>people or groups currently in town</strong> who are not a website decision.</li>
+<li>Funder talk: amounts, rates, “equivalent of Eric,” casino/sponsorship colour, unpaid specialist work as a public page.</li>
+<li>Local politics, constitution/incorporation disputes, and named current-town sketches that were not asked to go on the site.</li>
+<li>Business cards and contact lines photographed with <strong>no spoken decision</strong> (the IREN card is the type).</li>
+<li><strong>21 Sep additions:</strong> a named volunteer used as a funding-pitch example; Indigenous interview / who may visit a site on private land; other companies’ quiet-money precedents; ten-year ask figures (same class as funder amounts).</li>
+</ul>
+<p>What to keep:</p>
+<ul>
+<li>Website decisions, walkthrough, and actions.</li>
+<li>Contributor names the group asked to record for People / methodology pages (Jodie’s list on 4 Sep).</li>
+<li>Who arrived, and ordinary meeting logistics.</li>
+</ul>
+<p>How to leave it out:</p>
+<ul>
+<li>Keep the <strong>full</strong> notes and transcript in <code>docs</code> (<code>meetings/YYYY-MM-DD/</code>).</li>
+<li>Put the working-site copy in <code>published/meeting-notes.md</code> and <code>published/transcript.md</code> in that same folder. Build prefers those files when they exist.</li>
+<li><strong>Notes (published):</strong> omit the span. Do not write that anything was redacted, withheld, or politically sensitive.</li>
+<li><strong>Transcript (published):</strong> stub the same spans with <code>[omitted]</code> if a cut would otherwise look like a gap in the clock; do not summarise what was omitted.</li>
+<li>Quiet tickets (BHG-017, BHG-018) are reminders for later, not news items and not extra Features.</li>
+</ul>
+<p>If unsure, leave it in the docs draft and ask. Fail closed: do not publish the meeting until that conversation has happened.</p>
+<hr>
+<h2>10. Glossary</h2>
 <p>After every meeting, add anything new to <a href="../../glossary/index.html">glossary</a>:</p>
 <ul>
 <li>People (attendees and names on pages)</li>
@@ -206,7 +233,7 @@
 <p>Prefer one row per term. Don’t duplicate the meeting notes. The glossary is for <strong>the next transcript</strong>, not a second set of minutes.</p>
 <p>Companion for Country names: the Ngadjuri language note in planning docs.</p>
 <hr>
-<h2>10. Index</h2>
+<h2>11. Index</h2>
 <p>Add a row to the meetings index. Link notes, stills catalog, glossary. Don’t link the video.</p>
 <hr>
 <h2>Order of work (checklist)</h2>
@@ -219,13 +246,15 @@
 <li><code>stills-catalog.md</code> (screen vs missed).</li>
 <li>Grep <code>bhgsite2026</code> HTML for names the stills or ASR are unsure about.</li>
 <li>Correct transcript; rewrite notes from catalog.</li>
-<li>Update glossary + meetings README.</li>
+<li>Update glossary + meetings README (workshop disk).</li>
+<li><strong>Stop.</strong> Discuss sensitive / internal-only spans with Emlyn. Write <code>published/</code> notes and transcript. Then publish to BHG Site Working and commit if asked.</li>
 <li>Leave video, temp audio, keys, and JPEGs out of the commit unless asked.</li>
 </ol>
 <hr>
 <h2>Worked examples</h2>
 <p><a href="../../meetings/2026-08-28/index.html">28 August 2026</a>: 73 minutes, 185 grabs. Useful stills confirmed Preview URLs, Inc./plaques, Resources tiles, VIC price list, Goyder cemetery link text, Weddings duplicates, and the CHERRY/KIDD / GURNEY/KNAGGS / HINCH duplicate-block bug. Maps opening, Features, and Mongolata were almost all off-camera — those sections in the notes stay audio-only (plus HTML for Creek Street).</p>
-<p><a href="../../meetings/2026-09-04/index.html">4 September 2026</a>: four clips (~32 minutes of tape, with gaps) and five phone stills. The camera almost never found the monitor; the books, the 2017 booklet table, and the IREN card are why the stills pass still matters. Clip A talked through Resources publications and the workshop Useful Links inventory anyway.</p></article></div>
+<p><a href="../../meetings/2026-09-04/index.html">4 September 2026</a>: four clips (~32 minutes of tape, with gaps) and five phone stills. The camera almost never found the monitor; the books, the 2017 booklet table, and the IREN card are why the stills pass still matters. Clip A talked through Resources publications and the workshop Useful Links inventory anyway.</p>
+<p><a href="../../meetings/2026-09-21/index.html">21 September 2026</a>: one 42-minute clip. Monitor for the first three minutes (BHG-005 ticket + Harvard Ask Barbara table); camera covered after that. Full tape in docs; working-site copy is <code>published/</code>.</p></article></div>
   <footer class="foot">
     <p>Burra History Group · House of Ur · working notes for <code>bhgsite2026</code></p>
   </footer>

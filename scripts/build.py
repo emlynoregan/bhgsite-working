@@ -21,14 +21,19 @@ def md(path: Path, *, replacements: list[tuple[str, str]] | None = None) -> str:
     text = path.read_text(encoding="utf-8")
     for a, b in replacements or []:
         text = text.replace(a, b)
-    # drop first H1; the page chrome already has a title
-    lines = text.splitlines()
-    if lines and lines[0].startswith("# "):
-        text = "\n".join(lines[1:]).lstrip()
     return convert(text)
 
 
+def meeting_md(date: str, filename: str) -> Path:
+    published = DOCS / "meetings" / date / "published" / filename
+    if published.is_file():
+        return published
+    return DOCS / "meetings" / date / filename
+
+
 def paper(title: str, root: str, body: str, extra_class: str = "") -> str:
+    if not re.search(r"<h1[\s>]", body, re.I):
+        body = f"<h1>{html.escape(title)}</h1>\n{body}"
     return page(
         title=title,
         root=root,
@@ -186,6 +191,11 @@ HOME_MAIN = """
       <p class="lede">Discussions, decisions, and status for the public website rebuild. The history site itself is Preview / Real / burrasa.net. Open work is on the <a href="board/index.html">todo list</a>.</p>
       <div class="feed">
         <article class="card">
+          <p class="when">21 September 2026 · meeting</p>
+          <h2><a href="meetings/2026-09-21/index.html">Harvard citations, booklets, School Days</a></h2>
+          <p>One Pixel clip. Barbara will mark the Ask Barbara clashes on paper. Booklet PDFs stay on this workshop site until council has seen them. Copper Trail and a schooling session are the next stories.</p>
+        </article>
+        <article class="card">
           <p class="when">21 September 2026</p>
           <h2><a href="news/2026-09-21-since-september/index.html">Since the 4 September meeting</a></h2>
           <p>Creek Street, Trees, and Johnny Green came off Preview onto this workshop site. Useful Links and the <em>School daze!</em> citation stay on Preview. Elizabeth Ward is a proposed article here. Real not touched.</p>
@@ -257,6 +267,11 @@ HOME_MAIN = """
       <h2>Meetings</h2>
       <ol>
         <li>
+          <span class="when">21 Sep 2026</span>
+          <a href="meetings/2026-09-21/index.html">Harvard citations, booklets, School Days</a>
+          — Barbara Piscitelli, Bob Perry
+        </li>
+        <li>
           <span class="when">4 Sep 2026</span>
           <a href="meetings/2026-09-04/index.html">Publications, Useful Links, Jodie’s list</a>
           — Barbara Piscitelli, Bob Perry
@@ -301,6 +316,7 @@ NEWS_INDEX = """
       <h1>News</h1>
       <p class="lede">Status and significant work on the public site rebuild, newest first. Meetings also appear here when they change the plan.</p>
       <ul>
+        <li><a href="../meetings/2026-09-21/index.html">21 Sep 2026 — Harvard citations, booklets, School Days</a></li>
         <li><a href="../news/2026-09-21-since-september/index.html">21 Sep 2026 — Since the 4 September meeting</a></li>
         <li><a href="../articles/elizabeth-ward/index.html">21 Sep 2026 — Proposed: Elizabeth Ward</a></li>
         <li><a href="../board/index.html">11 Sep 2026 — Todo</a></li>
@@ -423,6 +439,11 @@ MEETINGS_INDEX = """
       <h1>Meetings</h1>
       <p class="lede">Working sessions on the public site rebuild. Notes are the account we act on; transcripts are the tape.</p>
       <ul>
+        <li>
+          <a href="../meetings/2026-09-21/index.html">21 September 2026 — Harvard citations, booklets, School Days</a>
+          — Emlyn O’Regan, Barbara Piscitelli, Bob Perry
+          · <a href="../meetings/2026-09-21/transcript.html">transcript</a>
+        </li>
         <li>
           <a href="../meetings/2026-09-04/index.html">4 September 2026 — Publications, Useful Links, Jodie’s list</a>
           — Emlyn O’Regan, Barbara Piscitelli, Bob Perry
@@ -843,7 +864,7 @@ def main() -> None:
     write("meetings/index.html", page(title="Meetings", root="../", main=MEETINGS_INDEX))
     write("process/index.html", page(title="Process", root="../", main=PROCESS_INDEX))
 
-    notes_md = DOCS / "meetings/2026-08-28/meeting-notes.md"
+    notes_md = meeting_md("2026-08-28", "meeting-notes.md")
     notes_html = md(
         notes_md,
         replacements=[
@@ -872,7 +893,7 @@ def main() -> None:
     )
 
     tr_html = md(
-        DOCS / "meetings/2026-08-28/transcript.md",
+        meeting_md("2026-08-28", "transcript.md"),
         replacements=[
             ("[stills-catalog.md](stills-catalog.md)", "the stills catalog (workshop disk, not on this site)"),
             ("[meeting-notes.md](meeting-notes.md)", "[meeting notes](index.html)"),
@@ -890,7 +911,7 @@ def main() -> None:
     )
 
     notes_html_sep = md(
-        DOCS / "meetings/2026-09-04/meeting-notes.md",
+        meeting_md("2026-09-04", "meeting-notes.md"),
         replacements=[
             ("[transcript](transcript.md)", "[transcript](transcript.html)"),
             ("[transcription-methodology.md](../transcription-methodology.md)", "[transcription method](../../process/transcription/index.html)"),
@@ -913,7 +934,7 @@ def main() -> None:
     )
 
     tr_html_sep = md(
-        DOCS / "meetings/2026-09-04/transcript.md",
+        meeting_md("2026-09-04", "transcript.md"),
         replacements=[
             ("[stills-catalog.md](stills-catalog.md)", "the stills catalog (workshop disk, not on this site)"),
             ("[meeting-notes.md](meeting-notes.md)", "[meeting notes](index.html)"),
@@ -930,6 +951,47 @@ def main() -> None:
         ),
     )
 
+    notes_html_21 = md(
+        meeting_md("2026-09-21", "meeting-notes.md"),
+        replacements=[
+            ("[transcript](transcript.md)", "[transcript](transcript.html)"),
+            ("[transcription-methodology.md](../transcription-methodology.md)", "[transcription method](../../process/transcription/index.html)"),
+            ("[stills-catalog.md](stills-catalog.md)", "the stills catalog (kept in the transcription workshop, not on this site)"),
+            ("[glossary.md](../../glossary.md)", "[glossary](../../glossary/index.html)"),
+            ("[`bibliography.md`](../../bibliography.md)", "[Harvard citations](../../process/bibliography/index.html)"),
+        ],
+    )
+    cut_21 = notes_html_21.find("<h2>Files in this folder</h2>")
+    if cut_21 != -1:
+        notes_html_21 = notes_html_21[:cut_21]
+    notes_html_21 += MEETING_FOOT
+    write(
+        "meetings/2026-09-21/index.html",
+        page(
+            title="Harvard citations, booklets, School Days — 21 September 2026",
+            root="../../",
+            main=f'<div class="layout layout--single"><article class="paper prose">{notes_html_21}</article></div>',
+        ),
+    )
+
+    tr_html_21 = md(
+        meeting_md("2026-09-21", "transcript.md"),
+        replacements=[
+            ("[stills-catalog.md](stills-catalog.md)", "the stills catalog (workshop disk, not on this site)"),
+            ("[meeting-notes.md](meeting-notes.md)", "[meeting notes](index.html)"),
+            ("[glossary.md](../../glossary.md)", "[glossary](../../glossary/index.html)"),
+        ],
+    )
+    write(
+        "meetings/2026-09-21/transcript.html",
+        page(
+            title="Transcript — 21 September 2026",
+            root="../../",
+            extra_class="transcript-page",
+            main=f'<div class="layout layout--single"><article class="paper prose transcript">{tr_html_21}</article></div>',
+        ),
+    )
+
     method = md(
         DOCS / "meetings/transcription-methodology.md",
         replacements=[
@@ -938,6 +1000,7 @@ def main() -> None:
             ("[2026-08-28/](2026-08-28/)", "[2026-08-28](../../meetings/2026-08-28/index.html)"),
             ("[28 August 2026](2026-08-28/):", "[28 August 2026](../../meetings/2026-08-28/index.html):"),
             ("[4 September 2026](2026-09-04/):", "[4 September 2026](../../meetings/2026-09-04/index.html):"),
+            ("[21 September 2026](2026-09-21/):", "[21 September 2026](../../meetings/2026-09-21/index.html):"),
             ("[`extract_stills.py`](extract_stills.py)", "<code>extract_stills.py</code>"),
             ("OpenRouter key: House of Ur `city-of-ur/deploy/secrets_dev.json` → `openrouter_api_key`. **Never print it. Never commit it.**", "OpenRouter key from House of Ur deploy secrets. **Never print it. Never commit it.**"),
             ("[README.md](README.md)", "the meetings index"),
@@ -995,6 +1058,22 @@ def main() -> None:
         replacements=[
             ("[language-ngadjuri.md](language-ngadjuri.md)", "Ngadjuri language note (planning docs)"),
             ("[meetings/transcription-methodology.md](meetings/transcription-methodology.md)", "[how we transcribe](../process/transcription/index.html)"),
+            (
+                "Last pass: 21 September 2026 working session (Harvard clashes on screen; IREN pitch on tape) after 4 September.",
+                "Last pass: 21 September 2026 working session (Harvard clashes on screen) after 4 September.",
+            ),
+            (
+                "| **Christopher Gosling** | IREN Community Team; card photographed 4 Sep (Bundey Data Centre). 21 Sep: named as the first conversation for an IREN pitch. Not a site credit. |\n",
+                "| **Christopher Gosling** | IREN Community Team; card photographed 4 Sep (Bundey Data Centre). Not a site credit. |\n",
+            ),
+            (
+                "| **Raylene** | BHG volunteer; “huge amount of knowledge of the old databases.” Named 21 Sep as a training example. Not a site credit. |\n",
+                "",
+            ),
+            (
+                "| **IREN / Bundey Data Centre** | Community-team card on the 4 Sep desk (`iren.com`, `bundeydatacentre.com.au`). 21 Sep: spoken pitch (training / website / research; ten-year ask). Not a public page. Quiet ticket BHG-017. |",
+                "| **IREN / Bundey Data Centre** | Community-team card on the 4 Sep desk (`iren.com`, `bundeydatacentre.com.au`). Photographed; not a public page. Quiet ticket BHG-017. |",
+            ),
         ],
     )
     # prepend this-site row into hosts table after convert is messy; add a note instead
