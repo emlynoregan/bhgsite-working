@@ -152,6 +152,23 @@ CHICKEN_RESEARCH = """
       <p>Until the Folktrax tapes are compared with the film, do not claim the melody is Irish, and do not retitle the hub <em>Over the Garden Wall</em>.</p>
 """
 
+BURRA_BOYS_HUB = """
+      <p class="when">Proposed · 2 October 2026</p>
+      <h1>The Burra Boys</h1>
+      <p>A proposed Feature about Rob Zacher and Don Griffen, their historical songs, and the making and 1983 launch of <em>The Burra Boys</em>. Same split as Ward and Johnny Green: one article, and a research dump the article can cite. Not on Preview yet. Real is not in play.</p>
+      <ul>
+        <li><a href="article/index.html"><em>Singing Burra Back to Itself</em></a> — the readable article: performances and competitions, the record and its songs, Paxton Square launch, folk-label context, preservation and rights.</li>
+        <li><a href="research/index.html">Research dump</a> — artefact inventory, track-level evidence, contemporary chronology, external sources, uncertainties. Plus a <a href="research/sources/index.html">source-photograph inventory</a> without the images themselves.</li>
+      </ul>
+      <h2>Before Preview</h2>
+      <ul>
+        <li>Listen to the physical record and verify titles, names, lyrics and side order against the disc labels.</li>
+        <li>Make archival scans of the sleeve, labels and complete lyric sheets.</li>
+        <li>Confirm illustration permissions. Description does not clear complete lyrics, audio, sleeve photography or artwork for republication.</li>
+      </ul>
+      <p>Working lyric transcriptions stay in the planning repository. Planning notes: <a href="../index.html">Proposed articles</a>.</p>
+"""
+
 YOUTUBE_GLORY_GUYS = """
 <figure class="embed embed--youtube">
   <div class="embed__frame">
@@ -190,6 +207,11 @@ HOME_MAIN = """
     <div>
       <p class="lede">Discussions, decisions, and status for the public website rebuild. The history site itself is Preview / Real / burrasa.net. Open work is on the <a href="board/index.html">todo list</a>.</p>
       <div class="feed">
+        <article class="card">
+          <p class="when">2 October 2026</p>
+          <h2><a href="articles/burra-boys/index.html">Proposed: The Burra Boys</a></h2>
+          <p>Rob Zacher and Don Griffen’s 1983 LP as a proposed Feature: the article <em>Singing Burra Back to Itself</em>, plus a research dump. Not on Preview. Complete lyrics, audio and sleeve photographs stay off this site.</p>
+        </article>
         <article class="card">
           <p class="when">21 September 2026 · meeting</p>
           <h2><a href="meetings/2026-09-21/index.html">Harvard citations, booklets, School Days</a></h2>
@@ -316,6 +338,7 @@ NEWS_INDEX = """
       <h1>News</h1>
       <p class="lede">Status and significant work on the public site rebuild, newest first. Meetings also appear here when they change the plan.</p>
       <ul>
+        <li><a href="../articles/burra-boys/index.html">2 Oct 2026 — Proposed: The Burra Boys</a></li>
         <li><a href="../meetings/2026-09-21/index.html">21 Sep 2026 — Harvard citations, booklets, School Days</a></li>
         <li><a href="../news/2026-09-21-since-september/index.html">21 Sep 2026 — Since the 4 September meeting</a></li>
         <li><a href="../articles/elizabeth-ward/index.html">21 Sep 2026 — Proposed: Elizabeth Ward</a></li>
@@ -506,6 +529,18 @@ def write_articles() -> None:
         DOCS / "proposed-articles.md",
         replacements=[
             (
+                "https://working-bhg.house-of-ur.com/articles/burra-boys/article/",
+                "burra-boys/article/index.html",
+            ),
+            (
+                "https://working-bhg.house-of-ur.com/articles/burra-boys/research/",
+                "burra-boys/research/index.html",
+            ),
+            (
+                "https://working-bhg.house-of-ur.com/articles/burra-boys/",
+                "burra-boys/index.html",
+            ),
+            (
                 "https://working-bhg.house-of-ur.com/articles/elizabeth-ward/article/",
                 "elizabeth-ward/article/index.html",
             ),
@@ -612,6 +647,18 @@ def write_articles() -> None:
             (
                 "[`johnny-green.md`](johnny-green.md)",
                 "the Johnny Green treatise in the planning docs",
+            ),
+            (
+                "[`burra-boys-article.md`](burra-boys-article.md)",
+                "[planning draft](burra-boys/article/index.html)",
+            ),
+            (
+                "[`burra-boys.md`](burra-boys.md)",
+                "[research dump](burra-boys/research/index.html)",
+            ),
+            (
+                "[`burra-boys-sources/README.md`](burra-boys-sources/README.md)",
+                "[source inventory](burra-boys/research/sources/index.html)",
             ),
         ],
     )
@@ -786,6 +833,98 @@ def write_articles() -> None:
             f"articles/chicken-song/research/{slug}/index.html",
             paper(title, "../../../../", dump_html),
         )
+
+    burra_boys_html = md(DOCS / "burra-boys-article.md")
+    write(
+        "articles/burra-boys/index.html",
+        paper("The Burra Boys", "../../", BURRA_BOYS_HUB),
+    )
+    write(
+        "articles/burra-boys/article/index.html",
+        paper("Singing Burra Back to Itself", "../../../", burra_boys_html),
+    )
+    burra_dump_html = md(
+        DOCS / "burra-boys.md",
+        replacements=[
+            (
+                "[Working lyric transcriptions of all twelve songs](burra-boys-lyrics.md)",
+                "working lyric transcriptions of all twelve songs (planning repository only; not published here)",
+            ),
+            (
+                "[A Treatise on Johnny Green](johnny-green.md)",
+                "[Johnny Green](../../johnny-green/article/index.html)",
+            ),
+            (
+                "[Elizabeth A. Ward](listener-in-hill-street.md)",
+                "[Elizabeth A. Ward](../../elizabeth-ward/article/index.html)",
+            ),
+            (
+                "[BHG site article inventory](proposed-articles.md)",
+                "[BHG site article inventory](../../index.html)",
+            ),
+            (
+                "[the source-photo directory](burra-boys-sources/README.md)",
+                "[the source-photo inventory](sources/index.html)",
+            ),
+            (
+                "[Johnny Green](johnny-green.md)",
+                "[Johnny Green](../../johnny-green/article/index.html)",
+            ),
+            (
+                "[the Johnny Green treatise](johnny-green.md)",
+                "[the Johnny Green article](../../johnny-green/article/index.html)",
+            ),
+            (
+                "[companion transcript](burra-boys-lyrics.md)",
+                "companion transcript (planning repository only; not published here)",
+            ),
+            (
+                "[burra-boys-sources/](burra-boys-sources/README.md)",
+                "[source-photo inventory](sources/index.html)",
+            ),
+            (
+                "[Johnny Green research dossier](johnny-green.md)",
+                "[Johnny Green article](../../johnny-green/article/index.html)",
+            ),
+            (
+                "https://working-bhg.house-of-ur.com/articles/johnny-green/article/",
+                "../../johnny-green/article/index.html",
+            ),
+            (
+                "https://working-bhg.house-of-ur.com/articles/creek-street/",
+                "../../creek-street/index.html",
+            ),
+            (
+                "https://working-bhg.house-of-ur.com/articles/elizabeth-ward/article/",
+                "../../elizabeth-ward/article/index.html",
+            ),
+            (
+                "https://working-bhg.house-of-ur.com/articles/chicken-song/article/",
+                "../../chicken-song/article/index.html",
+            ),
+        ],
+    )
+    write(
+        "articles/burra-boys/research/index.html",
+        paper("The Burra Boys — sources", "../../../", burra_dump_html),
+    )
+    sources_html = md(
+        DOCS / "burra-boys-sources" / "README.md",
+        replacements=[
+            (
+                "[the background dossier](../burra-boys.md)",
+                "[the background dossier](../index.html)",
+            ),
+            (
+                "[working lyric transcriptions](../burra-boys-lyrics.md)",
+                "working lyric transcriptions (planning repository only; not published here)",
+            ),
+        ],
+    )
+    write(
+        "articles/burra-boys/research/sources/index.html",
+        paper("The Burra Boys — source photograph inventory", "../../../../", sources_html),
+    )
 
     write(
         "articles/johnny-green/index.html",
