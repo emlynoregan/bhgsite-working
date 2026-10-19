@@ -5,6 +5,8 @@ import json
 import sys
 from pathlib import Path
 from urllib.parse import urlsplit,unquote
+sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
+from booklets.release import ready as publication_ready
 
 try:
     from bs4 import BeautifulSoup
@@ -25,6 +27,7 @@ def check():
     content=BeautifulSoup(index.read_text(encoding="utf8"),"html.parser")
     entries=content.select(".booklet-index > .booklet-item")
     assert len(entries)==39,len(entries)
+    is_public, release_reason = publication_ready()
     all_pages=[index]
     for b in catalog:
         n=b["catalog_number"]
@@ -35,8 +38,12 @@ def check():
         assert page.select_one("h1").get_text(strip=True)==b["title"]
         assert desc[n]["body"] in page.get_text(" ",strip=True)
         assert len(page.select(".booklet-formats"))==(b["status"]=="recovered")
-        assert len(page.select("a[href$='.pub']"))==0 and len(page.select("a[href$='.pdf']"))==0
-        assert not page.select('a[href*="/read/index.html"]')
+        if is_public and b["status"]=="recovered":
+            assert len(page.select('a[href="downloads/original.pub"][download]'))==1
+            assert len(page.select('a[href="downloads/booklet.pdf"][download]'))==1
+            assert len(page.select('a[href="read/index.html"]'))==1
+        else:
+            assert not page.select('a[href$=".pub"],a[href$=".pdf"],a[href="read/index.html"]')
         if b["status"]=="missing":
             assert "Source not yet located" in page.get_text()
         if b["listed_pages"]!=b["publisher_pages"] and b["status"]=="recovered":
@@ -49,6 +56,12 @@ def check():
             p=urlsplit(url)
             if p.scheme or p.netloc or not p.path or p.path.startswith("/") or p.path.startswith("mailto:"):
                 continue
+            # Large reader and binary objects live in the House Library, not site source/.
+            if is_public and (
+                (p.path.startswith("downloads/") or p.path.startswith("read/"))
+                and source.parent.name!="booklets"
+            ):
+                continue
             dest=(source.parent/unquote(p.path.replace("\\","/"))).resolve()
             assert dest.is_relative_to(SOURCE.resolve()),(source,url)
             assert dest.is_file(),(source,url,dest)
@@ -58,8 +71,8 @@ def check():
     assert main.select_one('a[href="booklets/index.html"]')
     assert all(BeautifulSoup(x.read_text(encoding="utf8"),"html.parser").select_one('a[href$="booklets/index.html"]')
                for x in [SOURCE/"index.html",SOURCE/"articles"/"index.html",SOURCE/"board"/"index.html"])
-    print("PASS BHG-026: 39 detail pages, 39 catalogue links, 39 descriptions,"
-          " all internal links resolve, site navigation present, no PDF/.pub staged or linked.")
+    print("PASS BHG-026: 39 detail pages, catalogue links and descriptions, working navigation,"
+          f" public links {'enabled after verified release' if is_public else 'held'}, no binaries copied into source/.")
 
 if __name__=="__main__":
     check()

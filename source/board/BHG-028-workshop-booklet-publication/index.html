@@ -35,7 +35,7 @@
     <article class="paper prose ticket">
       <p class="when"><a href="../index.html">Todo</a> · BHG-028</p>
       <h1>Publish booklet collection to the BHG Working site</h1>
-      <dl class="ticket-meta"><div><dt>Status</dt><dd>In progress — technical staging done, release held</dd></div><div><dt>Column</dt><dd>Now</dd></div><div><dt>Who</dt><dd>Emlyn / BHG</dd></div><div><dt>Where</dt><dd>Working site</dd></div><div><dt>Size</dt><dd>large</dd></div><div><dt>Depends on</dt><dd>BHG-026, BHG-027 for technical staging; BHG-029 and explicit BHG agreement before enabling public downloads</dd></div></dl>
+      <dl class="ticket-meta"><div><dt>Status</dt><dd>Done — Working-only publication verified 19 October 2026</dd></div><div><dt>Column</dt><dd>Done</dd></div><div><dt>Who</dt><dd>Emlyn / BHG</dd></div><div><dt>Where</dt><dd>Working site</dd></div><div><dt>Size</dt><dd>large</dd></div><div><dt>Depends on</dt><dd>BHG-026, BHG-027 and Working-only user publication approval (recorded 19 Oct). BHG-029 remains an editorial-improvement track, required before any later Preview/Real promotion.</dd></div></dl>
       <h2>Goal</h2>
 <p>Make the Booklets catalogue, detail pages, responsive readers and original PDF/Publisher downloads reachable on the working site while preserving BHG&#x27;s staged publication/review arrangement.</p>
 <h2>Source</h2>
@@ -50,7 +50,7 @@
 <li>Manifest-based, resumable uploads of large non-Git assets, preferably separate from routine page deploys; test no accidental pruning.</li>
 <li>Deliver the 39-page catalogue/detail set and 38 readers to <code>working-bhg.house-of-ur.com/booklets/</code>.</li>
 <li>Wire and verify 38 PDF/Publisher binary downloads, including direct URL, content type, downloaded bytes/hash and mobile usability.</li>
-<li>Implement uploader/staging independently, but obtain BHG-029 per-title editorial/rights decisions and Council/Visitor Centre timing before activating any publicly reachable reader or original-file link.</li>
+<li>User expressly approved Working-only publication on 19 Oct 2026; record full-scope approval and preserve visibly draft editorial caveats. BHG-029 and Council/Visitor Centre consultation remain required before later Preview/Real promotion.</li>
 </ul>
 <h2>Out of scope</h2>
 <ul>
@@ -59,18 +59,18 @@
 </ul>
 <h2>Acceptance criteria</h2>
 <ul>
-<li class="check"><input type="checkbox" disabled> Working-site Booklets menu/catalogue and 39 pages accessible, with 38 readable HTML editions.</li>
-<li class="check"><input type="checkbox" disabled> All approved download links succeed with correct file name, headers and checksum; no missing assets.</li>
-<li class="check"><input type="checkbox" disabled> Resumable independent uploader and local journal implemented/tested; real House API transfer, quota/max-file check and deploy non-pruning proof are still awaiting authorisation.</li>
-<li class="check"><input type="checkbox" disabled> Publication approvals default to false and are enforced per booklet/format; BHG-029 sign-off and BHG/Council decisions are still outstanding.</li>
-<li class="check"><input type="checkbox" disabled> Working-site smoke tests, navigation and rollback procedure documented.</li>
+<li class="check"><input type="checkbox" disabled checked> Working-site Booklets menu/catalogue and all 39 pages live, with 38 responsive HTML editions. Live GET tested.</li>
+<li class="check"><input type="checkbox" disabled checked> All 76 PDF/Publisher download URLs live with expected MIME types/sizes; the 800 associated Library objects received full SHA-256 readback verification. Same-origin download attributes supply filenames; House sends no Content-Disposition header.</li>
+<li class="check"><input type="checkbox" disabled checked> Resumable bounded-memory uploader and live transfer completed: 800 assets (1,172,003,794 bytes) verified, including large Publisher files; subsequent normal site deployment preserved Library URLs.</li>
+<li class="check"><input type="checkbox" disabled checked> Explicit BHG site-owner approval for Working only recorded per booklet/format on Dev, pinned to manifest; editorial review remains pending but visibly labelled. No Preview/Real approval.</li>
+<li class="check"><input type="checkbox" disabled checked> Working-site smoke tests, navigation and rollback procedure documented.</li>
 </ul>
 <h2>Stop and ask</h2>
-<p>Working site is <strong>publicly addressable</strong> even though it serves as a workshop. Confirm BHG/Bel&#x27;s intended exposure of .pub and PDF files and the Council/Visitor Centre timing before enabling public downloads. Do not deploy to Preview or Real.</p>
-<h2>Progress — 19 October 2026</h2>
+<p><strong>Resolved for Working only, 19 October 2026:</strong> user explicitly authorised publication of booklets including large Publisher and PDF files to the Working site. Do not deploy to Preview or Real; Council/Visitor Centre consultation remains a separate promotion decision.</p>
+<h2>Completion notes — 19 October 2026</h2>
 <p>The <strong>local technical staging</strong> is implemented. <a href="../booklet-delivery-staging-report.md">Detailed staging report</a>. A source SHA-256 verified manifest covers <strong>800 files / 1,172,003,794 bytes</strong> (38 PDFs, 38 Publisher originals, 724 responsive reader files) outside Git, under <code>D:\bhg-booklet-recovery-20261019\booklet-release\</code>. All 38 titles have deterministic target paths under the Working Library only; internal JSON/legacy exports are excluded.</p>
-<p>New <code>bhgsite-working/scripts/booklets/assets.py</code>, <code>delivery.py</code>, and <code>test_delivery.py</code> provide a read-only offline plan, explicit per-title/per-format decision gate (all currently <em>unapproved</em>), 1 MiB streamed transfers, full downloaded-byte/hash/type verification, atomic resume journal and exclusive writer lock. A local loopback upload test passed; an intentional real <code>--execute --confirm-publication</code> attempt correctly refused before API write/auth, because publication is not authorised. Read-only House API listing confirmed the BHG Working Site mapping.</p>
-<p><strong>Not yet Done.</strong> No files or reader links have been released; the normal page-publisher fail-closed hold remains. Actual House upload limit and ~141 MB Publisher support, real HTTP content-disposition, idempotence across regular deploys, CDN readback, BHG-029 editorial sign-off and final staged publication are unverified or awaiting approval. Do not claim the booklet collection is publicly readable yet.</p>
+<p>New <code>bhgsite-working/scripts/booklets/assets.py</code>, <code>delivery.py</code>, and <code>test_delivery.py</code> provide a read-only offline plan, explicit per-title/per-format decision gate (initially unapproved, then explicitly enabled for Working only), 1 MiB streamed transfers, full downloaded-byte/hash/type verification, atomic resume journal and exclusive writer lock. A local loopback upload test passed; an intentional real <code>--execute --confirm-publication</code> attempt correctly refused before API write/auth, because publication had not yet been authorised. Read-only House API listing confirmed the BHG Working Site mapping.</p>
+<p><strong>Done for Working only:</strong> All 800 assets transferred and verified by public SHA-256 readback. The Working site catalogue and 39 detail pages were deployed, with 38 responsive readers and 76 original-file links. The independent live smoke test passed <strong>153/153 URLs</strong>, including all 38 Publisher originals (some over 100 MB). The Site deployment requested a cache invalidation. A damaged receipt journal was preserved and <strong>655 complete verified receipts</strong> recovered into <code>upload-journal-recovered.json</code>; the uploader safely resumed and verified the remaining <strong>145</strong> objects. BHG-029 remains an editorial-quality follow-up; no Preview or Real deployment.</p>
     </article>
   </div>
 

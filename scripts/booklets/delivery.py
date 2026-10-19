@@ -18,6 +18,7 @@ from contextlib import contextmanager
 import time
 import urllib.error
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 from assets import WORKSPACE, PREFIX, digest, safe_file, validate
@@ -30,7 +31,7 @@ from publish_hou_site import (
 RELEASE_DIR = WORKSPACE / "booklet-release"
 MANIFEST_PATH = RELEASE_DIR / "asset-manifest.json"
 APPROVALS_PATH = RELEASE_DIR / "publication-decisions.json"
-JOURNAL_PATH = RELEASE_DIR / "upload-journal.json"
+JOURNAL_PATH = RELEASE_DIR / "upload-journal-recovered.json"
 SITE_BASE = "https://working-bhg.house-of-ur.com"
 FORMAT_NAMES = {"reader", "pdf", "publisher"}
 BUFFER_SIZE = 1024 * 1024
@@ -228,7 +229,7 @@ def plan(manifest: dict, selected: list[dict], journal: dict) -> dict:
 
 
 def execute(manifest: dict, selected: list[dict], journal: dict,
-            decisions: dict, *, confirm_publication: bool) -> None:
+            decisions: dict, *, confirm_publication: bool, workers: int = 6) -> None:
     # Block *all* writes before even acquiring credentials or creating Library folders.
     authorise(decisions, selected, explicit=confirm_publication)
     cfg = load_hou_config()
@@ -237,32 +238,65 @@ def execute(manifest: dict, selected: list[dict], journal: dict,
     if not cfg["api_key"]:
         raise RuntimeError("No BHG House API key")
     token = exchange_token(cfg["api_base"], cfg["api_key"])
-    ensure_folders(cfg["api_base"], token, cfg["house_id"], selected)
-    for index, asset in enumerate(selected, 1):
+    pending = [a for a in selected if not receipt_matches(a, journal)]
+    if not pending:
+        print(f"ALL VERIFIED: {len(selected)} matching receipts; no uploads", flush=True)
+        return
+    if workers < 1 or workers > 8:
+        raise ValueError("workers must be between 1 and 8")
+    ensure_folders(cfg["api_base"], token, cfg["house_id"], pending)
+
+    def transfer(asset: dict) -> tuple[dict, dict]:
         local = safe_file(WORKSPACE, asset["local_relative"])
         if digest(local) != asset["sha256"]:
             raise RuntimeError(f"Local file has changed: {asset['local_relative']}")
-        if receipt_matches(asset, journal):
-            print(f"SKIP VERIFIED {index}/{len(selected)} {asset['library_path']}", flush=True)
-            continue
-        result = api_json(
-            cfg["api_base"], token, "POST",
-            f"/api/houses/{cfg['house_id']}/library/upload",
-            {"path": asset["library_path"], "content_type": asset["content_type"]},
-        )
-        presigned = result.get("upload_url")
-        if not presigned:
-            raise RuntimeError("Library API did not return an upload_url")
-        upload_stream(presigned, asset, local)
-        # A partial failure isn't marked complete. Subsequent invocation safely retries.
-        checked = verify_public_url(asset)
-        journal["verified"][asset["library_path"]] = {
-            "sha256": asset["sha256"], "size": checked["size"],
-            "content_type": checked["content_type"], "public_bytes_verified": True,
-            "verified_at_epoch": round(time.time()),
-        }
-        atomic_json(JOURNAL_PATH, journal)
-        print(f"VERIFIED {index}/{len(selected)} {asset['library_path']}", flush=True)
+        error: Exception | None = None
+        for attempt in range(1, 4):
+            try:
+                result = api_json(
+                    cfg["api_base"], token, "POST",
+                    f"/api/houses/{cfg['house_id']}/library/upload",
+                    {"path": asset["library_path"], "content_type": asset["content_type"]},
+                )
+                presigned = result.get("upload_url")
+                if not presigned:
+                    raise RuntimeError("Library API did not return an upload_url")
+                upload_stream(presigned, asset, local)
+                for readback_attempt in range(1, 5):
+                    try:
+                        checked = verify_public_url(asset)
+                        return asset, checked
+                    except (RuntimeError, urllib.error.URLError, TimeoutError):
+                        if readback_attempt == 4:
+                            raise
+                        time.sleep(readback_attempt * 2)
+            except (RuntimeError, urllib.error.URLError, TimeoutError, ConnectionError) as exc:
+                error = exc
+                if attempt < 3:
+                    time.sleep(2 * attempt)
+        raise RuntimeError(f"Three failed transfer attempts for {asset['library_path']}: {error}")
+
+    print(f"TRANSFERRING {len(pending)} files / {sum(a['size'] for a in pending):,} bytes; {workers} workers", flush=True)
+    failures: list[str] = []
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        future_to_asset = {pool.submit(transfer, asset): asset for asset in pending}
+        for i, future in enumerate(as_completed(future_to_asset), 1):
+            asset = future_to_asset[future]
+            try:
+                _, checked = future.result()
+                journal["verified"][asset["library_path"]] = {
+                    "sha256": asset["sha256"], "size": checked["size"],
+                    "content_type": checked["content_type"], "public_bytes_verified": True,
+                    "verified_at_epoch": round(time.time()),
+                }
+                atomic_json(JOURNAL_PATH, journal)
+                print(f"VERIFIED {i}/{len(pending)} {asset['library_path']}", flush=True)
+            except Exception as exc:
+                failures.append(asset["library_path"])
+                print(f"FAILED {i}/{len(pending)} {asset['library_path']}: {exc}", flush=True)
+    if failures:
+        raise RuntimeError(f"{len(failures)} assets failed verification; journal safely retains completed items for retry")
+    print(f"COMPLETE {len(pending)} newly verified, {len(selected)} selected", flush=True)
 
 
 def main() -> int:
@@ -272,6 +306,7 @@ def main() -> int:
     parser.add_argument("--kinds", choices=sorted(FORMAT_NAMES), nargs="+", required=True)
     parser.add_argument("--execute", action="store_true", help="Public upload, only after explicit rights approval")
     parser.add_argument("--confirm-publication", action="store_true", help="Confirm these files will be public")
+    parser.add_argument("--workers", type=int, default=6, help="Bounded concurrent file transfers (1-8)")
     args = parser.parse_args()
     manifest = json.loads(args.manifest.read_text(encoding="utf-8"))
     validate(manifest, WORKSPACE, verify_bytes=False)
@@ -282,7 +317,7 @@ def main() -> int:
             journal = load_journal(JOURNAL_PATH, manifest)
             result = plan(manifest, selected, journal)
             print(json.dumps(result, indent=2), flush=True)
-            execute(manifest, selected, journal, decisions, confirm_publication=args.confirm_publication)
+            execute(manifest, selected, journal, decisions, confirm_publication=args.confirm_publication, workers=args.workers)
     else:
         journal = load_journal(JOURNAL_PATH, manifest)
         print(json.dumps(plan(manifest, selected, journal), indent=2), flush=True)

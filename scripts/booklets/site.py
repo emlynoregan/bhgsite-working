@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 
 from chrome import page, write
+from booklets.release import ready as publication_ready
 
 DOCS = Path(r"C:\Users\emlyn\Documents\emlyn\docs\projects\bhg-site")
 SOURCE = Path(__file__).resolve().parents[2] / "source"
@@ -63,13 +64,26 @@ def edition_note(b):
     return (f"The identified Publisher source has {b['publisher_pages']} pages; "
             "it matches the page count recorded in the 2017 catalogue.")
 
-def planned_links(b):
+def planned_links(b, *, public: bool):
     if b["status"]=="missing":
         return '<p class="booklet-note">No reading or download files are currently available for this title.</p>'
     # These URLs are held in the *code's route convention*, but BHG-028 must
     # actually upload files, confirm permission, and enable links only then.
     sizepub=file_mb(b["source_bytes"])
     sizepdf=file_mb(b["pdf_bytes"])
+    if public:
+        return f"""<section class="booklet-formats" aria-label="Available booklet formats">
+          <h2>Read and download</h2>
+          <ul>
+            <li><a href="read/index.html">Read online — responsive HTML edition</a>
+               <span class="booklet-muted">Adapted from Publisher; some image-based pages and captions still need editorial review</span></li>
+            <li><a href="downloads/booklet.pdf" download="{esc(b['site_slug'])}.pdf">Download PDF — original print layout ({esc(sizepdf)})</a></li>
+            <li><a href="downloads/original.pub" download="{esc(b['site_slug'])}.pub">Download Microsoft Publisher original ({esc(sizepub)})</a></li>
+          </ul>
+          <p class="booklet-note">This collection is published for the Burra History Group's Working site.
+          Descriptions and responsive adaptations remain subject to editorial review.
+          Consult the PDF for the original printed layout.</p>
+        </section>"""
     return f"""<section class="booklet-formats" aria-label="Booklet formats">
       <h2>Formats being prepared</h2>
       <ul>
@@ -81,7 +95,7 @@ def planned_links(b):
       links will only become active after the permissions and deployment checks in BHG-028.</p>
     </section>"""
 
-def detail(b):
+def detail(b, *, public: bool):
     n=b["catalog_number"];title=esc(b["title"]);slug=b["slug"]
     item_status=status(b)
     src=esc(b["draft"]["body"])
@@ -102,7 +116,7 @@ def detail(b):
        {row}
        <h2>About this copy</h2>
        <p>{esc(edition_note(b))}</p>
-       {planned_links(b)}
+       {planned_links(b,public=public)}
        <p class="booklet-small">Provenance, source hashes and file locations are recorded in the internal
        BHG booklet inventory. <a href="../../board/BHG-026-booklets-section/index.html">Catalogue work ticket</a>.</p>
        <p><a href="../index.html">← Back to all 39 booklets</a></p>
@@ -110,7 +124,7 @@ def detail(b):
     return page(title=b["title"],root="../../",extra_class="booklet-page",
                 description=f"BHG workshop catalogue draft for {b['title']}.",main=body)
 
-def index(items):
+def index(items, *, public: bool):
     cards=[]
     for b in items:
         summary=b["draft"]["body"].split(". ")[0].rstrip(".")+"."
@@ -132,16 +146,24 @@ def index(items):
       <p>Have a copy of the missing booklet or a correction? Bring it to the group workshop.
       This list is a 2017 snapshot, not necessarily a complete record of later publications.</p>
       </article></div>"""
+    if public:
+        content = content.replace(
+            "The downloadable Publisher and PDF\n      files have been prepared, but are <strong>not yet available online</strong> pending the\n      workshop's staged publication process. Responsive reading editions are in preparation.",
+            "The 38 recovered booklets can be read online or downloaded as PDFs or original Publisher files. "
+            "The material is published on this Working site for review; editorial descriptions and "
+            "responsive adaptations may still be corrected."
+        )
     return page(title="Booklets",root="../",extra_class="booklet-page",
                 description="Working BHG booklet catalogue; 39 titles in the 2017 list.",
                 main=content)
 
 def build():
     items=load_data()
-    write("booklets/index.html",index(items))
+    is_public, reason = publication_ready()
+    write("booklets/index.html",index(items,public=is_public))
     for b in items:
-        write(f"booklets/{b['slug']}/index.html",detail(b))
-    print("Booklets generated: 39 detail pages + catalogue; no binary download links exposed.")
+        write(f"booklets/{b['slug']}/index.html",detail(b,public=is_public))
+    print(f"Booklets generated: 39 detail pages + catalogue; download links {'enabled' if is_public else 'held'} — {reason}")
 
 if __name__=="__main__":
     build()

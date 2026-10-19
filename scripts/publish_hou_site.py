@@ -26,6 +26,7 @@ import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
+from booklets.release import ready as booklets_release_ready
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "source"
@@ -325,10 +326,6 @@ def main() -> int:
     ap = __import__("argparse").ArgumentParser(description=__doc__)
     ap.add_argument("--build", action="store_true", help="Run scripts/build.py first")
     ap.add_argument("--list-only", action="store_true", help="Auth and list sites, then stop")
-    ap.add_argument(
-        "--publish-unapproved-booklets", action="store_true",
-        help="EXPLICIT OVERRIDE: publish draft BHG booklet pages before BHG-028 review (do not use routinely)",
-    )
     args = ap.parse_args()
     if args.build:
         print("=== build ===")
@@ -336,12 +333,14 @@ def main() -> int:
     # BHG-026 pages are local-only workshop drafts until BHG-028 approval.
     # Fail before authentication or any upload so a routine publish cannot
     # expose draft booklet text or lead the nav to unapproved pages.
-    if not args.list_only and (SOURCE / "booklets" / "index.html").exists() and not args.publish_unapproved_booklets:
-        raise SystemExit(
-            "BHG booklet catalogue is present but BHG-028 release is not approved. "
-            "Refusing to publish draft /booklets/ pages or updated navigation. "
-            "Stage/review locally, or use the explicitly named override only with publication approval."
-        )
+    if not args.list_only and (SOURCE / "booklets" / "index.html").exists():
+        allowed, reason = booklets_release_ready()
+        if not allowed:
+            raise SystemExit(
+                "Refusing to publish draft Booklets pages or modified navigation: "
+                + reason + ". Upload/verify all approved Working assets first."
+            )
+        print("BHG-028 approved Working publication:", reason)
     cfg = load_hou_config()
     if not cfg["api_key"]:
         raise SystemExit("No House API key. Set HOU_API_KEY or add scripts/.env")
