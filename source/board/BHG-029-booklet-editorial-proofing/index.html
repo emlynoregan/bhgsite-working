@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BHG-029: Editorial proofing and accessibility for booklet readers — BHG Site Working</title>
+  <meta name="description" content="Working notes for the Burra History Group public website rebuild.">
+  <link rel="stylesheet" href="../../css/working.css">
+</head>
+<body>
+  <header class="mast">
+    <p class="mast__kicker"><a href="../../index.html">BHG Site Working</a></p>
+    <p class="mast__tag">Rebuild workshop — not the public history site</p>
+    <nav class="mast__nav" aria-label="Working site">
+      <a href="../../index.html">News</a>
+      <a href="../../meetings/index.html">Meetings</a>
+      <a href="../../board/index.html">Todo</a>
+      <a href="../../articles/index.html">Articles</a>
+      <a href="../../booklets/index.html">Booklets</a>
+      <a href="../../process/index.html">Process</a>
+      <a href="../../glossary/index.html">Glossary</a>
+    </nav>
+    <p class="mast__elsewhere">Public site:
+      <a href="https://preview1845-bhg.house-of-ur.com/">Preview</a> ·
+      <a href="https://real-bhg.house-of-ur.com/">Real</a> ·
+      <a href="https://burrasa.net">burrasa.net</a> (live until cutover)
+    </p>
+    <p class="mast__elsewhere">Prototypes:
+      <a href="https://emlynoregan.com/bitn/" target="_blank" rel="noopener">Burra in the News</a> ·
+      <a href="https://bda-dev.emlynoregan.com/" target="_blank" rel="noopener">Burra Digital Archive</a>
+    </p>
+  </header>
+
+  <div class="layout layout--single">
+    <article class="paper prose ticket">
+      <p class="when"><a href="../index.html">Todo</a> · BHG-029</p>
+      <h1>Editorial proofing and accessibility for booklet readers</h1>
+      <dl class="ticket-meta"><div><dt>Status</dt><dd>Proposed</dd></div><div><dt>Column</dt><dd>Next</dd></div><div><dt>Who</dt><dd>BHG / Emlyn</dd></div><div><dt>Where</dt><dd>Booklet readers / editorial</dd></div><div><dt>Size</dt><dd>large</dd></div><div><dt>Depends on</dt><dd>BHG-027</dd></div></dl>
+      <h2>Goal</h2>
+<p>Take the mechanically converted responsive readers through <strong>historical, visual and accessibility proofing</strong> before public workshop publication. Conversion is technically validated (BHG-027), but automated text/image parity does not establish editorial accuracy, proper column order, caption pairing or completeness of words embedded inside images.</p>
+<h2>Sources</h2>
+<ul>
+<li><a href="../booklet-responsive-batch-report.md">Full technical report</a></li>
+<li><a href="../booklet-reader-qa.json">Independent reader QA by title</a></li>
+<li><a href="../booklet-artifacts.json">Structured inventory with paths</a></li>
+<li>Native PDFs and legacy Publisher HTML preserved on the Dev 8 TB working drive.</li>
+</ul>
+<h2>Required checks</h2>
+<ol>
+<li>Visually compare opening, middle and closing pages for <strong>each of 38 recovered titles</strong> against the native PDF or opened Publisher original; inspect additional map, multi-column, image-heavy, long-table, rotated/imposed or unusual pages.</li>
+<li>Triage <strong>122 predominantly image-based pages</strong>. Do not automatically OCR every cover: distinguish photographs, maps and art from pages bearing substantial text. For text-bearing images, record a plan for checked transcription or a labelled facsimile. Pay special attention to entire-image booklets #24 <em>The Burra Mines</em>, #29 <em>The Unicorn Brewery</em>, #35 <em>The S. T. Gill Collection</em>.</li>
+<li>Resolve Publisher-spread upside-down artwork per <strong>individual illustration</strong>, never rotate adjacent upright photographs by accident. The current reader has a reader-operated 180° per-figure control. Record confirmed default rotations in explicit source overrides where practical.</li>
+<li>Associate captions with the correct image; write meaningful reviewed alt text and credit photographers/illustrators where the source actually does.</li>
+<li>Confirm page order <strong>within pages</strong> on multicolumn or layout-heavy material. Existing PDF and source page IDs are the verification evidence, not a reason to trust heuristic shape position.</li>
+<li>Check two empty-export candidates: <em>Burra&#x27;s Monster Mine</em> p.6, <em>The Kooringa Walk</em> p.9.</li>
+<li>Confirm title, contributor and year/edition information, including differences in <em>Burra Fires</em>, <em>Burra Story</em> and <em>Miners&#x27; Dugouts</em>. Do not silently merge variant editions.</li>
+<li>Review and approve or amend all 39 draft booklet descriptions, clearly distinguishing the absent 28-page <em>The Burra Institute</em>.</li>
+<li>Record image/publication permissions and Council/Visitor Centre consultation before enabling public access to original Publisher or PDF files on the publicly addressable Working site.</li>
+<li>Rebuild and rerun source-fidelity, asset and mobile/browser checks after changes; retain a per-booklet exception and editorial sign-off record.</li>
+</ol>
+<h2>Acceptance criteria</h2>
+<ul>
+<li class="check"><input type="checkbox" disabled> Every recovered booklet has an explicit editorial decision, with source/PDF reference and reviewed credits.</li>
+<li class="check"><input type="checkbox" disabled> Image-based pages triaged; any necessary transcription or facsimile treatment is complete or clearly restricted from public presentation.</li>
+<li class="check"><input type="checkbox" disabled> Incorrect caption associations, artwork rotations and multicolumn reading order rectified; exceptions no longer silently mislead.</li>
+<li class="check"><input type="checkbox" disabled> Reader links and metadata are approved for workshop release, or individual titles are held back.</li>
+<li class="check"><input type="checkbox" disabled> 39 editorial descriptions reviewed and labelled accordingly.</li>
+<li class="check"><input type="checkbox" disabled> BHG decision about workshop-hosted <code>.pub</code>, PDF and reader availability recorded.</li>
+<li class="check"><input type="checkbox" disabled> BHG-028 release checklist cites reviewed titles and blocks unapproved items.</li>
+</ul>
+<h2>Boundary</h2>
+<p>This ticket <strong>does not upload any files</strong> or modify the archival source. Use the per-title/page override mechanism and recreate responsive pages in the separate working directory. BHG-028 can develop its safe incremental uploader in parallel, but cannot enable the public links before the relevant editorial/permissions decisions.</p>
+<h2>Completion notes</h2>
+<p><em>(Record the review ledger and decisions when completed.)</em></p>
+    </article>
+  </div>
+
+  <footer class="foot">
+    <p>Burra History Group · House of Ur · working notes for <code>bhgsite2026</code></p>
+  </footer>
+</body>
+</html>

@@ -35,7 +35,7 @@
     <article class="paper prose ticket">
       <p class="when"><a href="../index.html">Todo</a> · BHG-027</p>
       <h1>Convert all recovered booklets to responsive HTML</h1>
-      <dl class="ticket-meta"><div><dt>Status</dt><dd>Proposed</dd></div><div><dt>Column</dt><dd>Next</dd></div><div><dt>Who</dt><dd>Emlyn</dd></div><div><dt>Where</dt><dd>Files / Working site</dd></div><div><dt>Size</dt><dd>large</dd></div><div><dt>Depends on</dt><dd>BHG-025</dd></div></dl>
+      <dl class="ticket-meta"><div><dt>Status</dt><dd>Done</dd></div><div><dt>Column</dt><dd>Done</dd></div><div><dt>Who</dt><dd>Emlyn</dd></div><div><dt>Where</dt><dd>Files / Working site</dd></div><div><dt>Size</dt><dd>large</dd></div><div><dt>Depends on</dt><dd>BHG-025</dd></div></dl>
       <h2>Goal</h2>
 <p>Apply the validated reader converter to all <strong>38 recovered booklets</strong>, giving the new Booklets detail pages a complete responsive reading edition, with image assets and page anchors.</p>
 <h2>Source</h2>
@@ -58,16 +58,22 @@
 </ul>
 <h2>Acceptance criteria</h2>
 <ul>
-<li class="check"><input type="checkbox" disabled> 38 responsive reader editions built, usable on desktop and mobile.</li>
-<li class="check"><input type="checkbox" disabled> 626 source pages accounted for; reading sequence and page anchors verified.</li>
-<li class="check"><input type="checkbox" disabled> No missing images/links or silently dropped text, and correct source/credit footers.</li>
-<li class="check"><input type="checkbox" disabled> Exception report and source-vs-output audits, with unresolved items marked for review.</li>
-<li class="check"><input type="checkbox" disabled> All original Publisher and PDF copies remain unchanged.</li>
+<li class="check"><input type="checkbox" disabled checked> 38 responsive reader editions built. All 76 Chromium mobile/desktop checks passed without horizontal overflow.</li>
+<li class="check"><input type="checkbox" disabled checked> All 626 pages matched to original Publisher PageID order; stable page anchors verified.</li>
+<li class="check"><input type="checkbox" disabled checked> Independent source validation: 4,686 source text pieces and all 650 image uses accounted for byte-for-byte; no missing files. Publisher credits remain in source text. <strong>Caption/figure association and image-credit editorial correctness require BHG-029 proofing</strong>.</li>
+<li class="check"><input type="checkbox" disabled checked> <a href="../booklet-responsive-batch-report.md">Full audit</a> and <a href="../booklet-reader-qa.json">per-title QA</a>: 16 data tables, 122 predominantly image-based pages, two export-blank candidates, and editorial exceptions explicitly recorded and handed to BHG-029.</li>
+<li class="check"><input type="checkbox" disabled checked> All original Publisher and native PDF copies unchanged; reader files generated solely in the separate D: working area.</li>
 </ul>
 <h2>Stop and ask</h2>
 <p>Review the converter against the pilot and design first. If exceptions dominate, revise the design rather than ship hundreds of brittle one-off pages.</p>
 <h2>Completion notes</h2>
-<p><em>(Fill in after implementation.)</em></p>
+<p><strong>Completed technical conversion 19 October 2026.</strong> See <a href="../booklet-responsive-batch-report.md">full batch report</a>, <a href="../booklet-reader-qa.json">machine QA</a> and responsive paths added to <a href="../booklet-artifacts.json">artifact inventory</a>.</p>
+<ul>
+<li>Converted <strong>38/38</strong> recovered titles: <strong>626 pages</strong>; independently matched <strong>4,686</strong> exported text pieces, <strong>650</strong> image uses byte-for-byte, <strong>16</strong> tables and all page IDs/anchors.</li>
+<li>All <strong>76</strong> browser viewport tests passed at 390px mobile and 1200px desktop. Image dimensions reserve layout space, each image opens at full resolution, and image-based pages allow individual illustration rotation.</li>
+<li><strong>122 mostly image-based pages</strong>, image credits, caption associations, multi-column reading order and two possible blank-export pages remain for <strong>BHG-029 editorial proofing</strong>. The source text/image integrity check does <em>not</em> constitute proofread historical publication. BHG-028 must not activate unapproved reader/download links.</li>
+<li><strong>No deployment or publication</strong> to Working, Preview or Real; original archives untouched.</li>
+</ul>
     </article>
   </div>
 

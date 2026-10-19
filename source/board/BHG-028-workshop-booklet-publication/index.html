@@ -35,7 +35,7 @@
     <article class="paper prose ticket">
       <p class="when"><a href="../index.html">Todo</a> · BHG-028</p>
       <h1>Publish booklet collection to the BHG Working site</h1>
-      <dl class="ticket-meta"><div><dt>Status</dt><dd>Proposed</dd></div><div><dt>Column</dt><dd>Next</dd></div><div><dt>Who</dt><dd>Emlyn / BHG</dd></div><div><dt>Where</dt><dd>Working site</dd></div><div><dt>Size</dt><dd>large</dd></div><div><dt>Depends on</dt><dd>BHG-026, BHG-027</dd></div></dl>
+      <dl class="ticket-meta"><div><dt>Status</dt><dd>Proposed</dd></div><div><dt>Column</dt><dd>Next</dd></div><div><dt>Who</dt><dd>Emlyn / BHG</dd></div><div><dt>Where</dt><dd>Working site</dd></div><div><dt>Size</dt><dd>large</dd></div><div><dt>Depends on</dt><dd>BHG-026, BHG-027 for technical staging; BHG-029 and explicit BHG agreement before enabling public downloads</dd></div></dl>
       <h2>Goal</h2>
 <p>Make the Booklets catalogue, detail pages, responsive readers and original PDF/Publisher downloads reachable on the working site while preserving BHG&#x27;s staged publication/review arrangement.</p>
 <h2>Source</h2>
@@ -50,7 +50,7 @@
 <li>Manifest-based, resumable uploads of large non-Git assets, preferably separate from routine page deploys; test no accidental pruning.</li>
 <li>Deliver the 39-page catalogue/detail set and 38 readers to <code>working-bhg.house-of-ur.com/booklets/</code>.</li>
 <li>Wire and verify 38 PDF/Publisher binary downloads, including direct URL, content type, downloaded bytes/hash and mobile usability.</li>
-<li>Review public workshop availability versus Council/Visitor Centre consultation; record the decision before making files public.</li>
+<li>Implement uploader/staging independently, but obtain BHG-029 per-title editorial/rights decisions and Council/Visitor Centre timing before activating any publicly reachable reader or original-file link.</li>
 </ul>
 <h2>Out of scope</h2>
 <ul>
@@ -62,7 +62,7 @@
 <li class="check"><input type="checkbox" disabled> Working-site Booklets menu/catalogue and 39 pages accessible, with 38 readable HTML editions.</li>
 <li class="check"><input type="checkbox" disabled> All approved download links succeed with correct file name, headers and checksum; no missing assets.</li>
 <li class="check"><input type="checkbox" disabled> Large binary upload is resumable/idempotent and routine page redeployment doesn&#x27;t re-upload ~1.19 GB.</li>
-<li class="check"><input type="checkbox" disabled> Rights/consultation status is explicitly recorded; no accidental premature exposure.</li>
+<li class="check"><input type="checkbox" disabled> Rights/consultation and BHG-029 editorial sign-off status are recorded per booklet; no accidental premature exposure.</li>
 <li class="check"><input type="checkbox" disabled> Working-site smoke tests, navigation and rollback procedure documented.</li>
 </ul>
 <h2>Stop and ask</h2>

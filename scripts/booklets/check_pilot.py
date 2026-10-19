@@ -63,5 +63,9 @@ if __name__=="__main__":
     ap=argparse.ArgumentParser()
     ap.add_argument("--root",type=Path,default=Path(r"D:\bhg-booklet-recovery-20261019\responsive-pilot"))
     ap.add_argument("--ids",nargs="+",type=int,default=[11,38,6])
+    ap.add_argument("--all",action="store_true")
     a=ap.parse_args()
+    if a.all:
+        data=json.loads((a.root/"pilot-audit.json").read_text(encoding="utf8"))
+        a.ids=[b["number"] for b in data]
     check(a.root,a.ids)

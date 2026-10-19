@@ -21,6 +21,12 @@ except ModuleNotFoundError:
     sys.path.insert(0, r"D:\bhg-booklet-recovery-20261019\pydeps")
     from bs4 import BeautifulSoup, NavigableString, Tag
 
+try:
+    from PIL import Image
+except ModuleNotFoundError:
+    sys.path.insert(0, r"D:\bhg-booklet-recovery-20261019\pydeps")
+    from PIL import Image
+
 SPACE = re.compile(r"\s+")
 POSITION = re.compile(r"(left|top|width|height)\s*:\s*(-?\d+(?:\.\d+)?)px", re.I)
 IMAGES = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
@@ -123,7 +129,14 @@ def extract(root:Path, source:Path, assets:Path, inventory:dict):
             shutil.copy2(path,assets/dest)
         inventory[dest]=str(path)
         imgs.append(name)
-        blocks.append(dict(kind="image",path=f"assets/{dest}",src=name,pos=coords(image)))
+        # Explicit natural dimensions reserve layout space before lazy images load,
+        # preventing #page-N anchors from shifting while reading.
+        with Image.open(path) as original_image:
+            natural_width,natural_height=original_image.size
+        if natural_width<=0 or natural_height<=0:
+            raise ValueError(f"Invalid image dimensions: {path}")
+        blocks.append(dict(kind="image",path=f"assets/{dest}",src=name,pos=coords(image),
+                           width=natural_width,height=natural_height))
     # Geometry orders shapes; inside each text shape the original paragraph order survives.
     for i,b in enumerate(blocks):
         b["_ordinal"]=i
@@ -185,12 +198,22 @@ def render(book):
         num=p["page"]
         result.append(f'<section class="page" id="page-{num}" aria-label="Page {num}">')
         result.append(f'<header class="pagehead"><span>Page {num} of {len(book["pages"])}</span>'
-                      '<a href="#page-1">Back to top</a></header><div class="prose">')
-        for b in p["blocks"]:
+                      '<a href="#page-1">Back to top</a></header>')
+        result.append('<div class="prose">')
+        for idx,b in enumerate(p["blocks"]):
             if b["kind"]=="image":
                 alt=esc(b.get("alt") or f"Illustration on original booklet page {num}, description pending editorial review.",quote=True)
-                result.append(f'<figure><img loading="lazy" decoding="async" src="{esc(b["path"],quote=True)}" '
-                              f'alt="{alt}"><figcaption>Illustration from original page {num}.</figcaption></figure>')
+                src=esc(b["path"],quote=True)
+                result.append('<figure class="reader-figure">')
+                if p["image_only"]:
+                    fid=f"flip-{num}-{idx}"
+                    result.append(f'<input class="image-flip" type="checkbox" id="{fid}">'
+                                  f'<label class="image-flip-label" for="{fid}">Rotate this image 180°</label>')
+                result.append(f'<a class="full-image" href="{src}" target="_blank" rel="noopener" '
+                              f'aria-label="Open original illustration from page {num} at full resolution">'
+                              f'<img loading="lazy" decoding="async" width="{b["width"]}" height="{b["height"]}" '
+                              f'src="{src}" alt="{alt}"></a>'
+                              f'<figcaption>Illustration from original page {num}.</figcaption></figure>')
             elif b["kind"]=="heading":
                 result.append(f'<h2>{b["html"]}</h2>')
             elif b["kind"]=="table":
@@ -234,6 +257,10 @@ a:focus-visible{outline:3px solid #cc9d54;outline-offset:3px}
 .prose{max-width:69ch;margin:auto}.prose p{margin:0 0 1em}
 .prose h2{font:600 clamp(1.25rem,2.2vw,1.75rem)/1.3 Georgia,serif;color:#1c4536;margin:1.4rem 0 .8rem}
 figure{margin:1.45rem auto;text-align:center;max-width:100%}
+.reader-figure a{display:inline-block;max-width:100%;cursor:zoom-in}
+.image-flip{margin-right:.35rem}
+.image-flip-label{display:inline-block;cursor:pointer;color:#596961;font:500 .78rem/1.5 system-ui,sans-serif;margin-bottom:.5rem}
+.image-flip:checked ~ a img{transform:rotate(180deg)}
 figure img{display:block;max-width:100%;height:auto;object-fit:contain;margin:auto;box-shadow:0 1px 8px #14281b20}
 figcaption{font:.83rem/1.5 system-ui,sans-serif;color:#65716b;padding:.4rem 0}
 .table-scroll{overflow-x:auto;max-width:100%;margin:1.4rem 0}
@@ -303,5 +330,9 @@ if __name__=="__main__":
     p.add_argument("--docs",type=Path,default=Path(r"C:\Users\emlyn\Documents\emlyn\docs\projects\bhg-site"))
     p.add_argument("--out",type=Path,default=Path(r"D:\bhg-booklet-recovery-20261019\responsive-pilot"))
     p.add_argument("--ids",type=int,nargs="+",default=[11,38,6])
+    p.add_argument("--all",action="store_true",help="Convert all 38 recovered items from the manifest")
     a=p.parse_args()
+    if a.all:
+        manifest=json.loads((a.docs/"booklet-artifacts.json").read_text(encoding="utf8"))
+        a.ids=[b["catalog_number"] for b in manifest["booklets"] if b["status"]=="recovered"]
     convert(a.workspace,a.docs,a.out,a.ids)

@@ -83,3 +83,19 @@ Local tests verify 39 detail pages, 39 index links, available metadata, all loca
 This temporarily blocks unrelated routine site deployments from this Dev checkout while draft pages are present. Use an approved clean checkout for unrelated releases or coordinate BHG-028; do **not** bypass merely to ship other material.
 
 HTML and generator scripts are in Git; the ~1.19 GB Publisher/PDF artifacts remain separately on Dev and are not Git-tracked or hosted. **The new section has not been deployed online.**
+
+## BHG-027 — full locally converted set (technical completion, not editorial sign-off)
+
+All 38 recovered titles (626 pages) now build using the deterministic page-order manifest. Output is held on Dev at `D:\bhg-booklet-recovery-20261019\responsive-full\index.html`. That local collection has 38 responsive readers, copied original images, reconstructed data tables, full-resolution image links and individually rotatable illustrations on image-heavy pages.
+
+```powershell
+python scripts/booklets/reader.py --out D:\bhg-booklet-recovery-20261019\responsive-full --all
+python scripts/booklets/check_pilot.py --root D:\bhg-booklet-recovery-20261019\responsive-full --all
+python scripts/booklets/check_full.py
+```
+
+The new `check_full.py` **independently parses** the native Publisher HTML, comparing source text pieces, image uses, file hashes, extracted tables, page IDs, navigation and asset links with output. Verification: **38/38 readers, 626/626 pages, 4,686 text pieces, 650 images, 16 tables**, no missing/change bytes. At true Chrome mobile/desktop viewports, **76/76 tests passed**. See `docs/projects/bhg-site/booklet-responsive-batch-report.md` and `booklet-reader-qa.json`. Install Pillow and BeautifulSoup4 from `requirements.txt`; the Dev-only Python dependency fallback is `D:\bhg-booklet-recovery-20261019\pydeps`.
+
+**Editorial limitations**: 122 predominantly image-based pages (the entire #24/#29/#35 publications are among them), source-image text may not be searchable; source image credits, automatic heading and figure-caption ordering, multicolumn layout, selected imposed upside-down pages, and 39 draft editorial descriptions must be reviewed. Reader controls permit opening and individually rotating full-resolution illustrations without modifying them. There are two apparently blank exported pages to check against PDFs. Those review activities belong to BHG-029.
+
+**Still local only.** This is not a command to publish. BHG-028 develops resumable asset delivery, but may not enable publicly reachable readers and original file downloads until the per-title editorial/rights review and group permission decisions are recorded.
