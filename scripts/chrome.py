@@ -35,6 +35,7 @@ def page(
       <a href="{root}meetings/index.html">Meetings</a>
       <a href="{root}board/index.html">Todo</a>
       <a href="{root}articles/index.html">Articles</a>
+      <a href="{root}booklets/index.html">Booklets</a>
       <a href="{root}process/index.html">Process</a>
       <a href="{root}glossary/index.html">Glossary</a>
     </nav>
@@ -60,5 +61,8 @@ def page(
 def write(rel: str, html: str) -> None:
     dest = SOURCE / rel
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_text(html.replace("\r\n", "\n"), encoding="utf-8", newline="\n")
+    normalized = html.replace("\r\n", "\n")
+    # Templates can leave indentation on otherwise blank lines; keep generated HTML clean.
+    normalized = "\n".join(line if line.strip() else "" for line in normalized.split("\n"))
+    dest.write_text(normalized, encoding="utf-8", newline="\n")
     print(f"wrote {dest.relative_to(ROOT)}")

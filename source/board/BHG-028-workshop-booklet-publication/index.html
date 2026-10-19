@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BHG-028: Publish booklet collection to the BHG Working site — BHG Site Working</title>
+  <meta name="description" content="Working notes for the Burra History Group public website rebuild.">
+  <link rel="stylesheet" href="../../css/working.css">
+</head>
+<body>
+  <header class="mast">
+    <p class="mast__kicker"><a href="../../index.html">BHG Site Working</a></p>
+    <p class="mast__tag">Rebuild workshop — not the public history site</p>
+    <nav class="mast__nav" aria-label="Working site">
+      <a href="../../index.html">News</a>
+      <a href="../../meetings/index.html">Meetings</a>
+      <a href="../../board/index.html">Todo</a>
+      <a href="../../articles/index.html">Articles</a>
+      <a href="../../booklets/index.html">Booklets</a>
+      <a href="../../process/index.html">Process</a>
+      <a href="../../glossary/index.html">Glossary</a>
+    </nav>
+    <p class="mast__elsewhere">Public site:
+      <a href="https://preview1845-bhg.house-of-ur.com/">Preview</a> ·
+      <a href="https://real-bhg.house-of-ur.com/">Real</a> ·
+      <a href="https://burrasa.net">burrasa.net</a> (live until cutover)
+    </p>
+    <p class="mast__elsewhere">Prototypes:
+      <a href="https://emlynoregan.com/bitn/" target="_blank" rel="noopener">Burra in the News</a> ·
+      <a href="https://bda-dev.emlynoregan.com/" target="_blank" rel="noopener">Burra Digital Archive</a>
+    </p>
+  </header>
+
+  <div class="layout layout--single">
+    <article class="paper prose ticket">
+      <p class="when"><a href="../index.html">Todo</a> · BHG-028</p>
+      <h1>Publish booklet collection to the BHG Working site</h1>
+      <dl class="ticket-meta"><div><dt>Status</dt><dd>Proposed</dd></div><div><dt>Column</dt><dd>Next</dd></div><div><dt>Who</dt><dd>Emlyn / BHG</dd></div><div><dt>Where</dt><dd>Working site</dd></div><div><dt>Size</dt><dd>large</dd></div><div><dt>Depends on</dt><dd>BHG-026, BHG-027</dd></div></dl>
+      <h2>Goal</h2>
+<p>Make the Booklets catalogue, detail pages, responsive readers and original PDF/Publisher downloads reachable on the working site while preserving BHG&#x27;s staged publication/review arrangement.</p>
+<h2>Source</h2>
+<ul>
+<li><a href="../booklet-working-site-plan.md">Working-site implementation plan</a>.</li>
+<li><a href="../../meetings/2026-09-21/index.html">21 September meeting notes</a>: workshop first; Council/Visitor Centre conversation before Preview or Real.</li>
+<li><a href="../../meetings/2026-09-04/index.html">4 September meeting notes</a>: publications/treasurer consultation and booklet IP boundaries.</li>
+</ul>
+<h2>In scope</h2>
+<ul>
+<li>Verify House Site Library size/upload restrictions and .pub/.pdf headers, including ~141 MB largest Publisher file.</li>
+<li>Manifest-based, resumable uploads of large non-Git assets, preferably separate from routine page deploys; test no accidental pruning.</li>
+<li>Deliver the 39-page catalogue/detail set and 38 readers to <code>working-bhg.house-of-ur.com/booklets/</code>.</li>
+<li>Wire and verify 38 PDF/Publisher binary downloads, including direct URL, content type, downloaded bytes/hash and mobile usability.</li>
+<li>Review public workshop availability versus Council/Visitor Centre consultation; record the decision before making files public.</li>
+</ul>
+<h2>Out of scope</h2>
+<ul>
+<li>Automatic promotion to Preview, Real, or <code>burrasa.net</code>.</li>
+<li>Changing historical 2017 catalogue data or putting unrelated National Trust publications online.</li>
+</ul>
+<h2>Acceptance criteria</h2>
+<ul>
+<li class="check"><input type="checkbox" disabled> Working-site Booklets menu/catalogue and 39 pages accessible, with 38 readable HTML editions.</li>
+<li class="check"><input type="checkbox" disabled> All approved download links succeed with correct file name, headers and checksum; no missing assets.</li>
+<li class="check"><input type="checkbox" disabled> Large binary upload is resumable/idempotent and routine page redeployment doesn&#x27;t re-upload ~1.19 GB.</li>
+<li class="check"><input type="checkbox" disabled> Rights/consultation status is explicitly recorded; no accidental premature exposure.</li>
+<li class="check"><input type="checkbox" disabled> Working-site smoke tests, navigation and rollback procedure documented.</li>
+</ul>
+<h2>Stop and ask</h2>
+<p>Working site is <strong>publicly addressable</strong> even though it serves as a workshop. Confirm BHG/Bel&#x27;s intended exposure of .pub and PDF files and the Council/Visitor Centre timing before enabling public downloads. Do not deploy to Preview or Real.</p>
+<h2>Completion notes</h2>
+<p><em>(Fill in after implementation.)</em></p>
+    </article>
+  </div>
+
+  <footer class="foot">
+    <p>Burra History Group · House of Ur · working notes for <code>bhgsite2026</code></p>
+  </footer>
+</body>
+</html>

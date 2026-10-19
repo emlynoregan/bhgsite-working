@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from chrome import page, write  # noqa: E402
 from features import write_imported_features  # noqa: E402
+from booklets.site import build as build_booklets  # noqa: E402
 from mdhtml import convert  # noqa: E402
 from tickets import board_main, load_tickets, now_tickets, rewrite_ticket_md, ticket_main  # noqa: E402
 
@@ -207,6 +208,11 @@ HOME_MAIN = """
     <div>
       <p class="lede">Discussions, decisions, and status for the public website rebuild. The history site itself is Preview / Real / burrasa.net. Open work is on the <a href="board/index.html">todo list</a>.</p>
       <div class="feed">
+        <article class="card">
+          <p class="when">19 October 2026 · booklet catalogue</p>
+          <h2><a href="booklets/index.html">Burra History Group booklets — 39 titles</a></h2>
+          <p>Recovered 38 Publisher originals and prepared PDF/HTML editions. Browse the 2017 booklet list and draft descriptions; online readers and downloads remain in preparation, not released here yet.</p>
+        </article>
         <article class="card">
           <p class="when">2 October 2026</p>
           <h2><a href="articles/burra-boys/index.html">Proposed: The Burra Boys</a></h2>
@@ -978,6 +984,7 @@ def home_main(tickets: list) -> str:
 def main() -> None:
     tickets = write_board()
     write_articles()
+    build_booklets()
     write("index.html", page(title="News", root="", main=home_main(tickets), extra_class="home"))
     write("news/index.html", page(title="News index", root="../", main=NEWS_INDEX))
     write(

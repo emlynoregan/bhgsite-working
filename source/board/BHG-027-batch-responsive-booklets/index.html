@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BHG-027: Convert all recovered booklets to responsive HTML — BHG Site Working</title>
+  <meta name="description" content="Working notes for the Burra History Group public website rebuild.">
+  <link rel="stylesheet" href="../../css/working.css">
+</head>
+<body>
+  <header class="mast">
+    <p class="mast__kicker"><a href="../../index.html">BHG Site Working</a></p>
+    <p class="mast__tag">Rebuild workshop — not the public history site</p>
+    <nav class="mast__nav" aria-label="Working site">
+      <a href="../../index.html">News</a>
+      <a href="../../meetings/index.html">Meetings</a>
+      <a href="../../board/index.html">Todo</a>
+      <a href="../../articles/index.html">Articles</a>
+      <a href="../../booklets/index.html">Booklets</a>
+      <a href="../../process/index.html">Process</a>
+      <a href="../../glossary/index.html">Glossary</a>
+    </nav>
+    <p class="mast__elsewhere">Public site:
+      <a href="https://preview1845-bhg.house-of-ur.com/">Preview</a> ·
+      <a href="https://real-bhg.house-of-ur.com/">Real</a> ·
+      <a href="https://burrasa.net">burrasa.net</a> (live until cutover)
+    </p>
+    <p class="mast__elsewhere">Prototypes:
+      <a href="https://emlynoregan.com/bitn/" target="_blank" rel="noopener">Burra in the News</a> ·
+      <a href="https://bda-dev.emlynoregan.com/" target="_blank" rel="noopener">Burra Digital Archive</a>
+    </p>
+  </header>
+
+  <div class="layout layout--single">
+    <article class="paper prose ticket">
+      <p class="when"><a href="../index.html">Todo</a> · BHG-027</p>
+      <h1>Convert all recovered booklets to responsive HTML</h1>
+      <dl class="ticket-meta"><div><dt>Status</dt><dd>Proposed</dd></div><div><dt>Column</dt><dd>Next</dd></div><div><dt>Who</dt><dd>Emlyn</dd></div><div><dt>Where</dt><dd>Files / Working site</dd></div><div><dt>Size</dt><dd>large</dd></div><div><dt>Depends on</dt><dd>BHG-025</dd></div></dl>
+      <h2>Goal</h2>
+<p>Apply the validated reader converter to all <strong>38 recovered booklets</strong>, giving the new Booklets detail pages a complete responsive reading edition, with image assets and page anchors.</p>
+<h2>Source</h2>
+<ul>
+<li><a href="../BHG-025-responsive-booklet-reader/index.html">Reader prototype ticket</a>.</li>
+<li><a href="../booklet-working-site-plan.md">Working-site plan</a> and <a href="../booklet-artifacts.json">structured catalogue</a>.</li>
+</ul>
+<h2>In scope</h2>
+<ul>
+<li>Batch convert all 626 source HTML pages, keeping unique source mapping.</li>
+<li>Handle multi-column layouts, pictures, captions, maps, references and pagination with documented per-booklet correction files.</li>
+<li>Reconcile different editions and catalogued/actual page counts without mislabelling.</li>
+<li>Automated text/image/link validation and mobile/desktop sample visual inspections for each booklet.</li>
+<li>Update the catalogue with reader status and work requiring human editorial review.</li>
+</ul>
+<h2>Out of scope</h2>
+<ul>
+<li>Uploading binary source/PDF assets.</li>
+<li>Publishing to Preview or Real, or inventing missing <em>The Burra Institute</em> content.</li>
+</ul>
+<h2>Acceptance criteria</h2>
+<ul>
+<li class="check"><input type="checkbox" disabled> 38 responsive reader editions built, usable on desktop and mobile.</li>
+<li class="check"><input type="checkbox" disabled> 626 source pages accounted for; reading sequence and page anchors verified.</li>
+<li class="check"><input type="checkbox" disabled> No missing images/links or silently dropped text, and correct source/credit footers.</li>
+<li class="check"><input type="checkbox" disabled> Exception report and source-vs-output audits, with unresolved items marked for review.</li>
+<li class="check"><input type="checkbox" disabled> All original Publisher and PDF copies remain unchanged.</li>
+</ul>
+<h2>Stop and ask</h2>
+<p>Review the converter against the pilot and design first. If exceptions dominate, revise the design rather than ship hundreds of brittle one-off pages.</p>
+<h2>Completion notes</h2>
+<p><em>(Fill in after implementation.)</em></p>
+    </article>
+  </div>
+
+  <footer class="foot">
+    <p>Burra History Group · House of Ur · working notes for <code>bhgsite2026</code></p>
+  </footer>
+</body>
+</html>

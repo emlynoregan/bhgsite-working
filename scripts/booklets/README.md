@@ -56,3 +56,30 @@ An optional editable `overrides/<slug>.json` file controls specific pages. Examp
 This work is **not** deployed. The BHG Working site is itself publicly reachable. Stage/publication of the large `.pub`/PDF binaries and the modern reader needs the separate BHG-028 decision and Council/Visitor Centre consultation before promotion to Preview/Real.
 
 Related: `docs/projects/bhg-site/booklet-working-site-plan.md`, BHG-026 catalogue/detail pages and BHG-027 full batch.
+
+## BHG-026 — booklet index and editorial detail pages
+
+The working site's `scripts/build.py` now calls `booklets.site.build()`, producing:
+
+- `source/booklets/index.html`: a catalogue of all 39 entries;
+- `source/booklets/<number>-<slug>/index.html`: one page for each title, including the unrecovered **The Burra Institute**;
+- navigation via the site's normal `scripts/chrome.py` masthead and a homepage news item.
+
+**Source of truth:** `docs/projects/bhg-site/booklet-artifacts.json` for titles, paths and edition metadata; `booklet-descriptions.json` for source-grounded draft write-ups. All **39 descriptions are unreviewed**. Image-heavy titles and edition differences are visibly qualified.
+
+Run on Dev:
+
+```powershell
+python scripts/build.py
+python scripts/booklets/check_site.py
+```
+
+Local tests verify 39 detail pages, 39 index links, available metadata, all local links and nav, and that **no Publisher or PDF files or links were published**. The formats are pending until BHG-028 supplies verified, approved links.
+
+### Release guard
+
+`scripts/publish_hou_site.py` now deliberately **refuses to upload the unapproved Booklets draft site** while `source/booklets/index.html` exists. The check runs before API auth/uploads to avoid accidentally revealing this section or its navigation. A plainly named override exists, but do not use it without BHG-028 approval.
+
+This temporarily blocks unrelated routine site deployments from this Dev checkout while draft pages are present. Use an approved clean checkout for unrelated releases or coordinate BHG-028; do **not** bypass merely to ship other material.
+
+HTML and generator scripts are in Git; the ~1.19 GB Publisher/PDF artifacts remain separately on Dev and are not Git-tracked or hosted. **The new section has not been deployed online.**

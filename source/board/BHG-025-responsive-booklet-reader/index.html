@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BHG-025: Prototype responsive booklet reader — BHG Site Working</title>
+  <meta name="description" content="Working notes for the Burra History Group public website rebuild.">
+  <link rel="stylesheet" href="../../css/working.css">
+</head>
+<body>
+  <header class="mast">
+    <p class="mast__kicker"><a href="../../index.html">BHG Site Working</a></p>
+    <p class="mast__tag">Rebuild workshop — not the public history site</p>
+    <nav class="mast__nav" aria-label="Working site">
+      <a href="../../index.html">News</a>
+      <a href="../../meetings/index.html">Meetings</a>
+      <a href="../../board/index.html">Todo</a>
+      <a href="../../articles/index.html">Articles</a>
+      <a href="../../booklets/index.html">Booklets</a>
+      <a href="../../process/index.html">Process</a>
+      <a href="../../glossary/index.html">Glossary</a>
+    </nav>
+    <p class="mast__elsewhere">Public site:
+      <a href="https://preview1845-bhg.house-of-ur.com/">Preview</a> ·
+      <a href="https://real-bhg.house-of-ur.com/">Real</a> ·
+      <a href="https://burrasa.net">burrasa.net</a> (live until cutover)
+    </p>
+    <p class="mast__elsewhere">Prototypes:
+      <a href="https://emlynoregan.com/bitn/" target="_blank" rel="noopener">Burra in the News</a> ·
+      <a href="https://bda-dev.emlynoregan.com/" target="_blank" rel="noopener">Burra Digital Archive</a>
+    </p>
+  </header>
+
+  <div class="layout layout--single">
+    <article class="paper prose ticket">
+      <p class="when"><a href="../index.html">Todo</a> · BHG-025</p>
+      <h1>Prototype responsive booklet reader</h1>
+      <dl class="ticket-meta"><div><dt>Status</dt><dd>Done</dd></div><div><dt>Column</dt><dd>Done</dd></div><div><dt>Who</dt><dd>Emlyn</dd></div><div><dt>Where</dt><dd>Architecture / Files</dd></div><div><dt>Size</dt><dd>large</dd></div><div><dt>Depends on</dt><dd>—</dd></div></dl>
+      <h2>Goal</h2>
+<p>Create a repeatable conversion engine that turns native Publisher filtered HTML into <strong>semantic, responsive reading editions</strong> without losing booklet text, images, captions or page references.</p>
+<h2>Source</h2>
+<ul>
+<li><a href="../booklet-working-site-plan.md">Booklet implementation plan</a> — stages and validation details.</li>
+<li><a href="../booklet-artifacts.json">Booklet artefact inventory</a> — 38 recovered working sources, 626 native-HTML pages.</li>
+<li>Native Publisher HTML and PDFs under <code>D:\bhg-booklet-recovery-20261019\</code>.</li>
+</ul>
+<h2>In scope</h2>
+<ul>
+<li>Consume the <strong>already captured and verified</strong> <a href="../booklet-page-order.json">Publisher page-order manifest</a> (626 pages, 0 missing). Validate the mapping against input files and preserve stable citation anchors; filename sorting is not authoritative.</li>
+<li>Parse Office/VML HTML into ordered text/figure/caption blocks. Preserve source refs, stable page anchors and source file metadata.</li>
+<li>A clean intermediate representation, reusable renderer and override mechanism for exceptions.</li>
+<li>Pilot with Johnny Green, The Burra Cemetery Walk and The Burra Story.</li>
+<li>Desktop/mobile rendering and source-text/image QA, recorded in a report.</li>
+</ul>
+<h2>Out of scope</h2>
+<ul>
+<li>Public site Preview/Real.</li>
+<li>Bulk processing all other booklets.</li>
+<li>Uploading PDF/Publisher binaries or publishing content to House Sites.</li>
+</ul>
+<h2>Acceptance criteria</h2>
+<ul>
+<li class="check"><input type="checkbox" disabled checked> Three usable responsive pilots preserve all extractable source HTML text and 178 source image uses, with zero missing assets. <strong>42 image-based pages and caption/alt associations remain explicitly flagged for editorial work under BHG-027</strong>, not silently described as complete searchable text.</li>
+<li class="check"><input type="checkbox" disabled checked> Page order taken from saved Publisher PageID manifest (138/138 source pages in these pilots).</li>
+<li class="check"><input type="checkbox" disabled checked> Semantic article/page markup, true table markup, focusable navigation and no horizontal scrolling at 390px mobile width.</li>
+<li class="check"><input type="checkbox" disabled checked> Rebuild script, validator, structured JSON output, per-page editorial override mechanism and documented QA report exist.</li>
+<li class="check"><input type="checkbox" disabled checked> Source-only reading, Publisher SHA-256 checks, output solely under a separate Dev working area.</li>
+</ul>
+<h2>Stop and ask</h2>
+<p>If reliable page order or content fidelity cannot be established, report where automated handling stops and what manual work is needed rather than publishing a lossy reader.</p>
+<h2>Completion notes</h2>
+<p>Completed 19 October 2026. <a href="../booklet-reader-pilot.md">Detailed pilot report</a>. Generator and tests: <code>bhgsite-working/scripts/booklets/</code>.</p>
+<ul>
+<li>Three readers generated locally: Johnny Green (4 pages), Burra Cemetery Walk (26), Burra Story (108).</li>
+<li>QA passed: <strong>138 pages, 817 ordinary source text blocks, 15 table-cell paragraphs, 178 image uses, one reconstructed data table, 0 missing assets</strong>; verified 390px mobile no-overflow on each.</li>
+<li>Recovered the five-row mortality table on Cemetery Walk page 9, previously outside Publisher&#x27;s normal text shapes.</li>
+<li>PDF/Publisher originals unchanged, <strong>no working-site or Preview/Real deployment</strong> in this ticket.</li>
+<li>BHG-027 must address predominantly image-based pages (42 in the pilot), source caption/figure associations, multi-column layouts and reviewed image descriptions. Do not market the pilot as complete editorial transcription.</li>
+</ul>
+    </article>
+  </div>
+
+  <footer class="foot">
+    <p>Burra History Group · House of Ur · working notes for <code>bhgsite2026</code></p>
+  </footer>
+</body>
+</html>

@@ -325,10 +325,23 @@ def main() -> int:
     ap = __import__("argparse").ArgumentParser(description=__doc__)
     ap.add_argument("--build", action="store_true", help="Run scripts/build.py first")
     ap.add_argument("--list-only", action="store_true", help="Auth and list sites, then stop")
+    ap.add_argument(
+        "--publish-unapproved-booklets", action="store_true",
+        help="EXPLICIT OVERRIDE: publish draft BHG booklet pages before BHG-028 review (do not use routinely)",
+    )
     args = ap.parse_args()
     if args.build:
         print("=== build ===")
         subprocess.check_call([sys.executable, str(SCRIPTS / "build.py")], cwd=ROOT)
+    # BHG-026 pages are local-only workshop drafts until BHG-028 approval.
+    # Fail before authentication or any upload so a routine publish cannot
+    # expose draft booklet text or lead the nav to unapproved pages.
+    if not args.list_only and (SOURCE / "booklets" / "index.html").exists() and not args.publish_unapproved_booklets:
+        raise SystemExit(
+            "BHG booklet catalogue is present but BHG-028 release is not approved. "
+            "Refusing to publish draft /booklets/ pages or updated navigation. "
+            "Stage/review locally, or use the explicitly named override only with publication approval."
+        )
     cfg = load_hou_config()
     if not cfg["api_key"]:
         raise SystemExit("No House API key. Set HOU_API_KEY or add scripts/.env")

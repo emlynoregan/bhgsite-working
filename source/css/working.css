@@ -592,3 +592,29 @@ a:hover {
     grid-template-columns: 1fr;
   }
 }
+
+/* Booklets workshop catalogue: generated HTML, local previews only (BHG-026). */
+.booklet-catalogue,.booklet-detail{max-width:60rem}
+.booklet-index{list-style:none;margin:2rem 0;padding:0;display:grid;gap:.85rem}
+.booklet-item{display:grid;grid-template-columns:2.6rem minmax(0,1fr);gap:1.1rem;
+  border:1px solid var(--line);background:#fffdf9;padding:1.1rem;border-radius:5px}
+.booklet-number{color:var(--muted);font-size:.78rem;font-weight:700;letter-spacing:.05em;padding-top:.4rem}
+.booklet-item h2{font-size:1.25rem;line-height:1.3;margin:0 0 .25rem}
+.booklet-item p{margin:.35rem 0 0}
+.booklet-meta{color:var(--muted);font-size:.85rem}
+.booklet-item p:not(.booklet-meta){font-size:.95rem}
+.booklet-draft{border-left:3px solid var(--stamp);padding:.7rem 1rem;
+  background:#f9efe1;font-size:.9rem;line-height:1.5}
+.booklet-description{font:1.09rem/1.75 Georgia,serif;max-width:69ch}
+.booklet-description p{margin:1rem 0}
+.booklet-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem 1rem;
+  margin:1.35rem 0;padding:1.2rem;background:var(--rail);border-radius:5px}
+.booklet-facts div{min-width:0}
+.booklet-facts dt{font-size:.75rem;letter-spacing:.03em;text-transform:uppercase;color:var(--muted)}
+.booklet-facts dd{margin:.15rem 0 0;font-weight:600}
+.booklet-formats{margin:2rem 0 1rem;border-top:1px solid var(--line);padding-top:1rem}
+.booklet-formats li{margin:.65rem 0}
+.booklet-muted,.booklet-small{color:var(--muted);font-size:.85rem}
+.booklet-note{font-size:.9rem;background:#f5eee4;padding:.85rem 1rem}
+@media(max-width:580px){.booklet-item{grid-template-columns:2rem minmax(0,1fr);padding:.8rem;gap:.5rem}
+.booklet-facts{grid-template-columns:1fr 1fr;padding:.75rem}}

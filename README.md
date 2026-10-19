@@ -48,6 +48,14 @@ An isolated, unpublished converter prototype now lives in [`scripts/booklets/`](
 
 Prototype files on Dev: `D:\bhg-booklet-recovery-20261019\responsive-pilot\index.html` (Johnny Green, Cemetery Walk and Burra Story). Generate with `python scripts/booklets/reader.py`, then check with `python scripts/booklets/check_pilot.py`. **Do not deploy these reader files or the BHG-owned Publisher/PDF originals yet.** The staged publication decision belongs to BHG-028.
 
+## Local Booklets catalogue (BHG-026)
+
+The Working site's Booklets section is generated from the **39-title** [BHG booklet inventory](https://github.com/emlynoregan/docs/blob/main/projects/bhg-site/booklet-artifacts.json) and [editorial drafts](https://github.com/emlynoregan/docs/blob/main/projects/bhg-site/booklet-descriptions.json). All titles have local detail pages; source copy, PDF and HTML editions are prepared for 38, with the 28-page *The Burra Institute* still missing.
+
+Run `python scripts/build.py` and then `python scripts/booklets/check_site.py`. Browse the **local** `source/booklets/index.html`. The descriptions are unreviewed and reader/PDF/Publisher download links are not live.
+
+**Publication safeguard:** Regular `scripts/publish_hou_site.py` runs intentionally **refuse publication** while the unapproved Booklets section is staged, before uploading anything. BHG-027/028 must complete the readers, check permissions, upload and verify the assets before removing this hold. See `scripts/booklets/README.md`.
+
 ## Deploy
 
 `python scripts/publish_hou_site.py --build` (Bel machine; `scripts/.env` gitignored) or Johnny’s Library mirror. Then refresh cache. One Site is enough — this is not Preview/Real for the public archive.
