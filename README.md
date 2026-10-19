@@ -42,6 +42,12 @@ python -m http.server 8765 --directory source
 
 Then http://localhost:8765/index.html
 
+## Responsive booklet reader pilot (BHG-025)
+
+An isolated, unpublished converter prototype now lives in [`scripts/booklets/`](scripts/booklets/README.md). It uses the BHG 2017 booklet inventory, verified Publisher page-order manifest, and native HTML source copies on Dev to generate mobile-first reader editions.
+
+Prototype files on Dev: `D:\bhg-booklet-recovery-20261019\responsive-pilot\index.html` (Johnny Green, Cemetery Walk and Burra Story). Generate with `python scripts/booklets/reader.py`, then check with `python scripts/booklets/check_pilot.py`. **Do not deploy these reader files or the BHG-owned Publisher/PDF originals yet.** The staged publication decision belongs to BHG-028.
+
 ## Deploy
 
 `python scripts/publish_hou_site.py --build` (Bel machine; `scripts/.env` gitignored) or Johnny’s Library mirror. Then refresh cache. One Site is enough — this is not Preview/Real for the public archive.
