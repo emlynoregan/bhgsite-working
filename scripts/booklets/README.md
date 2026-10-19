@@ -99,3 +99,21 @@ The new `check_full.py` **independently parses** the native Publisher HTML, comp
 **Editorial limitations**: 122 predominantly image-based pages (the entire #24/#29/#35 publications are among them), source-image text may not be searchable; source image credits, automatic heading and figure-caption ordering, multicolumn layout, selected imposed upside-down pages, and 39 draft editorial descriptions must be reviewed. Reader controls permit opening and individually rotating full-resolution illustrations without modifying them. There are two apparently blank exported pages to check against PDFs. Those review activities belong to BHG-029.
 
 **Still local only.** This is not a command to publish. BHG-028 develops resumable asset delivery, but may not enable publicly reachable readers and original file downloads until the per-title editorial/rights review and group permission decisions are recorded.
+
+## BHG-028 — independent asset delivery (not yet public)
+
+Generate the 38-title SHA-256 verified release manifest under the **separate D: recovery working folder**, not the website source tree:
+
+```powershell
+python scripts/booklets/assets.py
+python scripts/booklets/delivery.py --titles 11 --kinds reader pdf publisher
+python scripts/booklets/test_delivery.py
+```
+
+The manifest totals **800 objects, 1,172,003,794 bytes**: 38 PDFs, 38 Publisher originals and 724 HTML/CSS/figure files. The old Publisher-era HTML, internal `book.json` (contains local source paths), conversion diagnostics and screenshots are excluded.
+
+The delivery tool plans locally by default with **no House API calls**. Its approved-only `--execute --confirm-publication` path streams 1 MiB data chunks to existing House presigned PUT URLs, requires a per-title/per-format rights/edition decision (all currently false), verifies full public readback SHA-256, and journals verified assets atomically. The transfer lock prevents concurrent agents corrupting the journal. Neither normal `publish_hou_site.py` nor this asset uploader deletes/prunes Library paths.
+
+**IMPORTANT:** House's BHG Working Site is publicly accessible. Any file uploaded to `/sites/bhgsite-working/booklets/` is potentially public **even if its catalogue link is absent**. For that reason we have not uploaded any object. Only after BHG-029 editorial and group/publications permissions have been recorded should anyone authorise `publication-decisions.json` and perform a small real-file upload to test the House's size limits and PDF/Publisher response headers. The 141 MB Publisher limit, Content-Disposition and accidental-pruning behaviour are not yet verified.
+
+The final public HTML/PDF/PUB link wiring and live smoke tests remain in BHG-028. See `docs/projects/bhg-site/booklet-delivery-staging-report.md`. Never use `--publish-unapproved-booklets` on the routine site publisher as a workaround for this approval gate.
